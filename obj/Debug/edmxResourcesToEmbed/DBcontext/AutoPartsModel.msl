@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище IISAutoPartsModelContainer" CdmEntityContainer="IISAutoPartsEntities">
+    <EntitySetMapping Name="autoparts">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.autoparts">
+        <MappingFragment StoreEntitySet="autoparts">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="count" ColumnName="count" />
+          <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="autopartsCategory">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.autopartsCategory">
+        <MappingFragment StoreEntitySet="autopartsCategory">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carModels">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.carModels">
+        <MappingFragment StoreEntitySet="carModels">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="model" ColumnName="model" />
+          <ScalarProperty Name="idCar" ColumnName="idCar" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cars">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.cars">
+        <MappingFragment StoreEntitySet="cars">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.customers">
+        <MappingFragment StoreEntitySet="customers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
+          <ScalarProperty Name="dateOrder" ColumnName="dateOrder" />
+          <ScalarProperty Name="countAutoparts" ColumnName="countAutoparts" />
+          <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="provide">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.provide">
+        <MappingFragment StoreEntitySet="provide">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
+          <ScalarProperty Name="dateDelivery" ColumnName="dateDelivery" />
+          <ScalarProperty Name="countAutoparts" ColumnName="countAutoparts" />
+          <ScalarProperty Name="idProvider" ColumnName="idProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="providers">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.providers">
+        <MappingFragment StoreEntitySet="providers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="dateEnter" ColumnName="dateEnter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

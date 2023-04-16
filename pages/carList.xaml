@@ -1,10 +1,12 @@
-﻿<Page x:Class="IISAutoParts.pages.carList"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:IISAutoParts.pages"
+      
+      xmlns:DBcontext="clr-namespace:IISAutoParts.DBcontext" x:Class="IISAutoParts.pages.carList"
       
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -16,8 +18,8 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
       Title="carList">
-        <Grid x:Name="carPage">
-        <DataGrid x:Name="autoparts">
+    <Grid x:Name="carPage">
+        <DataGrid x:Name="dgvCars" Loaded="dgvCars_Loaded">
             
         </DataGrid>
     </Grid>
