@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Projects\IISAutoParts\App.xaml
-2693249861
+4-1525874470
 21335255693
-19-1352615304
+221989217851
 170-635262378
-MainWindow.xaml;pages\carList.xaml;
+AuthWindow.xaml;MainWindow.xaml;pages\carList.xaml;pages\UserControl1.xaml;
 
-True
+False
 

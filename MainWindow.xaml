@@ -4,10 +4,12 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-	 
 		xmlns:local="clr-namespace:IISAutoParts" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 		mc:Ignorable="d"
 		Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -17,31 +19,23 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
-
-
+        
         <ToggleButton
         Style="{StaticResource MaterialDesignHamburgerToggleButton}" x:Name="menuOpenBtn" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Click="MainMenuButton_Click"/>
-        <mah:SplitView Grid.Column="0" Grid.RowSpan="2" x:Name="MainMenu" Panel.ZIndex="1">
+        <mah:SplitView Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MainMenu" Panel.ZIndex="1" OpenPaneLength="200"> 
             <mah:SplitView.Pane>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <ToggleButton x:Name="menuCloseBtn" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                    
+                    <StackPanel Grid.Row="1" >
+                        <ToggleButton x:Name="menuCloseBtn" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                       Click="menuCloseBtn_Click" HorizontalAlignment="Left">
-                    </ToggleButton>
-                    <Button Grid.Column="1" Grid.Row="1">Каталог</Button>
-                    <Button Grid.Column="1" Grid.Row="2">Заказы</Button>
-                    <Button Grid.Column="1" Grid.Row="3">Поставки</Button>
-                    <Button Grid.Column="1" Grid.Row="4">Отчеты</Button>
+                        </ToggleButton>
+                        <Button Margin="10" MaxWidth="50px">Каталог</Button>
+                        <Button Margin="10" MaxWidth="50px">Заказы</Button>
+                        <Button Margin="10" MaxWidth="50px">Поставки</Button>
+                        <Button Margin="10" MaxWidth="50px">Отчеты</Button>
+                    </StackPanel>
+                    
                 </Grid>
             </mah:SplitView.Pane>
         </mah:SplitView>

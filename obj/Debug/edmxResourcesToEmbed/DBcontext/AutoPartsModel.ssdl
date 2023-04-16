@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="manufacturer" Type="varchar" MaxLength="150" />
     <Property Name="name" Type="varchar" MaxLength="150" />
     <Property Name="description" Type="text" />
@@ -17,7 +17,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="title" Type="varchar" MaxLength="150" />
   </EntityType>
   <!--Ошибки, обнаруженные при создании:
@@ -30,7 +30,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="model" Type="varchar" MaxLength="250" />
     <Property Name="idCar" Type="int" />
     <Property Name="photo" Type="image" />
@@ -39,7 +39,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="250" />
     <Property Name="photo" Type="image" />
   </EntityType>
@@ -47,7 +47,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="150" />
     <Property Name="address" Type="varchar" MaxLength="250" />
   </EntityType>
@@ -55,7 +55,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idAutoparts" Type="int" />
     <Property Name="dateOrder" Type="date" />
     <Property Name="countAutoparts" Type="int" />
@@ -65,7 +65,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idAutoparts" Type="int" />
     <Property Name="dateDelivery" Type="date" />
     <Property Name="countAutoparts" Type="int" />
@@ -75,7 +75,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="250" />
     <Property Name="address" Type="varchar" MaxLength="350" />
   </EntityType>
@@ -83,7 +83,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="role" Type="varchar" MaxLength="50" />
     <Property Name="login" Type="varchar" MaxLength="50" />
     <Property Name="password" Type="varchar" MaxLength="150" />

@@ -116,3 +116,7 @@ D:\Projects\IISAutoParts\bin\Debug\System.Numerics.Vectors.xml
 D:\Projects\IISAutoParts\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\Projects\IISAutoParts\bin\Debug\System.Text.Encodings.Web.xml
 D:\Projects\IISAutoParts\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Projects\IISAutoParts\obj\Debug\AuthWindow.g.cs
+D:\Projects\IISAutoParts\obj\Debug\AuthWindow.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\UserControl1.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\UserControl1.baml
