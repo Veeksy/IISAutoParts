@@ -30,10 +30,10 @@
                         <ToggleButton x:Name="menuCloseBtn" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                       Click="menuCloseBtn_Click" HorizontalAlignment="Left">
                         </ToggleButton>
-                        <Button Margin="10" >Каталог</Button>
-                        <Button Margin="10" >Заказы</Button>
-                        <Button Margin="10" >Поставки</Button>
-                        <Button Margin="10" >Отчеты</Button>
+                        <Button Margin="10" x:Name="Catalog" Click="Catalog_Click">Каталог</Button>
+                        <Button Margin="10" x:Name="Orders" Click="Orders_Click">Заказы</Button>
+                        <Button Margin="10" x:Name="Delivery" Click="Delivery_Click">Поставки</Button>
+                        <Button Margin="10" Name="Reports" Click="Reports_Click" >Отчеты</Button>
                     </StackPanel>
                     
                 </Grid>

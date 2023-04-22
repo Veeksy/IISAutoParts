@@ -54,6 +54,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="IISAutoPartsModel.Orders">
         <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
           <ScalarProperty Name="dateOrder" ColumnName="dateOrder" />

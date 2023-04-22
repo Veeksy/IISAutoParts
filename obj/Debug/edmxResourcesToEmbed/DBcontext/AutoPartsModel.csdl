@@ -54,6 +54,7 @@
     <Property Name="dateOrder" Type="DateTime" Precision="0" />
     <Property Name="countAutoparts" Type="Int32" />
     <Property Name="idCustomer" Type="Int32" />
+    <Property Name="orderNumber" Type="Int32" />
   </EntityType>
   <EntityType Name="provide">
     <Key>

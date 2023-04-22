@@ -226,6 +226,7 @@
     <Compile Include="AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\Paginator.cs" />
     <Compile Include="DBcontext\autoparts.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -276,7 +277,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\UserControl1.xaml">
+    <Page Include="pages\ordersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,8 +286,8 @@
     <Compile Include="pages\carList.xaml.cs">
       <DependentUpon>carList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="pages\ordersPage.xaml.cs">
+      <DependentUpon>ordersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

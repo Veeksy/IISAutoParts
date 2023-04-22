@@ -25,12 +25,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.autopartsModel" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="autopartsModel">
-          <Property Name="idAutoparts" Type="int" />
-          <Property Name="idModel" Type="int" />
-        </EntityType>-->
         <EntityType Name="carModels">
           <Key>
             <PropertyRef Name="id" />
@@ -61,6 +55,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderNumber" Type="int" />
           <Property Name="idAutoparts" Type="int" />
           <Property Name="dateOrder" Type="date" />
           <Property Name="countAutoparts" Type="int" />
@@ -163,6 +158,7 @@
           <Property Name="dateOrder" Type="DateTime" Precision="0" />
           <Property Name="countAutoparts" Type="Int32" />
           <Property Name="idCustomer" Type="Int32" />
+          <Property Name="orderNumber" Type="Int32" />
         </EntityType>
         <EntityType Name="provide">
           <Key>
@@ -262,6 +258,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="IISAutoPartsModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
                 <ScalarProperty Name="dateOrder" ColumnName="dateOrder" />

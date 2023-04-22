@@ -27,23 +27,51 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="carGrid" Grid.Row="0" Grid.Column="1">
+        <DataGrid AutoGenerateColumns="False" x:Name="autopartDGV" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Производитель"
+                                    Binding="{Binding Path=manufacturer}"
+                                    >
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование"
+                                    Binding="{Binding Path=name}"
+                                    CellStyle="{StaticResource MaterialDesignDataGridCell}">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Цена"
+                                    Binding="{Binding Path=price, StringFormat='{}{0:C}', ConverterCulture=ru-RU}">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Год производства"
+                                    Binding="{Binding Path=year}">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Количество на складе"
+                                    Binding="{Binding Path=count}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+            <Button x:Name="previousBtn" Grid.Column="0" Width="55" Click="previousBtn_Click">
+                <materialDesign:PackIcon
+    Kind="ArrowLeftBold" />
+            </Button>
+            <Button x:Name="nextBtn" Grid.Column="2" Width="55" Click="nextBtn_Click">
+                <materialDesign:PackIcon
+    Kind="ArrowRightBold" />
+            </Button>
 
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox Width="20" TextAlignment="Center" Name="pageNumber" TextChanged="pageNumber_TextChanged" PreviewTextInput="pageNumber_PreviewTextInput"/>
+                <Label Content="-"></Label>
+                <Label Name="countPage" Content="99"></Label>
+            </StackPanel>
+            
         </Grid>
     </Grid>
 </Page>

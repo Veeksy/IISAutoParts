@@ -24,7 +24,7 @@ namespace IISAutoParts
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new carList());
+            
         }
 
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
@@ -37,6 +37,26 @@ namespace IISAutoParts
         {
             MainMenu.IsPaneOpen = !MainMenu.IsPaneOpen;
             menuOpenBtn.IsChecked = !menuOpenBtn.IsChecked;
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ordersPage());
+        }
+
+        private void Delivery_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Reports_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Catalog_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new carList());
         }
     }
 }
