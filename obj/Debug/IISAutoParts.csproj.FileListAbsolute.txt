@@ -26,13 +26,11 @@ D:\Projects\IISAutoParts\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.AssemblyReference.cache
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.SuggestedBindingRedirects.cache
 D:\Projects\IISAutoParts\obj\Debug\MainWindow.g.cs
-D:\Projects\IISAutoParts\obj\Debug\pages\carList.g.cs
 D:\Projects\IISAutoParts\obj\Debug\App.g.cs
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts_MarkupCompile.cache
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts_MarkupCompile.lref
 D:\Projects\IISAutoParts\obj\Debug\App.baml
 D:\Projects\IISAutoParts\obj\Debug\MainWindow.baml
-D:\Projects\IISAutoParts\obj\Debug\pages\carList.baml
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.g.resources
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.Properties.Resources.resources
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.GenerateResource.cache
@@ -120,3 +118,7 @@ D:\Projects\IISAutoParts\obj\Debug\AuthWindow.g.cs
 D:\Projects\IISAutoParts\obj\Debug\AuthWindow.baml
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersPage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\autopartsAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\autopartsPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\autopartsAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\autopartsPage.baml

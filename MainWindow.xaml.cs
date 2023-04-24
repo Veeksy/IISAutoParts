@@ -51,12 +51,12 @@ namespace IISAutoParts
 
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new autopartsAddEdit());
         }
 
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new carList());
+            MainFrame.Navigate(new autopartsPage());
         }
     }
 }

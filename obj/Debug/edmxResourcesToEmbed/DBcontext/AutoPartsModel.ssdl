@@ -12,6 +12,7 @@
     <Property Name="year" Type="int" />
     <Property Name="count" Type="int" />
     <Property Name="idCategory" Type="int" />
+    <Property Name="image" Type="image" />
   </EntityType>
   <EntityType Name="autopartsCategory">
     <Key>

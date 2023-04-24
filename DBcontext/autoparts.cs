@@ -22,5 +22,6 @@ namespace IISAutoParts.DBcontext
         public Nullable<int> year { get; set; }
         public Nullable<int> count { get; set; }
         public Nullable<int> idCategory { get; set; }
+        public byte[] image { get; set; }
     }
 }

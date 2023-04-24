@@ -1,19 +1,13 @@
 ﻿using IISAutoParts.Class;
 using IISAutoParts.DBcontext;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.HtmlControls;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,20 +18,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Image = System.Windows.Controls.Image;
-using Label = System.Windows.Controls.Label;
+using Page = System.Windows.Controls.Page;
 
 namespace IISAutoParts.pages
 {
+
     /// <summary>
-    /// Логика взаимодействия для carList.xaml
+    /// Логика взаимодействия для autopartsPage.xaml
     /// </summary>
-    public partial class carList : Page
+    public partial class autopartsPage : Page
     {
         IISAutoPartsEntities _dbContext;
         Paginator paginator;
 
-        public carList()
+
+        public autopartsPage()
         {
             InitializeComponent();
 
@@ -74,26 +69,40 @@ namespace IISAutoParts.pages
                 paginator.SetPage(Convert.ToInt32(pageNumber.Text));
                 autopartDGV.ItemsSource = paginator.GetTable();
             }
-            
+
         }
 
-       
+
 
         private void pageNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
+        private void autopartDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            autoparts selectedPart = autopartDGV.SelectedItem as autoparts;
 
-        //private async void GetAutoParts()
-        //{
-        //    var cars = await _dbContext.cars.AsNoTracking().ToListAsync();
-        //    byte[] buffer = cars.Select(x => x.photo).FirstOrDefault();
-        //    MemoryStream byteStream = new MemoryStream(buffer);
-        //    BitmapImage image = new BitmapImage();
-        //    image.BeginInit();
-        //    image.StreamSource = byteStream;
-        //    image.EndInit(); // itemSource = image
-        //}
+            if (selectedPart != null)
+            {
+                autopartsAddEdit addEdit = new autopartsAddEdit(selectedPart.id);
+                Window window = new Window();
+                window.Content = addEdit;
+                window.ShowDialog();
+
+            }
+
+            //private async void GetAutoParts()
+            //{
+            //    var cars = await _dbContext.cars.AsNoTracking().ToListAsync();
+            //    byte[] buffer = cars.Select(x => x.photo).FirstOrDefault();
+            //    MemoryStream byteStream = new MemoryStream(buffer);
+            //    BitmapImage image = new BitmapImage();
+            //    image.BeginInit();
+            //    image.StreamSource = byteStream;
+            //    image.EndInit(); // itemSource = image
+            //}
+
+        }
     }
 }
