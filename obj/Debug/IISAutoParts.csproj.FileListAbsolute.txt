@@ -40,3 +40,5 @@ D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.CoreCompileInputs.cache
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.CopyComplete
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.exe
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.pdb
+D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.baml

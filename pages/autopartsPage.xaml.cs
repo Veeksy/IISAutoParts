@@ -1,9 +1,11 @@
 ﻿using IISAutoParts.Class;
 using IISAutoParts.DBcontext;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CheckBox = System.Windows.Controls.CheckBox;
 using Page = System.Windows.Controls.Page;
 
 namespace IISAutoParts.pages
@@ -31,6 +34,7 @@ namespace IISAutoParts.pages
         IISAutoPartsEntities _dbContext;
         Paginator paginator;
 
+        List<autoparts> autoparts = new List<autoparts>();
 
         public autopartsPage()
         {
@@ -38,9 +42,9 @@ namespace IISAutoParts.pages
 
             _dbContext = new IISAutoPartsEntities();
 
-            var autoparts = _dbContext.autoparts.AsNoTracking().ToList<object>();
+            autoparts = _dbContext.autoparts.AsNoTracking().ToList();
 
-            paginator = new Paginator(autoparts, 1, 10);
+            paginator = new Paginator(autoparts.ToList<object>(), 1, 10);
 
             pageNumber.Text = paginator.GetPage().ToString();
             countPage.Content = paginator.GetCountpage();
@@ -85,11 +89,11 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                autopartsAddEdit addEdit = new autopartsAddEdit(selectedPart.id);
-                Window window = new Window();
-                window.Content = addEdit;
-                window.ShowDialog();
-
+                FrameController.MainFrame.Navigate(new autopartsAddEdit(selectedPart.id));
+            }
+            else
+            {
+                MessageBox.Show("Не удалось открыть выбранный объект.");
             }
 
             //private async void GetAutoParts()
@@ -103,6 +107,15 @@ namespace IISAutoParts.pages
             //    image.EndInit(); // itemSource = image
             //}
 
+        }
+
+        private void selectAllCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void AddnewAutoParts_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new autopartsAddEdit(0));
         }
     }
 }

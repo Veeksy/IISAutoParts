@@ -39,14 +39,27 @@ namespace IISAutoParts.pages
                 _dbContext = new IISAutoPartsEntities();
 
 
-                autopart = _dbContext.autoparts.Where(x => x.id == IdAutoPart).FirstOrDefault(); ;
-                manufacturerTb.Text = autopart.manufacturer;
-                nameTb.Text = autopart.name;
-                priceTb.Text = $"{autopart.price:F2} руб.";
-                yearTb.Text = autopart.year.ToString();
-                descriptionTb.Text = autopart.description;
-                if (!(autopart.image is null))
-                    autopartImage.Source = ImageController.ReturnImageFromDataBase(autopart.image);
+                autopart = _dbContext.autoparts.Where(x => x.id == IdAutoPart).FirstOrDefault();
+
+                var category = _dbContext.autopartsCategory.ToList();
+                CategoryCb.ItemsSource = category;
+                CategoryCb.DisplayMemberPath = "title";
+                CategoryCb.SelectedValuePath = "id";
+
+                if (autopart != null)
+                {
+                    manufacturerTb.Text = autopart.manufacturer;
+                    nameTb.Text = autopart.name;
+                    priceTb.Text = $"{autopart.price:F2} руб.";
+                    yearTb.Text = autopart.year.ToString();
+                    descriptionTb.Text = autopart.description;
+                    if (!(autopart.image is null))
+                        autopartImage.Source = ImageController.ReturnImageFromDataBase(autopart.image);
+                }
+                else
+                {
+                    autopart = new autoparts();
+                }
             }
             catch (Exception ex)
             {
@@ -77,9 +90,10 @@ namespace IISAutoParts.pages
             {
                 autopart.manufacturer = manufacturerTb.Text;
                 autopart.price = Convert.ToDecimal(priceTb.Text.Split(' ')[0]);
-                 autopart.description = descriptionTb.Text;
+                 autopart.year = Convert.ToInt32(yearTb.Text);
                 autopart.name = nameTb.Text;
                 autopart.description = descriptionTb.Text;
+                autopart.idCategory = Convert.ToInt32(CategoryCb.SelectedValue);
 
                 _dbContext.autoparts.AddOrUpdate(autopart);
 
@@ -105,6 +119,11 @@ namespace IISAutoParts.pages
         {
             autopart.image = null;
             autopartImage.Source = null;
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new autopartsPage());
         }
 
         //private async void GetAutoParts()

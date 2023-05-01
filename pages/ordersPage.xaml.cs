@@ -1,5 +1,6 @@
 ﻿using IISAutoParts.Class;
 using IISAutoParts.DBcontext;
+using IISAutoParts.DBcontext.MyEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace IISAutoParts.pages
             var orders = _dbContext.Orders.AsNoTracking()
                 .Join(_dbContext.autoparts,
                 x => x.idAutoparts, y=> y.id, (x, y) => new {
+                    id = x.id,
                     number = x.orderNumber,
                     autopart = y.manufacturer + " " + y.name,
                     dateOrder = x.dateOrder,
@@ -41,8 +43,9 @@ namespace IISAutoParts.pages
                     customer = x.idCustomer,
 
                 }
-                ).Join(_dbContext.customers, x=> x.customer, y=>y.id, (x, y) => new
+                ).Join(_dbContext.customers, x=> x.customer, y=>y.id, (x, y) => new OrdersView
                 {
+                    id = x.id,
                     orderNumber = x.number,
                     autopartName = x.autopart,
                     dateOrder = x.dateOrder,
@@ -89,6 +92,25 @@ namespace IISAutoParts.pages
         private void pageNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void AddnewOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ordersDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrdersView selectedPart = ordersDGV.SelectedItem as OrdersView;
+
+            if (selectedPart != null)
+            {
+                FrameController.MainFrame.Navigate(new ordersAddEdit(selectedPart.id));
+            }
+            else
+            {
+                MessageBox.Show("Не удалось открыть выбранный объект.");
+            }
         }
     }
 }

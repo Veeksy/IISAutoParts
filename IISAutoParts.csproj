@@ -96,8 +96,10 @@
     <Compile Include="AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\FrameController.cs" />
     <Compile Include="Class\ImageController.cs" />
     <Compile Include="Class\Paginator.cs" />
+    <Compile Include="Class\SelectorController.cs" />
     <Compile Include="DBcontext\autoparts.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -128,6 +130,7 @@
     <Compile Include="DBcontext\customers.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBcontext\MyEntities\Orders.cs" />
     <Compile Include="DBcontext\Orders.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pages\ordersAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="pages\autopartsAddEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +165,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pages\ordersAddEdit.xaml.cs">
+      <DependentUpon>ordersAddEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\autopartsAddEdit.xaml.cs">
       <DependentUpon>autopartsAddEdit.xaml</DependentUpon>
     </Compile>

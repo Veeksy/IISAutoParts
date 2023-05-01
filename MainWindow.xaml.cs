@@ -1,4 +1,5 @@
-﻿using IISAutoParts.pages;
+﻿using IISAutoParts.Class;
+using IISAutoParts.pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +25,23 @@ namespace IISAutoParts
         public MainWindow()
         {
             InitializeComponent();
-            
+            FrameController.MainFrame = MainFrame;
         }
 
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
             MainMenu.IsPaneOpen = !MainMenu.IsPaneOpen;
-            menuCloseBtn.IsChecked = !menuCloseBtn.IsChecked;
         }
 
         private void menuCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             MainMenu.IsPaneOpen = !MainMenu.IsPaneOpen;
-            menuOpenBtn.IsChecked = !menuOpenBtn.IsChecked;
+            menuCloseBtn.IsChecked = true;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new ordersPage());
+            FrameController.MainFrame.Navigate(new ordersPage());
         }
 
         private void Delivery_Click(object sender, RoutedEventArgs e)
@@ -51,12 +51,22 @@ namespace IISAutoParts
 
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new autopartsAddEdit());
+
         }
 
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new autopartsPage());
+            FrameController.MainFrame.Navigate(new autopartsPage());
+        }
+        private void MainMenu_PaneClosed(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void MainMenu_PaneClosing(object sender, MahApps.Metro.Controls.SplitViewPaneClosingEventArgs e)
+        {
+            menuOpenBtn.IsChecked = !menuOpenBtn.IsChecked;
         }
     }
 }

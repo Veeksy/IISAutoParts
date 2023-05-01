@@ -22,11 +22,12 @@
             <Image x:Name="autopartImage" Grid.Column="0" Margin="50">
 
             </Image>
-            <DockPanel Grid.Row="1">
-                <Button HorizontalAlignment="Left" Content="Добавить фото" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click">
-
+            <DockPanel Grid.Row="1" Margin="10">
+                <Button HorizontalAlignment="Left" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click">
+                    <materialDesign:PackIcon Kind="ImagePlus" />
                 </Button>
-                <Button HorizontalAlignment="Right" Content="Удалить фото" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click">
+                <Button HorizontalAlignment="Right" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click">
+                    <materialDesign:PackIcon Kind="ImageMinus" />
 
                 </Button>
             </DockPanel>
@@ -35,36 +36,49 @@
         
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <TextBox
+            <StackPanel>
+                <TextBox
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Производитель"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="0" x:Name="manufacturerTb"/>
-            <TextBox
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="manufacturerTb"/>
+                <TextBox
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Наименование"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="1" x:Name="nameTb"/>
-            <TextBox
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="nameTb"/>
+                <TextBox
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Цена"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="2" x:Name="priceTb" PreviewTextInput="priceTb_PreviewTextInput"/>
-            <TextBox
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  x:Name="priceTb" PreviewTextInput="priceTb_PreviewTextInput"/>
+                <TextBox
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Год производства"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="3" x:Name="yearTb"/>
-            <TextBox
-  materialDesign:HintAssist.HelperTextFontSize="16"
-  materialDesign:HintAssist.Hint="Описание"  Grid.Row="4" x:Name="descriptionTb" TextWrapping="Wrap"/>
-            <DockPanel Grid.Row="5">
-                <Button HorizontalAlignment="Center" Content="Сохранить" x:Name="SaveBtn" Click="SaveBtn_Click">
-                    
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="yearTb" PreviewTextInput="priceTb_PreviewTextInput"/>
+                <ComboBox
+  VerticalAlignment="Center" Height="40"
+  materialDesign:HintAssist.Hint="Категория" x:Name="CategoryCb"/>
+                
+                <TextBox
+    Height="100"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="Описание"
+    AcceptsReturn="True"
+    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+    TextWrapping="Wrap"
+    VerticalScrollBarVisibility="Auto" x:Name="descriptionTb" />
+                
+            </StackPanel>
+           
+            <DockPanel Grid.Row="1">
+                <Button HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
+                    <materialDesign:PackIcon Kind="ArrowBack" />
                 </Button>
+                <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
+                    <materialDesign:PackIcon Kind="ContentSave"/>
+                </Button>
+                
             </DockPanel>
         </Grid>
     </Grid>

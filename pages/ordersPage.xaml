@@ -11,11 +11,15 @@
 
     <Grid Background="White">
         <Grid x:Name="carPage">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <DataGrid AutoGenerateColumns="False" x:Name="ordersDGV" IsReadOnly="True">
+            <DataGrid AutoGenerateColumns="False" x:Name="ordersDGV" IsReadOnly="True" Grid.Column="0" MouseDoubleClick="ordersDGV_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Номер заказа"
                                     Binding="{Binding Path=orderNumber}"
@@ -42,7 +46,42 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Grid Grid.Row="1">
+
+            <Grid Grid.Column="1" Margin="5" Background="White">
+                <StackPanel>
+                    <Label Content="Поиск" HorizontalAlignment="Center" FontSize="16">
+
+                    </Label>
+                    <TextBox 
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Номер заказа"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox 
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Автозапчасть"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox 
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Не раньше указанной даты"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox 
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Не позже указанной даты"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Button Margin="10" materialDesign:ButtonAssist.CornerRadius="10">
+                        <materialDesign:PackIcon Kind="Magnify" />
+                    </Button>
+                    <DockPanel Margin="10">
+                        <Button HorizontalAlignment="Left" x:Name="AddnewOrder" Click="AddnewOrder_Click">
+                            <materialDesign:PackIcon Kind="PlusBox" />
+                        </Button>
+                        <Button HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="Delete" />
+                        </Button>
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="4*"/>
