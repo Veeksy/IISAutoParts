@@ -19,9 +19,22 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
-        
-        <ToggleButton
-        Style="{StaticResource MaterialDesignHamburgerToggleButton}" x:Name="menuOpenBtn" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Click="MainMenuButton_Click"/>
+        <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" 
+  
+  Mode="PrimaryMid" Grid.ColumnSpan="3">
+            <DockPanel>
+                <StackPanel
+      Orientation="Horizontal">
+                    <ToggleButton
+        Style="{StaticResource MaterialDesignHamburgerToggleButton}" x:Name="menuOpenBtn" HorizontalAlignment="Left" Click="MainMenuButton_Click"/>
+
+                    <TextBlock
+        Margin="16,0,0,0"
+        VerticalAlignment="Center"
+        Text="Информационная система автозапчастей" />
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
         <mah:SplitView Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MainMenu" Panel.ZIndex="1" OpenPaneLength="200"> 
             <mah:SplitView.Pane>
                 <Grid>

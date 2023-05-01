@@ -42,7 +42,7 @@
                          materialDesign:HintAssist.Hint="Пароль"
                          materialDesign:HintAssist.HelperText=""
     IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
-    Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" />
+    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
             <DockPanel Margin="10">
                 <Button x:Name="EnterBtn" HorizontalAlignment="Left" Click="EnterBtn_Click">
                     Войти

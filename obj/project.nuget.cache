@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "dgSpecHash": "o1PLHb+8z0foZa5t+G6QHWSGeRHtZsk7FvgQsAnYMT5U5btf+/plXXpTij7aPNyFBvESj+1wwi6l4V7SLMBLRQ==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\IISAutoParts\\IISAutoParts.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MaxNet\\.nuget\\packages\\controlzex\\4.2.2\\controlzex.4.2.2.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\mahapps.metro\\2.0.0-alpha0748\\mahapps.metro.2.0.0-alpha0748.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesigncolors\\2.0.4\\materialdesigncolors.2.0.4.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesignthemes.mahapps\\0.2.0\\materialdesignthemes.mahapps.0.2.0.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Обнаружено понижение версии пакета MaterialDesignThemes с 4.3.0 на 4.0.0. Чтобы выбрать другую версию, создайте ссылку на пакет напрямую из проекта. \r\n IISAutoParts -> MaterialDesignThemes.MahApps 0.2.0 -> MaterialDesignThemes (>= 4.3.0 && < 5.0.0) \r\n IISAutoParts -> MaterialDesignThemes (>= 4.0.0)",
+      "libraryId": "MaterialDesignThemes",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.1",
+        ".NETFramework,Version=v4.6.1/win",
+        ".NETFramework,Version=v4.6.1/win-x64",
+        ".NETFramework,Version=v4.6.1/win-x86"
+      ]
+    }
+  ]
+}
