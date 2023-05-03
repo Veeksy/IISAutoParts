@@ -95,5 +95,14 @@
     <EntitySet Name="provide" EntityType="Self.provide" />
     <EntitySet Name="providers" EntityType="Self.providers" />
     <EntitySet Name="users" EntityType="Self.users" />
+    <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
   </EntityContainer>
+  <EntityType Name="OrdersDoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="idOrders" Type="Int32" />
+  </EntityType>
 </Schema>

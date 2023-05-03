@@ -68,5 +68,10 @@ namespace IISAutoParts
         {
             menuOpenBtn.IsChecked = !menuOpenBtn.IsChecked;
         }
+
+        private void Documents_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

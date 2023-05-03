@@ -17,15 +17,15 @@
                 <TextBox Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Номер заказа"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="orderNumberTb"/>
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="orderNumberTb" PreviewTextInput="priceTb_PreviewTextInput"/>
             <ComboBox Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Автозапчасть"
   x:Name="autopartCb"/>
-            <DatePickerTextBox Margin="10"
+            <DatePicker Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Дата заказа"
-  Style="{StaticResource MaterialDesignDatePickerTextBox}"  x:Name="DateOrderTb"/>
+   x:Name="DateOrderTb"/>
             <TextBox Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Количество"
@@ -41,8 +41,14 @@
                 <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
                     <materialDesign:PackIcon Kind="ContentSave"/>
                 </Button>
-
+                <Button HorizontalAlignment="Right" Margin="10" x:Name="SaveDocBtn"  Click="SaveDocBtn_Click">
+                    <materialDesign:PackIcon Kind="FileDocument" />
+                    
+                </Button>
+                
+                
             </DockPanel>
+            <ProgressBar IsIndeterminate="True" x:Name="loadingDoc" Visibility="Collapsed" Margin="10"/>
         </StackPanel>
 
        

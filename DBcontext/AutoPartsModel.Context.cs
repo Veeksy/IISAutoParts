@@ -34,5 +34,6 @@ namespace IISAutoParts.DBcontext
         public virtual DbSet<provide> provide { get; set; }
         public virtual DbSet<providers> providers { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<OrdersDoc> OrdersDoc { get; set; }
     }
 }

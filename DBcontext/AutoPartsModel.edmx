@@ -26,6 +26,12 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="150" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.autopartsModel" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="autopartsModel">
+          <Property Name="idAutoparts" Type="int" />
+          <Property Name="idModel" Type="int" />
+        </EntityType>-->
         <EntityType Name="carModels">
           <Key>
             <PropertyRef Name="id" />
@@ -62,6 +68,14 @@
           <Property Name="countAutoparts" Type="int" />
           <Property Name="idCustomer" Type="int" />
         </EntityType>
+        <EntityType Name="OrdersDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doc" Type="varbinary(max)" />
+          <Property Name="idOrders" Type="int" />
+        </EntityType>
         <EntityType Name="provide">
           <Key>
             <PropertyRef Name="id" />
@@ -97,6 +111,7 @@
           <EntitySet Name="cars" EntityType="Self.cars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="provide" EntityType="Self.provide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="providers" EntityType="Self.providers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -200,7 +215,16 @@
           <EntitySet Name="provide" EntityType="Self.provide" />
           <EntitySet Name="providers" EntityType="Self.providers" />
           <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
         </EntityContainer>
+        <EntityType Name="OrdersDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="idOrders" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -298,6 +322,15 @@
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="dateEnter" ColumnName="dateEnter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersDoc">
+            <EntityTypeMapping TypeName="IISAutoPartsModel.OrdersDoc">
+              <MappingFragment StoreEntitySet="OrdersDoc">
+                <ScalarProperty Name="idOrders" ColumnName="idOrders" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

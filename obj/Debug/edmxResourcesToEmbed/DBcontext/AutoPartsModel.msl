@@ -95,5 +95,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="OrdersDoc">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.OrdersDoc">
+        <MappingFragment StoreEntitySet="OrdersDoc">
+          <ScalarProperty Name="idOrders" ColumnName="idOrders" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -42,3 +42,4 @@ D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.exe
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.pdb
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.ResolveComReference.cache
