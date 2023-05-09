@@ -47,8 +47,7 @@
                         <Button Margin="10" x:Name="Catalog" Click="Catalog_Click">Каталог</Button>
                         <Button Margin="10" x:Name="Orders" Click="Orders_Click">Заказы</Button>
                         <Button Margin="10" x:Name="Delivery" Click="Delivery_Click">Поставки</Button>
-                        <Button Margin="10" Name="Reports" Click="Reports_Click" >Отчеты</Button>
-                        <Button Margin="10" Name="Documents" Click="Documents_Click" >Документы</Button>
+                        <Button Margin="10" Name="Reports" Click="Reports_Click">Отчеты</Button>
                     </StackPanel>
                     
                 </Grid>

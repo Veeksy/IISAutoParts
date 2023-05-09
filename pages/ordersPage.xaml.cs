@@ -3,6 +3,8 @@ using IISAutoParts.DBcontext;
 using IISAutoParts.DBcontext.MyEntities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,7 +98,7 @@ namespace IISAutoParts.pages
 
         private void AddnewOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameController.MainFrame.Navigate(new ordersAddEdit(0));
         }
 
         private void ordersDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -105,7 +107,23 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                FrameController.MainFrame.Navigate(new ordersAddEdit(selectedPart.id));
+                byte[] file = _dbContext.OrdersDoc.AsNoTracking()
+                    .Where(x => x.idOrders == selectedPart.id).Select(x=>x.doc).FirstOrDefault();
+                if (file is null)
+                {
+                    MessageBox.Show("Файлы отсутствуют");
+                }
+                else
+                {
+                    string SavePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Templates/Акт№{selectedPart.orderNumber} заказа автозапчастей для информационной системы.docx");
+
+                    File.WriteAllBytes(SavePath, file);
+                    Process.Start(SavePath);
+                }
+               
+
+
+
             }
             else
             {

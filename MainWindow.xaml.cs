@@ -71,7 +71,7 @@ namespace IISAutoParts
 
         private void Documents_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameController.MainFrame.Navigate(new DocumentsPage());
         }
     }
 }

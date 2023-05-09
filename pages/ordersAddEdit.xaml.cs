@@ -48,20 +48,22 @@ namespace IISAutoParts.pages
                 _autoparts = _dbContext.autoparts.AsNoTracking().ToList();
                 _customers = _dbContext.customers.AsNoTracking().ToList();
 
+                autopartCb.ItemsSource = _autoparts;
+                autopartCb.DisplayMemberPath = "name";
+                autopartCb.SelectedValuePath = "id";
+
+
+                CustomerCb.ItemsSource = _customers;
+                CustomerCb.DisplayMemberPath = "name";
+                CustomerCb.SelectedValuePath = "id";
+
                 if (_order != null)
                 {
                     orderNumberTb.Text = _order.orderNumber.ToString();
-                    autopartCb.ItemsSource = _autoparts;
                     autopartCb.SelectedValue = _order.idAutoparts;
-                    autopartCb.DisplayMemberPath = "name";
-                    autopartCb.SelectedValuePath = "id";
-
+                    CustomerCb.SelectedValue = _order.idCustomer;
                     DateOrderTb.SelectedDate = _order.dateOrder ?? DateTime.Now;
                     countTb.Text = _order.countAutoparts.ToString();
-                    CustomerCb.ItemsSource = _customers;
-                    CustomerCb.SelectedValue = _order.idCustomer;
-                    CustomerCb.DisplayMemberPath = "name";
-                    CustomerCb.SelectedValuePath = "id";
                 }
                 else
                 {
@@ -77,7 +79,7 @@ namespace IISAutoParts.pages
 
         }
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        private async void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -87,9 +89,34 @@ namespace IISAutoParts.pages
                 _order.orderNumber = Convert.ToInt32(orderNumberTb.Text);
                 _order.idCustomer = (int)CustomerCb.SelectedValue;
                 _order.countAutoparts = Convert.ToInt32(countTb.Text);
-                _dbContext.Orders.AddOrUpdate(_order);
-                _dbContext.SaveChanges();
-                MessageBox.Show("Сохранено");
+
+                var autopart = _dbContext.autoparts.AsNoTracking().Where(x=>x.id == (int)autopartCb.SelectedValue).FirstOrDefault();
+
+                
+
+                if ((autopart.count - Convert.ToInt32(countTb.Text)) < 0)
+                {
+                    MessageBox.Show($"Невозможно выполнить заказ. Так как в наличии осталось только {autopart.count} ед. товара.\nУменьшите количество товара в заказе.");
+                }
+                else
+                {
+                    autopart.count -= Convert.ToInt32(countTb.Text);
+                    _dbContext.autoparts.AddOrUpdate(autopart);
+
+
+                    _dbContext.Orders.AddOrUpdate(_order);
+
+                    _dbContext.SaveChanges();
+                    loadingDoc.Visibility = Visibility.Visible;
+
+                    await Task.Run(() => CreateDoc());
+
+                    loadingDoc.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("Сохранено");
+                }
+
+
+                
             }
             catch (Exception ex)
             {
@@ -107,16 +134,6 @@ namespace IISAutoParts.pages
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             FrameController.MainFrame.Navigate(new ordersPage());
-        }
-
-        private async void SaveDocBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-            loadingDoc.Visibility = Visibility.Visible;
-
-            await Task.Run(() => CreateDoc());
-
-            loadingDoc.Visibility = Visibility.Collapsed;
         }
 
         private void CreateDoc()
