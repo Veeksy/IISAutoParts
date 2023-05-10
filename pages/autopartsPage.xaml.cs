@@ -2,6 +2,7 @@
 using IISAutoParts.DBcontext;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Xaml.Behaviors.Core;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -98,7 +100,7 @@ namespace IISAutoParts.pages
             }
             else
             {
-                MessageBox.Show("Не удалось открыть выбранный объект.");
+                System.Windows.Forms.MessageBox.Show("Не удалось открыть выбранный объект.");
             }
 
             //private async void GetAutoParts()
@@ -161,17 +163,42 @@ namespace IISAutoParts.pages
 
         private void deleteElements_Click(object sender, RoutedEventArgs e)
         {
-            var deleted = _autoparts.Where(x => selectedIds.Contains(x.id)).ToList();
-            _dbContext.autoparts.RemoveRange(deleted);
+            System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox
+                .Show("Действительно удалить выбранные записи?", "Подтвердите действие", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                var deleted = _autoparts.Where(x => selectedIds.Contains(x.id)).ToList();
+                _dbContext.autoparts.RemoveRange(deleted);
 
-            _dbContext.SaveChanges();
+                _dbContext.SaveChanges();
+                _autoparts = _dbContext.autoparts.ToList();
+
+                paginator = new Paginator(_autoparts.ToList<object>(), paginator.GetPage(), 10);
+                autopartDGV.ItemsSource = paginator.GetTable();
+            }
 
 
+
+        }
+
+        private void filterBtn_Click(object sender, RoutedEventArgs e)
+        {
             _autoparts = _dbContext.autoparts.ToList();
 
-            paginator = new Paginator(_autoparts.ToList<object>(), paginator.GetPage(), 10);
-            autopartDGV.ItemsSource = paginator.GetTable();
+            _autoparts = _autoparts.Where(x => 
+            (string.IsNullOrEmpty(manufacturerTb.Text) || x.manufacturer.ToLower().Contains(manufacturerTb.Text.ToLower())) 
+            && (string.IsNullOrEmpty(nameTb.Text) || x.name.ToLower().Contains(nameTb.Text.ToLower()))
+            && (string.IsNullOrEmpty(minPrice.Text) || x.price >= Convert.ToInt32(minPrice.Text))
+            && (string.IsNullOrEmpty(maxPrice.Text) || x.price <= Convert.ToInt32(maxPrice.Text))).ToList();
 
+
+            paginator = new Paginator(_autoparts.ToList<object>(), 1, 10);
+
+            pageNumber.Text = paginator.GetPage().ToString();
+            countPage.Content = paginator.GetCountpage();
+
+            autopartDGV.ItemsSource = paginator.GetTable();
         }
     }
 }

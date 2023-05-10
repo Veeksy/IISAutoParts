@@ -65,6 +65,10 @@
             "MaterialDesignThemes.MahApps": {
               "target": "Package",
               "version": "[0.2.0, )"
+            },
+            "Prism.Wpf": {
+              "target": "Package",
+              "version": "[8.1.97, )"
             }
           }
         }

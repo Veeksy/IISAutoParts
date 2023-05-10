@@ -66,6 +66,7 @@
     <Property Name="dateDelivery" Type="DateTime" Precision="0" />
     <Property Name="countAutoparts" Type="Int32" />
     <Property Name="idProvider" Type="Int32" />
+    <Property Name="provideNumber" Type="Int32" />
   </EntityType>
   <EntityType Name="providers">
     <Key>
@@ -96,6 +97,7 @@
     <EntitySet Name="providers" EntityType="Self.providers" />
     <EntitySet Name="users" EntityType="Self.users" />
     <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
+    <EntitySet Name="provideDoc" EntityType="IISAutoPartsModel.provideDoc" />
   </EntityContainer>
   <EntityType Name="OrdersDoc">
     <Key>
@@ -104,5 +106,13 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="idOrders" Type="Int32" />
+  </EntityType>
+  <EntityType Name="provideDoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="provideId" Type="Int32" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
 </Schema>

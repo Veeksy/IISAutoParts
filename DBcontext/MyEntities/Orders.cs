@@ -10,9 +10,11 @@ namespace IISAutoParts.DBcontext.MyEntities
     {
         public int id { get; set; }
         public int? orderNumber { get; set; }
+        public int? autopartId { get; set; }
         public string autopartName { get; set; }
         public DateTime? dateOrder { get; set; }
         public int? countAutopart { get; set; }
+        public int? customerId { get; set; }
         public string customer { get; set; }
         public string address { get; set; }
     }

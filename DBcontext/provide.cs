@@ -19,5 +19,6 @@ namespace IISAutoParts.DBcontext
         public Nullable<System.DateTime> dateDelivery { get; set; }
         public Nullable<int> countAutoparts { get; set; }
         public Nullable<int> idProvider { get; set; }
+        public Nullable<int> provideNumber { get; set; }
     }
 }

@@ -43,5 +43,12 @@ D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.pdb
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\ordersAddEdit.baml
 D:\Projects\IISAutoParts\obj\Debug\IISAutoParts.csproj.ResolveComReference.cache
-D:\Projects\IISAutoParts\obj\Debug\pages\DocumentsPage.g.cs
-D:\Projects\IISAutoParts\obj\Debug\pages\DocumentsPage.baml
+D:\Projects\IISAutoParts\bin\Debug\Prism.dll
+D:\Projects\IISAutoParts\bin\Debug\Prism.pdb
+D:\Projects\IISAutoParts\bin\Debug\Prism.Wpf.dll
+D:\Projects\IISAutoParts\bin\Debug\Prism.Wpf.pdb
+D:\Projects\IISAutoParts\bin\Debug\System.ValueTuple.dll
+D:\Projects\IISAutoParts\obj\Debug\pages\providePage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\providePage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.baml

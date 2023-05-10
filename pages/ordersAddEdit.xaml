@@ -8,7 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ordersAddEdit">
-
     <Grid Background="White">
             <StackPanel Margin="10">
                 <TextBox Margin="10"
@@ -18,12 +17,12 @@
             <ComboBox Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Автозапчасть"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
   x:Name="autopartCb" />
-                
             <DatePicker Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Дата заказа"
-   x:Name="DateOrderTb" />
+   x:Name="DateOrderTb" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
             <TextBox Margin="10"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Количество"
@@ -34,17 +33,13 @@
   Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="CustomerCb"/>
             <DockPanel>
                 <Button HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
-                    <materialDesign:PackIcon Kind="ArrowBack" />
+                    <materialDesign:PackIcon Kind="ArrowBack"/>
                 </Button>
                 <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
                     <materialDesign:PackIcon Kind="ContentSave"/>
                 </Button>
-
-
             </DockPanel>
             <ProgressBar IsIndeterminate="True" x:Name="loadingDoc" Visibility="Collapsed" Margin="10"/>
         </StackPanel>
-
-       
     </Grid>
 </Page>

@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="IISAutoPartsModel.providers" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.users" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.OrdersDoc" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="IISAutoPartsModel.provideDoc" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

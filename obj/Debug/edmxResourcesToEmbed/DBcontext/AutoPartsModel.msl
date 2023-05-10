@@ -67,6 +67,7 @@
     <EntitySetMapping Name="provide">
       <EntityTypeMapping TypeName="IISAutoPartsModel.provide">
         <MappingFragment StoreEntitySet="provide">
+          <ScalarProperty Name="provideNumber" ColumnName="provideNumber" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
           <ScalarProperty Name="dateDelivery" ColumnName="dateDelivery" />
@@ -100,6 +101,15 @@
         <MappingFragment StoreEntitySet="OrdersDoc">
           <ScalarProperty Name="idOrders" ColumnName="idOrders" />
           <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="provideDoc">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.provideDoc">
+        <MappingFragment StoreEntitySet="provideDoc">
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="provideId" ColumnName="provideId" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

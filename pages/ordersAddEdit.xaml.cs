@@ -74,9 +74,6 @@ namespace IISAutoParts.pages
             {
                 MessageBox.Show("Не удалось подключиться к базе данных. " + ex.Message);
             }
-
-
-
         }
 
         private async void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -91,8 +88,6 @@ namespace IISAutoParts.pages
                 _order.countAutoparts = Convert.ToInt32(countTb.Text);
 
                 var autopart = _dbContext.autoparts.AsNoTracking().Where(x=>x.id == (int)autopartCb.SelectedValue).FirstOrDefault();
-
-                
 
                 if ((autopart.count - Convert.ToInt32(countTb.Text)) < 0)
                 {
@@ -114,16 +109,11 @@ namespace IISAutoParts.pages
                     loadingDoc.Visibility = Visibility.Collapsed;
                     MessageBox.Show("Сохранено");
                 }
-
-
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка сохранения. " + ex.Message);
             }
-
-
         }
 
         private void priceTb_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -140,11 +130,6 @@ namespace IISAutoParts.pages
         {
             try
             {
-                var _doc = _dbContext.OrdersDoc.AsNoTracking().Where(x => x.idOrders == _order.id).FirstOrDefault();
-
-                if (_order.id != 0)
-                {
-
                     string Template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Templates/OrderTemplate.docx");
                     string SavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Templates/Акт№{_order.orderNumber} заказа автозапчастей для информационной системы.docx");
 
@@ -166,7 +151,6 @@ namespace IISAutoParts.pages
                     doc.Content.Find.Execute(FindText: "@autopart",
                         ReplaceWith: $@"{part.manufacturer} {part.name}", Replace: Word.WdReplace.wdReplaceAll);
 
-
                     doc.Content.Find.Execute(FindText: "@count",
                         ReplaceWith: _order.countAutoparts, Replace: Word.WdReplace.wdReplaceAll);
 
@@ -178,7 +162,6 @@ namespace IISAutoParts.pages
 
                     doc.Content.Find.Execute(FindText: "@TotalPrice",
                        ReplaceWith: $@"{(_order.countAutoparts * part.price).ToString()} руб.", Replace: Word.WdReplace.wdReplaceAll);
-
 
                     doc.SaveAs(SavePath);
 
@@ -193,31 +176,16 @@ namespace IISAutoParts.pages
                         fs.Read(file, 0, file.Length);
                     }
 
-                    if (_doc != null)
-                    {
-                        _doc.doc = file;
-                    }
-                    else
-                    {
-                        _doc = new OrdersDoc()
+                        var _doc = new OrdersDoc()
                         {
                             idOrders = _order.id,
                             doc = file,
                         };
-                    }
                     _dbContext.OrdersDoc.AddOrUpdate(_doc);
                     _dbContext.SaveChanges();
                     Thread.Sleep(10);
                     Process.Start(SavePath);
-                }
-                else
-                {
-                    MessageBox.Show("Сначала необходимо сохранить заказ.");
-                }
-
-                
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

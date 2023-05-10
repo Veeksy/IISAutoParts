@@ -27,6 +27,7 @@ namespace IISAutoParts.pages
     {
         Paginator paginator;
         IISAutoPartsEntities _dbContext;
+        List<OrdersView> orders = new List<OrdersView>();
 
         public ordersPage()
         {
@@ -34,7 +35,7 @@ namespace IISAutoParts.pages
 
             _dbContext = new IISAutoPartsEntities();
 
-            var orders = _dbContext.Orders.AsNoTracking()
+            orders = _dbContext.Orders.AsNoTracking()
                 .Join(_dbContext.autoparts,
                 x => x.idAutoparts, y=> y.id, (x, y) => new {
                     id = x.id,
@@ -43,7 +44,6 @@ namespace IISAutoParts.pages
                     dateOrder = x.dateOrder,
                     countAutopart = x.countAutoparts,
                     customer = x.idCustomer,
-
                 }
                 ).Join(_dbContext.customers, x=> x.customer, y=>y.id, (x, y) => new OrdersView
                 {
@@ -54,9 +54,18 @@ namespace IISAutoParts.pages
                     countAutopart = x.countAutopart,
                     customer = y.name,
                     address = y.address,
-                }).ToList<object>();
+                }).ToList();
 
-            paginator = new Paginator(orders, 1, 10);
+
+            autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().ToList();
+            autopartCb.DisplayMemberPath = "name";
+            autopartCb.SelectedValuePath = "id";
+
+            customerCb.ItemsSource = _dbContext.customers.AsNoTracking().ToList();
+            customerCb.DisplayMemberPath = "name";
+            customerCb.SelectedValuePath = "id";
+
+            paginator = new Paginator(orders.ToList<object>(), 1, 10);
 
             pageNumber.Text = paginator.GetPage().ToString();
             countPage.Content = paginator.GetCountpage();
@@ -86,7 +95,6 @@ namespace IISAutoParts.pages
                 paginator.SetPage(Convert.ToInt32(pageNumber.Text));
                 ordersDGV.ItemsSource = paginator.GetTable();
             }
-
         }
 
 
@@ -120,15 +128,54 @@ namespace IISAutoParts.pages
                     File.WriteAllBytes(SavePath, file);
                     Process.Start(SavePath);
                 }
-               
-
-
-
             }
             else
             {
                 MessageBox.Show("Не удалось открыть выбранный объект.");
             }
+        }
+
+        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int? _autopart = (int?)autopartCb.SelectedValue;
+            int? _customer = (int?)customerCb.SelectedValue;
+            DateTime? _startDate = startDateDt.SelectedDate;
+            DateTime? _endDate = endDateDt.SelectedDate;
+
+            orders = _dbContext.Orders.AsNoTracking()
+                .Join(_dbContext.autoparts,
+                x => x.idAutoparts, y => y.id, (x, y) => new {
+                    id = x.id,
+                    number = x.orderNumber,
+                    autopart = y.manufacturer + " " + y.name,
+                    dateOrder = x.dateOrder,
+                    countAutopart = x.countAutoparts,
+                    customer = x.idCustomer,
+                }
+                ).Join(_dbContext.customers, x => x.customer, y => y.id, (x, y) => new OrdersView
+                {
+                    id = x.id,
+                    orderNumber = x.number,
+                    autopartName = x.autopart,
+                    dateOrder = x.dateOrder,
+                    countAutopart = x.countAutopart,
+                    customer = y.name,
+                    address = y.address,
+                }).ToList();
+
+            orders = orders.Where(x => (string.IsNullOrEmpty(numberOrder.Text)
+            || numberOrder.Text.Contains(x.orderNumber.GetValueOrDefault().ToString())) &&
+            (_autopart == null || x.autopartId == _autopart) && (_customer == null || x.customerId == _customer)
+            && (_startDate == null || x.dateOrder >= _startDate) && (_endDate == null || x.dateOrder <= _endDate)).ToList();
+
+
+            paginator = new Paginator(orders.ToList<object>(), 1, 10);
+
+            pageNumber.Text = paginator.GetPage().ToString();
+            countPage.Content = paginator.GetCountpage();
+
+            ordersDGV.ItemsSource = paginator.GetTable();
+
         }
     }
 }

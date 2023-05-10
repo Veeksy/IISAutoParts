@@ -17,7 +17,7 @@
     <Import Project="$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\EntityFramework.props" Condition="Exists('$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\EntityFramework.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\MaxNet\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.19</PkgMicrosoft_Xaml_Behaviors_Wpf>
+    <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\MaxNet\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.31</PkgMicrosoft_Xaml_Behaviors_Wpf>
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\MaxNet\.nuget\packages\materialdesignthemes\4.0.0</PkgMaterialDesignThemes>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\MaxNet\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
   </PropertyGroup>

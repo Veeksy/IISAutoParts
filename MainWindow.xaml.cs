@@ -27,33 +27,27 @@ namespace IISAutoParts
             InitializeComponent();
             FrameController.MainFrame = MainFrame;
         }
-
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
             MainMenu.IsPaneOpen = !MainMenu.IsPaneOpen;
         }
-
         private void menuCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             MainMenu.IsPaneOpen = !MainMenu.IsPaneOpen;
             menuCloseBtn.IsChecked = true;
         }
-
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             FrameController.MainFrame.Navigate(new ordersPage());
         }
-
         private void Delivery_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameController.MainFrame.Navigate(new providePage());
         }
-
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {
             FrameController.MainFrame.Navigate(new autopartsPage());
@@ -63,15 +57,12 @@ namespace IISAutoParts
             
 
         }
-
         private void MainMenu_PaneClosing(object sender, MahApps.Metro.Controls.SplitViewPaneClosingEventArgs e)
         {
             menuOpenBtn.IsChecked = !menuOpenBtn.IsChecked;
         }
-
         private void Documents_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new DocumentsPage());
         }
     }
 }

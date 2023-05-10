@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "o1PLHb+8z0foZa5t+G6QHWSGeRHtZsk7FvgQsAnYMT5U5btf+/plXXpTij7aPNyFBvESj+1wwi6l4V7SLMBLRQ==",
+  "dgSpecHash": "gwhxYzAouvzSrW4j0r/8C5xr1sUt0s+FQxI6+QTUIl5VpEZcgxQTiN+yyg5AXcjFIBAUDFLhcf+tfDwRAFTrsQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\IISAutoParts\\IISAutoParts.csproj",
   "expectedPackageFiles": [
@@ -10,7 +10,10 @@
     "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesigncolors\\2.0.4\\materialdesigncolors.2.0.4.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesignthemes.mahapps\\0.2.0\\materialdesignthemes.mahapps.0.2.0.nupkg.sha512",
-    "C:\\Users\\MaxNet\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512"
+    "C:\\Users\\MaxNet\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.31\\microsoft.xaml.behaviors.wpf.1.1.31.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
   "logs": [
     {

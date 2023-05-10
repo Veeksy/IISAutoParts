@@ -26,12 +26,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.autopartsModel" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="autopartsModel">
-          <Property Name="idAutoparts" Type="int" />
-          <Property Name="idModel" Type="int" />
-        </EntityType>-->
         <EntityType Name="carModels">
           <Key>
             <PropertyRef Name="id" />
@@ -81,10 +75,19 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="provideNumber" Type="int" />
           <Property Name="idAutoparts" Type="int" />
           <Property Name="dateDelivery" Type="date" />
           <Property Name="countAutoparts" Type="int" />
           <Property Name="idProvider" Type="int" />
+        </EntityType>
+        <EntityType Name="provideDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="provideId" Type="int" />
+          <Property Name="doc" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="providers">
           <Key>
@@ -113,6 +116,7 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="provide" EntityType="Self.provide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="provideDoc" EntityType="Self.provideDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="providers" EntityType="Self.providers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -186,6 +190,7 @@
           <Property Name="dateDelivery" Type="DateTime" Precision="0" />
           <Property Name="countAutoparts" Type="Int32" />
           <Property Name="idProvider" Type="Int32" />
+          <Property Name="provideNumber" Type="Int32" />
         </EntityType>
         <EntityType Name="providers">
           <Key>
@@ -216,6 +221,7 @@
           <EntitySet Name="providers" EntityType="Self.providers" />
           <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
+          <EntitySet Name="provideDoc" EntityType="IISAutoPartsModel.provideDoc" />
         </EntityContainer>
         <EntityType Name="OrdersDoc">
           <Key>
@@ -224,6 +230,14 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="idOrders" Type="Int32" />
+        </EntityType>
+        <EntityType Name="provideDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="provideId" Type="Int32" />
+          <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -297,6 +311,7 @@
           <EntitySetMapping Name="provide">
             <EntityTypeMapping TypeName="IISAutoPartsModel.provide">
               <MappingFragment StoreEntitySet="provide">
+                <ScalarProperty Name="provideNumber" ColumnName="provideNumber" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
                 <ScalarProperty Name="dateDelivery" ColumnName="dateDelivery" />
@@ -330,6 +345,15 @@
               <MappingFragment StoreEntitySet="OrdersDoc">
                 <ScalarProperty Name="idOrders" ColumnName="idOrders" />
                 <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="provideDoc">
+            <EntityTypeMapping TypeName="IISAutoPartsModel.provideDoc">
+              <MappingFragment StoreEntitySet="provideDoc">
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="provideId" ColumnName="provideId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
