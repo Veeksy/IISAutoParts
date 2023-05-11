@@ -114,5 +114,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="orderReports">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.orderReports">
+        <MappingFragment StoreEntitySet="orderReports">
+          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="provideReports">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.provideReports">
+        <MappingFragment StoreEntitySet="provideReports">
+          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
+          <ScalarProperty Name="provideId" ColumnName="provideId" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

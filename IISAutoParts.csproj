@@ -132,6 +132,10 @@
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\MyEntities\Orders.cs" />
+    <Compile Include="DBcontext\MyEntities\Reports.cs" />
+    <Compile Include="DBcontext\orderReports.cs">
+      <DependentUpon>AutoPartsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBcontext\Orders.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -142,6 +146,9 @@
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\provideDoc.cs">
+      <DependentUpon>AutoPartsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\provideReports.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\providers.cs">

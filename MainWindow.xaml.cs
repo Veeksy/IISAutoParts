@@ -46,7 +46,7 @@ namespace IISAutoParts
         }
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameController.MainFrame.Navigate(new reportsPage());
         }
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {

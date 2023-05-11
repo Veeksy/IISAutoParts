@@ -12,11 +12,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CheckBox = System.Windows.Controls.CheckBox;
+using MessageBox = System.Windows.MessageBox;
 
 namespace IISAutoParts.pages
 {
@@ -28,6 +31,7 @@ namespace IISAutoParts.pages
         Paginator paginator;
         IISAutoPartsEntities _dbContext;
         List<OrdersView> orders = new List<OrdersView>();
+        private List<int> selectedIds = new List<int>();
 
         public ordersPage()
         {
@@ -35,26 +39,7 @@ namespace IISAutoParts.pages
 
             _dbContext = new IISAutoPartsEntities();
 
-            orders = _dbContext.Orders.AsNoTracking()
-                .Join(_dbContext.autoparts,
-                x => x.idAutoparts, y=> y.id, (x, y) => new {
-                    id = x.id,
-                    number = x.orderNumber,
-                    autopart = y.manufacturer + " " + y.name,
-                    dateOrder = x.dateOrder,
-                    countAutopart = x.countAutoparts,
-                    customer = x.idCustomer,
-                }
-                ).Join(_dbContext.customers, x=> x.customer, y=>y.id, (x, y) => new OrdersView
-                {
-                    id = x.id,
-                    orderNumber = x.number,
-                    autopartName = x.autopart,
-                    dateOrder = x.dateOrder,
-                    countAutopart = x.countAutopart,
-                    customer = y.name,
-                    address = y.address,
-                }).ToList();
+            orders = fillData();
 
 
             autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().ToList();
@@ -97,7 +82,30 @@ namespace IISAutoParts.pages
             }
         }
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            // Получить строку DataGrid, соответствующую этому CheckBox
+            var row = (sender as CheckBox)?.DataContext as OrdersView;
 
+            // Добавить ID элемента в список выбранных элементов, если он еще не был добавлен
+            if (row != null && !selectedIds.Contains(row.id))
+            {
+                selectedIds.Add(row.id);
+            }
+
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Получить строку DataGrid, соответствующую этому CheckBox
+            var row = (sender as CheckBox)?.DataContext as OrdersView;
+
+            // Удалить ID элемента из списка выбранных элементов, если он был добавлен ранее
+            if (row != null && selectedIds.Contains(row.id))
+            {
+                selectedIds.Remove(row.id);
+            }
+        }
 
         private void pageNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -135,6 +143,24 @@ namespace IISAutoParts.pages
             }
         }
 
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox
+               .Show("Действительно удалить выбранные записи?", "Подтвердите действие",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                var deleted = _dbContext.Orders.Where(x => selectedIds.Contains(x.id)).ToList();
+                _dbContext.Orders.RemoveRange(deleted);
+
+                _dbContext.SaveChanges();
+                orders = fillData();
+
+                paginator = new Paginator(orders.ToList<object>(), paginator.GetPage(), 10);
+                ordersDGV.ItemsSource = paginator.GetTable();
+            }
+        }
+
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
             int? _autopart = (int?)autopartCb.SelectedValue;
@@ -142,7 +168,26 @@ namespace IISAutoParts.pages
             DateTime? _startDate = startDateDt.SelectedDate;
             DateTime? _endDate = endDateDt.SelectedDate;
 
-            orders = _dbContext.Orders.AsNoTracking()
+            orders = fillData();
+
+            orders = orders.Where(x => (string.IsNullOrEmpty(numberOrder.Text)
+            || numberOrder.Text.Contains(x.orderNumber.GetValueOrDefault().ToString())) &&
+            (_autopart == null || x.autopartId == _autopart) && (_customer == null || x.customerId == _customer)
+            && (_startDate == null || x.dateOrder >= _startDate) && (_endDate == null || x.dateOrder <= _endDate)).ToList();
+
+
+            paginator = new Paginator(orders.ToList<object>(), 1, 10);
+
+            pageNumber.Text = paginator.GetPage().ToString();
+            countPage.Content = paginator.GetCountpage();
+
+            ordersDGV.ItemsSource = paginator.GetTable();
+
+        }
+
+        private List<OrdersView> fillData()
+        {
+            var _Orders = _dbContext.Orders.AsNoTracking()
                 .Join(_dbContext.autoparts,
                 x => x.idAutoparts, y => y.id, (x, y) => new {
                     id = x.id,
@@ -162,20 +207,9 @@ namespace IISAutoParts.pages
                     customer = y.name,
                     address = y.address,
                 }).ToList();
-
-            orders = orders.Where(x => (string.IsNullOrEmpty(numberOrder.Text)
-            || numberOrder.Text.Contains(x.orderNumber.GetValueOrDefault().ToString())) &&
-            (_autopart == null || x.autopartId == _autopart) && (_customer == null || x.customerId == _customer)
-            && (_startDate == null || x.dateOrder >= _startDate) && (_endDate == null || x.dateOrder <= _endDate)).ToList();
-
-
-            paginator = new Paginator(orders.ToList<object>(), 1, 10);
-
-            pageNumber.Text = paginator.GetPage().ToString();
-            countPage.Content = paginator.GetCountpage();
-
-            ordersDGV.ItemsSource = paginator.GetTable();
-
+            return _Orders;
         }
+
+        
     }
 }

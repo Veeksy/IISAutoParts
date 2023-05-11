@@ -52,3 +52,5 @@ D:\Projects\IISAutoParts\obj\Debug\pages\providePage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\providePage.baml
 D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\reportsPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\reportsPage.baml

@@ -98,6 +98,8 @@
     <EntitySet Name="users" EntityType="Self.users" />
     <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
     <EntitySet Name="provideDoc" EntityType="IISAutoPartsModel.provideDoc" />
+    <EntitySet Name="orderReports" EntityType="IISAutoPartsModel.orderReports" />
+    <EntitySet Name="provideReports" EntityType="IISAutoPartsModel.provideReports" />
   </EntityContainer>
   <EntityType Name="OrdersDoc">
     <Key>
@@ -114,5 +116,25 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="provideId" Type="Int32" />
     <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="orderReports">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="orderId" Type="Int32" />
+    <Property Name="dateBegin" Type="DateTime" Precision="0" />
+    <Property Name="dateEnd" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="provideReports">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="provideId" Type="Int32" />
+    <Property Name="dateBegin" Type="DateTime" Precision="0" />
+    <Property Name="dateEnd" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

@@ -22,6 +22,24 @@
             <DataGrid AutoGenerateColumns="False" x:Name="provideDGV" 
                       IsReadOnly="True" Grid.Column="0" MouseDoubleClick="provideDGV_MouseDoubleClick">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Код"
+                                    Binding="{Binding Path=id}" Visibility="Hidden"
+                                    >
+                    </DataGridTextColumn>
+                    <DataGridCheckBoxColumn IsReadOnly="False">
+                        <DataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Label x:Name="selectAllCheckBox"/>
+                            </DataTemplate>
+                        </DataGridCheckBoxColumn.HeaderTemplate>
+                        <DataGridCheckBoxColumn.ElementStyle>
+                            <Style TargetType="CheckBox" >
+                                <Setter Property="IsChecked" Value="{Binding isSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <EventSetter Event="Checked" Handler="CheckBox_Checked"/>
+                                <EventSetter Event="Unchecked" Handler="CheckBox_Unchecked"/>
+                            </Style>
+                        </DataGridCheckBoxColumn.ElementStyle>
+                    </DataGridCheckBoxColumn>
                     <DataGridTextColumn Header="Номер поставки"
                                     Binding="{Binding Path=orderNumber}">
                     </DataGridTextColumn>
@@ -76,7 +94,7 @@
                         <Button HorizontalAlignment="Left" x:Name="AddnewProvide" Click="AddnewProvide_Click">
                             <materialDesign:PackIcon Kind="PlusBox" />
                         </Button>
-                        <Button HorizontalAlignment="Right">
+                        <Button HorizontalAlignment="Right" x:Name="DeleteBtn" Click="DeleteBtn_Click">
                             <materialDesign:PackIcon Kind="Delete" />
                         </Button>
                     </DockPanel>
