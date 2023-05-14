@@ -44,6 +44,20 @@
           "buildTransitive/EntityFramework.targets": {}
         }
       },
+      "EntityFramework.ru/6.2.0": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "[6.2.0]"
+        },
+        "resource": {
+          "lib/net45/ru/EntityFramework.SqlServer.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net45/ru/EntityFramework.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
       "MahApps.Metro/2.0.0-alpha0748": {
         "type": "package",
         "dependencies": {
@@ -229,6 +243,20 @@
         "build": {
           "buildTransitive/EntityFramework.props": {},
           "buildTransitive/EntityFramework.targets": {}
+        }
+      },
+      "EntityFramework.ru/6.2.0": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "[6.2.0]"
+        },
+        "resource": {
+          "lib/net45/ru/EntityFramework.SqlServer.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net45/ru/EntityFramework.resources.dll": {
+            "locale": "ru"
+          }
         }
       },
       "MahApps.Metro/2.0.0-alpha0748": {
@@ -418,6 +446,20 @@
           "buildTransitive/EntityFramework.targets": {}
         }
       },
+      "EntityFramework.ru/6.2.0": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "[6.2.0]"
+        },
+        "resource": {
+          "lib/net45/ru/EntityFramework.SqlServer.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net45/ru/EntityFramework.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
       "MahApps.Metro/2.0.0-alpha0748": {
         "type": "package",
         "dependencies": {
@@ -603,6 +645,20 @@
         "build": {
           "buildTransitive/EntityFramework.props": {},
           "buildTransitive/EntityFramework.targets": {}
+        }
+      },
+      "EntityFramework.ru/6.2.0": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "[6.2.0]"
+        },
+        "resource": {
+          "lib/net45/ru/EntityFramework.SqlServer.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net45/ru/EntityFramework.resources.dll": {
+            "locale": "ru"
+          }
         }
       },
       "MahApps.Metro/2.0.0-alpha0748": {
@@ -832,6 +888,25 @@
         "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
       ]
     },
+    "EntityFramework.ru/6.2.0": {
+      "sha512": "DROBt5aaifpmnT9ALLJU98j6cdEqdaNEXFyhTWewM8ywUF+XLiu0ROQ4ZpwCfLWcGFJBNRhPf76maOIVfAauxQ==",
+      "type": "package",
+      "path": "entityframework.ru/6.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "entityframework.ru.6.2.0.nupkg.sha512",
+        "entityframework.ru.nuspec",
+        "lib/net40/ru/EntityFramework.SqlServer.resources.dll",
+        "lib/net40/ru/EntityFramework.SqlServer.xml",
+        "lib/net40/ru/EntityFramework.resources.dll",
+        "lib/net40/ru/EntityFramework.xml",
+        "lib/net45/ru/EntityFramework.SqlServer.resources.dll",
+        "lib/net45/ru/EntityFramework.SqlServer.xml",
+        "lib/net45/ru/EntityFramework.resources.dll",
+        "lib/net45/ru/EntityFramework.xml"
+      ]
+    },
     "MahApps.Metro/2.0.0-alpha0748": {
       "sha512": "ZexxOSAx+SON01cBZ51JvwK3tHRClLdJtOrhijhgtCRsAVadegJTFonnqW0AQtH8HfNDZiIqPEg3YsozFSnXJQ==",
       "type": "package",
@@ -1055,6 +1130,7 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.1": [
       "EntityFramework >= 6.4.4",
+      "EntityFramework.ru >= 6.2.0",
       "MahApps.Metro >= 2.0.0-alpha0748",
       "MaterialDesignColors >= 2.0.4",
       "MaterialDesignThemes >= 4.0.0",
@@ -1104,6 +1180,10 @@
             "target": "Package",
             "version": "[6.4.4, )"
           },
+          "EntityFramework.ru": {
+            "target": "Package",
+            "version": "[6.2.0, )"
+          },
           "MahApps.Metro": {
             "target": "Package",
             "version": "[2.0.0-alpha0748, )"
@@ -1148,6 +1228,19 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: EntityFramework.ru 6.2.0 требуется EntityFramework (= 6.2.0), но в результате разрешения получена версия EntityFramework 6.4.4.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.1",
+        ".NETFramework,Version=v4.6.1/win",
+        ".NETFramework,Version=v4.6.1/win-x64",
+        ".NETFramework,Version=v4.6.1/win-x86"
+      ]
+    },
     {
       "code": "NU1605",
       "level": "Warning",

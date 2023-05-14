@@ -50,7 +50,7 @@ namespace IISAutoParts
         }
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new autopartsPage());
+            FrameController.MainFrame.Navigate(new autopartsPage(0));
         }
         private void MainMenu_PaneClosed(object sender, EventArgs e)
         {
@@ -63,6 +63,17 @@ namespace IISAutoParts
         }
         private void Documents_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void usersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new usersListPage());
+        }
+
+        private void Cars_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new autoPage());
+
         }
     }
 }

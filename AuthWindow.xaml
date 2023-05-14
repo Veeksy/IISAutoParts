@@ -29,7 +29,9 @@
         Margin="16,0,0,0"
         VerticalAlignment="Center"
         Text="Информационная система автозапчастей" />
+                   
                 </StackPanel>
+                
             </DockPanel>
         </materialDesign:ColorZone>
         <StackPanel Margin="20" Grid.Row="1" Grid.Column="1">

@@ -54,3 +54,15 @@ D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\provideAddEdit.baml
 D:\Projects\IISAutoParts\obj\Debug\pages\reportsPage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\reportsPage.baml
+D:\Projects\IISAutoParts\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+D:\Projects\IISAutoParts\bin\Debug\ru\EntityFramework.resources.dll
+D:\Projects\IISAutoParts\obj\Debug\pages\AdminPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\AdminPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\usersListPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\usersListPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\userPermissionPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\userPermissionPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\autoPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\autoPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\autoModelsPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\autoModelsPage.baml

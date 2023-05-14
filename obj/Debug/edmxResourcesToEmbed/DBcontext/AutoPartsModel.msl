@@ -4,7 +4,6 @@
     <EntitySetMapping Name="autoparts">
       <EntityTypeMapping TypeName="IISAutoPartsModel.autoparts">
         <MappingFragment StoreEntitySet="autoparts">
-          <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
           <ScalarProperty Name="name" ColumnName="name" />
@@ -13,6 +12,7 @@
           <ScalarProperty Name="year" ColumnName="year" />
           <ScalarProperty Name="count" ColumnName="count" />
           <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+          <ScalarProperty Name="image" ColumnName="image" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -37,6 +37,8 @@
     <EntitySetMapping Name="cars">
       <EntityTypeMapping TypeName="IISAutoPartsModel.cars">
         <MappingFragment StoreEntitySet="cars">
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="photo" ColumnName="photo" />
@@ -52,11 +54,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="orderReports">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.orderReports">
+        <MappingFragment StoreEntitySet="orderReports">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
+          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="IISAutoPartsModel.Orders">
         <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
           <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
           <ScalarProperty Name="dateOrder" ColumnName="dateOrder" />
           <ScalarProperty Name="countAutoparts" ColumnName="countAutoparts" />
@@ -64,15 +77,53 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="OrdersDoc">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.OrdersDoc">
+        <MappingFragment StoreEntitySet="OrdersDoc">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="idOrders" ColumnName="idOrders" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="permissions">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.permissions">
+        <MappingFragment StoreEntitySet="permissions">
+          <ScalarProperty Name="sectorname" ColumnName="sectorname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="permissions1" ColumnName="permissions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="provide">
       <EntityTypeMapping TypeName="IISAutoPartsModel.provide">
         <MappingFragment StoreEntitySet="provide">
-          <ScalarProperty Name="provideNumber" ColumnName="provideNumber" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="provideNumber" ColumnName="provideNumber" />
           <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
           <ScalarProperty Name="dateDelivery" ColumnName="dateDelivery" />
           <ScalarProperty Name="countAutoparts" ColumnName="countAutoparts" />
           <ScalarProperty Name="idProvider" ColumnName="idProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="provideDoc">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.provideDoc">
+        <MappingFragment StoreEntitySet="provideDoc">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="provideId" ColumnName="provideId" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="provideReports">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.provideReports">
+        <MappingFragment StoreEntitySet="provideReports">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="providerId" ColumnName="providerId" />
+          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
+          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -85,9 +136,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="userRole">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.userRole">
+        <MappingFragment StoreEntitySet="userRole">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="IISAutoPartsModel.users">
         <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="permission" ColumnName="permission" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="role" ColumnName="role" />
           <ScalarProperty Name="login" ColumnName="login" />
@@ -96,42 +157,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="OrdersDoc">
-      <EntityTypeMapping TypeName="IISAutoPartsModel.OrdersDoc">
-        <MappingFragment StoreEntitySet="OrdersDoc">
-          <ScalarProperty Name="idOrders" ColumnName="idOrders" />
-          <ScalarProperty Name="doc" ColumnName="doc" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="provideDoc">
-      <EntityTypeMapping TypeName="IISAutoPartsModel.provideDoc">
-        <MappingFragment StoreEntitySet="provideDoc">
-          <ScalarProperty Name="doc" ColumnName="doc" />
-          <ScalarProperty Name="provideId" ColumnName="provideId" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="orderReports">
-      <EntityTypeMapping TypeName="IISAutoPartsModel.orderReports">
-        <MappingFragment StoreEntitySet="orderReports">
-          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
-          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
-          <ScalarProperty Name="orderId" ColumnName="orderId" />
-          <ScalarProperty Name="doc" ColumnName="doc" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="provideReports">
-      <EntityTypeMapping TypeName="IISAutoPartsModel.provideReports">
-        <MappingFragment StoreEntitySet="provideReports">
-          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
-          <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
-          <ScalarProperty Name="provideId" ColumnName="provideId" />
-          <ScalarProperty Name="doc" ColumnName="doc" />
+    <EntitySetMapping Name="autopartsModel">
+      <EntityTypeMapping TypeName="IISAutoPartsModel.autopartsModel">
+        <MappingFragment StoreEntitySet="autopartsModel">
+          <ScalarProperty Name="idModel" ColumnName="idModel" />
+          <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

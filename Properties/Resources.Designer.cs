@@ -59,5 +59,14 @@ namespace IISAutoParts.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        internal static string userId {
+            get {
+                return ResourceManager.GetString("userId", resourceCulture);
+            }
+        }
     }
 }

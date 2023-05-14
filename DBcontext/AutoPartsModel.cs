@@ -7,3 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace IISAutoParts.DBcontext
+{
+    using System;
+    using System.Collections.Generic;
+
+    public partial class autopartsModels
+    {
+        public int id { get; set; }
+        public Nullable<int> idAutoparts { get; set; }
+        public Nullable<int> idModel { get; set; }
+    }
+}

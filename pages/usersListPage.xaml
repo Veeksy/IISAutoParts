@@ -1,0 +1,30 @@
+﻿<Page x:Class="IISAutoParts.pages.usersListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IISAutoParts.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="usersListPage">
+
+    <Grid Background="White">
+        <DataGrid x:Name="UsersDGV" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="UsersDGV_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ид"
+                                    Binding="{Binding Path=Id}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Имя пользователя"
+                                    Binding="{Binding Path=Name}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Роль"
+                                    Binding="{Binding Path=Role}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Дата последнего входа"
+                                    Binding="{Binding Path=DateEnter, StringFormat='{}{0:dd.MM.yyyy}'}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

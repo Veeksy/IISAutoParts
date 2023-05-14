@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "gwhxYzAouvzSrW4j0r/8C5xr1sUt0s+FQxI6+QTUIl5VpEZcgxQTiN+yyg5AXcjFIBAUDFLhcf+tfDwRAFTrsQ==",
+  "dgSpecHash": "60LuK7OeUZQDROMqtRSJsDu4InuHeUW0ZiK9RoWp/G3ePY3pww31FOg8Ewkc6lRJYlL7jZybcbjOxRVoVD72hQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\IISAutoParts\\IISAutoParts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MaxNet\\.nuget\\packages\\controlzex\\4.2.2\\controlzex.4.2.2.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\MaxNet\\.nuget\\packages\\entityframework.ru\\6.2.0\\entityframework.ru.6.2.0.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\mahapps.metro\\2.0.0-alpha0748\\mahapps.metro.2.0.0-alpha0748.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesigncolors\\2.0.4\\materialdesigncolors.2.0.4.nupkg.sha512",
     "C:\\Users\\MaxNet\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
@@ -16,6 +17,19 @@
     "C:\\Users\\MaxNet\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: EntityFramework.ru 6.2.0 требуется EntityFramework (= 6.2.0), но в результате разрешения получена версия EntityFramework 6.4.4.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.1",
+        ".NETFramework,Version=v4.6.1/win",
+        ".NETFramework,Version=v4.6.1/win-x64",
+        ".NETFramework,Version=v4.6.1/win-x86"
+      ]
+    },
     {
       "code": "NU1605",
       "level": "Warning",

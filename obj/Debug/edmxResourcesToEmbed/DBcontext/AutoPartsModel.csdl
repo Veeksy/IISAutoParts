@@ -4,9 +4,9 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="manufacturer" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="manufacturer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="price" Type="Decimal" Precision="18" Scale="10" />
     <Property Name="year" Type="Int32" />
@@ -18,15 +18,15 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="carModels">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="model" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="model" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="idCar" Type="Int32" />
     <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
@@ -34,88 +34,19 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="customers">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="Orders">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="idAutoparts" Type="Int32" />
-    <Property Name="dateOrder" Type="DateTime" Precision="0" />
-    <Property Name="countAutoparts" Type="Int32" />
-    <Property Name="idCustomer" Type="Int32" />
-    <Property Name="orderNumber" Type="Int32" />
-  </EntityType>
-  <EntityType Name="provide">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="idAutoparts" Type="Int32" />
-    <Property Name="dateDelivery" Type="DateTime" Precision="0" />
-    <Property Name="countAutoparts" Type="Int32" />
-    <Property Name="idProvider" Type="Int32" />
-    <Property Name="provideNumber" Type="Int32" />
-  </EntityType>
-  <EntityType Name="providers">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="address" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="users">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="dateEnter" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityContainer Name="IISAutoPartsEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="autoparts" EntityType="Self.autoparts" />
-    <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" />
-    <EntitySet Name="carModels" EntityType="Self.carModels" />
-    <EntitySet Name="cars" EntityType="Self.cars" />
-    <EntitySet Name="customers" EntityType="Self.customers" />
-    <EntitySet Name="Orders" EntityType="Self.Orders" />
-    <EntitySet Name="provide" EntityType="Self.provide" />
-    <EntitySet Name="providers" EntityType="Self.providers" />
-    <EntitySet Name="users" EntityType="Self.users" />
-    <EntitySet Name="OrdersDoc" EntityType="IISAutoPartsModel.OrdersDoc" />
-    <EntitySet Name="provideDoc" EntityType="IISAutoPartsModel.provideDoc" />
-    <EntitySet Name="orderReports" EntityType="IISAutoPartsModel.orderReports" />
-    <EntitySet Name="provideReports" EntityType="IISAutoPartsModel.provideReports" />
-  </EntityContainer>
-  <EntityType Name="OrdersDoc">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="idOrders" Type="Int32" />
-  </EntityType>
-  <EntityType Name="provideDoc">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="provideId" Type="Int32" />
-    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="orderReports">
     <Key>
@@ -123,9 +54,55 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="orderId" Type="Int32" />
+    <Property Name="customerId" Type="Int32" />
     <Property Name="dateBegin" Type="DateTime" Precision="0" />
     <Property Name="dateEnd" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderNumber" Type="Int32" />
+    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="dateOrder" Type="DateTime" Precision="0" />
+    <Property Name="countAutoparts" Type="Int32" />
+    <Property Name="idCustomer" Type="Int32" />
+  </EntityType>
+  <EntityType Name="OrdersDoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="idOrders" Type="Int32" />
+  </EntityType>
+  <EntityType Name="permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="permissions1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="sectorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="provide">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="provideNumber" Type="Int32" />
+    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="dateDelivery" Type="DateTime" Precision="0" />
+    <Property Name="countAutoparts" Type="Int32" />
+    <Property Name="idProvider" Type="Int32" />
+  </EntityType>
+  <EntityType Name="provideDoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="provideId" Type="Int32" />
+    <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="provideReports">
     <Key>
@@ -133,8 +110,61 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="provideId" Type="Int32" />
+    <Property Name="providerId" Type="Int32" />
     <Property Name="dateBegin" Type="DateTime" Precision="0" />
     <Property Name="dateEnd" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="providers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="userRole">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="idPermission" Type="Int32" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="role" Type="Int32" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="dateEnter" Type="DateTime" Precision="3" />
+    <Property Name="permission" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="IISAutoPartsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="autoparts" EntityType="Self.autoparts" />
+    <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" />
+    <EntitySet Name="carModels" EntityType="Self.carModels" />
+    <EntitySet Name="cars" EntityType="Self.cars" />
+    <EntitySet Name="customers" EntityType="Self.customers" />
+    <EntitySet Name="orderReports" EntityType="Self.orderReports" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" />
+    <EntitySet Name="permissions" EntityType="Self.permissions" />
+    <EntitySet Name="provide" EntityType="Self.provide" />
+    <EntitySet Name="provideDoc" EntityType="Self.provideDoc" />
+    <EntitySet Name="provideReports" EntityType="Self.provideReports" />
+    <EntitySet Name="providers" EntityType="Self.providers" />
+    <EntitySet Name="userRole" EntityType="Self.userRole" />
+    <EntitySet Name="users" EntityType="Self.users" />
+    <EntitySet Name="autopartsModel" EntityType="IISAutoPartsModel.autopartsModel" />
+  </EntityContainer>
+  <EntityType Name="autopartsModel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="idModel" Type="Int32" />
   </EntityType>
 </Schema>

@@ -97,6 +97,7 @@
     <Compile Include="AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\Countries.cs" />
     <Compile Include="Class\FrameController.cs" />
     <Compile Include="Class\ImageController.cs" />
     <Compile Include="Class\Paginator.cs" />
@@ -133,6 +134,7 @@
     </Compile>
     <Compile Include="DBcontext\MyEntities\Orders.cs" />
     <Compile Include="DBcontext\MyEntities\Reports.cs" />
+    <Compile Include="DBcontext\MyEntities\UserList.cs" />
     <Compile Include="DBcontext\orderReports.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -140,6 +142,9 @@
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\OrdersDoc.cs">
+      <DependentUpon>AutoPartsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\permissions.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\provide.cs">
@@ -154,6 +159,9 @@
     <Compile Include="DBcontext\providers.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBcontext\userRole.cs">
+      <DependentUpon>AutoPartsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBcontext\users.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -161,6 +169,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pages\AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\autoModelsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\autoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\ordersAddEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,8 +209,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\userPermissionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\usersListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pages\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\autoModelsPage.xaml.cs">
+      <DependentUpon>autoModelsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\autoPage.xaml.cs">
+      <DependentUpon>autoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\ordersAddEdit.xaml.cs">
       <DependentUpon>ordersAddEdit.xaml</DependentUpon>
     </Compile>
@@ -211,6 +248,12 @@
     </Compile>
     <Compile Include="pages\reportsPage.xaml.cs">
       <DependentUpon>reportsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\userPermissionPage.xaml.cs">
+      <DependentUpon>userPermissionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\usersListPage.xaml.cs">
+      <DependentUpon>usersListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -278,18 +321,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBcontext\AutoPartsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-      <LastGenOutput>AutoPartsModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBcontext\AutoPartsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-      <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 и x64%29</ProductName>
@@ -308,6 +339,9 @@
     <PackageReference Include="EntityFramework">
       <Version>6.4.4</Version>
     </PackageReference>
+    <PackageReference Include="EntityFramework.ru">
+      <Version>6.2.0</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0748</Version>
     </PackageReference>
@@ -325,6 +359,18 @@
     <PackageReference Include="Prism.Wpf">
       <Version>8.1.97</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBcontext\AutoPartsModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
+      <LastGenOutput>AutoPartsModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBcontext\AutoPartsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
+      <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

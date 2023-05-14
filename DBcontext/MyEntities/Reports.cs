@@ -9,9 +9,11 @@ namespace IISAutoParts.DBcontext.MyEntities
     public class ReportsView
     {
         public int id { get; set; }
-        public int numberDoc{ get; set; }
-        public string dateInterval { get; set; }
-        public int customer { get; set; }
+        public DateTime? dateBegin { get; set; }
+        public DateTime? dateEnd { get; set; }
+        public int? customerId { get; set; }
+        public string customerName { get; set; }
+
 
     }
 }

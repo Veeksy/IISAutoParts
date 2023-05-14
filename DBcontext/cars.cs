@@ -17,5 +17,7 @@ namespace IISAutoParts.DBcontext
         public int id { get; set; }
         public string name { get; set; }
         public byte[] photo { get; set; }
+        public string description { get; set; }
+        public string country { get; set; }
     }
 }

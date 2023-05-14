@@ -58,7 +58,8 @@
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="yearTb" PreviewTextInput="priceTb_PreviewTextInput"/>
                 <ComboBox
   VerticalAlignment="Center" Height="40"
-  materialDesign:HintAssist.Hint="Категория" x:Name="CategoryCb"/>
+  materialDesign:HintAssist.Hint="Категория" x:Name="CategoryCb"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                 
                 <TextBox
     Height="100"

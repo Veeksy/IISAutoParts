@@ -3,8 +3,12 @@ using IISAutoParts.DBcontext;
 using IISAutoParts.DBcontext.MyEntities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace IISAutoParts.pages
 {
@@ -36,14 +42,7 @@ namespace IISAutoParts.pages
             InitializeComponent();
             _dbContext = new IISAutoPartsEntities();
 
-            _orderReports = _dbContext.Orders.Join(_dbContext.orderReports, x => x.id, y => y.orderId, (x, y) =>
-            new ReportsView()
-            {
-                id = x.id,
-                numberDoc = (int)x.orderNumber,
-                customer = (int)x.idCustomer,
-                //dateInterval = $"{Convert.ToDateTime(y.dateBegin).ToString("dd.MM.yyyy")}-{Convert.ToDateTime(y.dateEnd).ToString("dd.MM.yyyy")}",
-            }).ToList();
+            _orderReports = FillDataOrderReports();
 
             reportsTypeCb.SelectedIndex = 0;
 
@@ -119,14 +118,7 @@ namespace IISAutoParts.pages
             selectedIds.Clear();
             if (reportsTypeCb.SelectedIndex == 0)
             {
-                _orderReports = _dbContext.Orders.Join(_dbContext.orderReports, x => x.id, y => y.orderId, (x, y) =>
-                new ReportsView()
-                {
-                    id = x.id,
-                    numberDoc = (int)x.orderNumber,
-                    customer = (int)x.idCustomer,
-                    //dateInterval = $"{Convert.ToDateTime(y.dateBegin).ToString("dd.MM.yyyy")}-{Convert.ToDateTime(y.dateEnd).ToString("dd.MM.yyyy")}",
-                }).ToList();
+                _orderReports = FillDataOrderReports();
 
                 paginator = new Paginator(_orderReports.ToList<object>(), 1, 10);
 
@@ -134,17 +126,15 @@ namespace IISAutoParts.pages
                 countPage.Content = paginator.GetCountpage();
 
                 reportDGV.ItemsSource = paginator.GetTable();
+
+                clientCb.ItemsSource = _dbContext.customers.AsNoTracking().ToList();
+                clientCb.SelectedValuePath = "id";
+                clientCb.DisplayMemberPath = "name";
+
             }
             else
             {
-                _provideReports = _dbContext.provide.Join(_dbContext.provideReports, x => x.id, y => y.provideId, (x, y) =>
-                 new ReportsView()
-                 {
-                     id = x.id,
-                     numberDoc = (int)x.provideNumber,
-                     customer = (int)x.idProvider,
-                     //dateInterval = $"{Convert.ToDateTime(y.dateBegin).ToString("dd.MM.yyyy")}-{Convert.ToDateTime(y.dateEnd).ToString("dd.MM.yyyy")}",
-                 }).ToList();
+                _provideReports = FillDataProvideReports();
 
                 paginator = new Paginator(_provideReports.ToList<object>(), 1, 10);
 
@@ -152,17 +142,153 @@ namespace IISAutoParts.pages
                 countPage.Content = paginator.GetCountpage();
 
                 reportDGV.ItemsSource = paginator.GetTable();
+
+                clientCb.ItemsSource = _dbContext.providers.AsNoTracking().ToList();
+                clientCb.SelectedValuePath = "id";
+                clientCb.DisplayMemberPath = "name";
             }
         }
 
-        private void createReportBtn_Click(object sender, RoutedEventArgs e)
+        private async void createReportBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (reportsTypeCb.SelectedIndex == 0)
+                {
+                    string client = clientCb.Text;
+                    var _report = new orderReports()
+                    {
+                        customerId = (int)clientCb.SelectedValue,
+                        dateBegin = startDateDt.SelectedDate,
+                        dateEnd = endDateDt.SelectedDate,
+                    };
 
+                    _dbContext.orderReports.AddOrUpdate(_report);
+
+                    _dbContext.SaveChanges();
+                    loadingDoc.Visibility = Visibility.Visible;
+
+                    await System.Threading.Tasks.Task.Run(() => CreateOrderDoc(_report.id, client));
+
+                    loadingDoc.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("Сохранено");
+                }
+                else
+                {
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка сохранения. " + ex.Message);
+            }
         }
 
         private void filterBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+
+        private List<ReportsView> FillDataOrderReports()
+        {
+            var datet = DateTime.Now;
+            var _reports = _dbContext.orderReports.Join(_dbContext.customers, x => x.customerId, y => y.id, (x, y) => new ReportsView
+            {
+                id = x.id,
+                customerId = x.customerId,
+                customerName = y.name,
+                dateBegin = x.dateBegin,
+                dateEnd = x.dateEnd,
+            }).ToList();
+            return _reports;
+        }
+
+        private List<ReportsView> FillDataProvideReports()
+        {
+            var _reports = _dbContext.provideReports.Join(_dbContext.providers, x => x.providerId, y => y.id, (x, y) => new ReportsView
+            {
+                id = x.id,
+                customerId = x.providerId,
+                customerName = y.name,
+                dateBegin = x.dateBegin,
+                dateEnd = x.dateEnd,
+            }).ToList();
+            return _reports;
+        }
+
+
+
+        private void CreateOrderDoc(int id, string client)
+        {
+            try
+            {
+                string Template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Templates/ReportTemplate.docx");
+                string SavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Templates/Отчет №{id} по автозапчастям для информационной системы.docx");
+
+                var _report = _dbContext.orderReports.AsNoTracking().Where(x=>x.id == id).FirstOrDefault();
+
+                string dateStart = _report.dateBegin.Value.ToString("dd.MM.yyyy");
+                string dateEnd = _report.dateEnd.Value.ToString("dd.MM.yyyy");
+
+
+
+                Word.Application wordApp = new Word.Application();
+
+                Word.Document doc = wordApp.Documents.Open(Template);
+                doc.Content.Find.Execute(FindText: "@typereport",
+                    ReplaceWith: "Заказы", Replace: Word.WdReplace.wdReplaceAll);
+                doc.Content.Find.Execute(FindText: "@type1report",
+                   ReplaceWith: "заказов", Replace: Word.WdReplace.wdReplaceAll);
+                doc.Content.Find.Execute(FindText: "@dateStart",
+                   ReplaceWith: dateStart, Replace: Word.WdReplace.wdReplaceAll);
+                doc.Content.Find.Execute(FindText: "@dateEnd",
+                   ReplaceWith: dateEnd, Replace: Word.WdReplace.wdReplaceAll);
+                doc.Content.Find.Execute(FindText: "@provider",
+                  ReplaceWith: client, Replace: Word.WdReplace.wdReplaceAll);
+                     doc.Content.Find.Execute(FindText: "@typecustomer",
+                  ReplaceWith: "Заказчик", Replace: Word.WdReplace.wdReplaceAll);
+
+
+                //var ordersPeriod = _dbContext.Orders.AsNoTracking()
+                //   .Where(x => x.dateOrder >= startDateDt.SelectedDate
+                //   && x.dateOrder <= endDateDt.SelectedDate)
+                //   .Join(_dbContext.autoparts, x=>x.idAutoparts, y=>y.id, (x, y) =>
+                //   {
+                       
+                //   }).ToList();
+
+                Word.Table table = doc.Tables[0];
+                
+
+                doc.SaveAs(SavePath);
+
+                doc.Close();
+                wordApp.Quit();
+
+                byte[] file;
+
+                using (System.IO.FileStream fs = new System.IO.FileStream(SavePath, FileMode.Open))
+                {
+                    file = new byte[fs.Length];
+                    fs.Read(file, 0, file.Length);
+                }
+
+
+                var _doc = _dbContext.orderReports.Where(x => x.id == id).FirstOrDefault();
+                _doc.doc = file;
+                _dbContext.orderReports.AddOrUpdate(_doc);
+                _dbContext.SaveChanges();
+                Thread.Sleep(10);
+                Process.Start(SavePath);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
     }
 }

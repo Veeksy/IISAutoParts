@@ -53,6 +53,7 @@ namespace IISAutoParts.pages
                     priceTb.Text = $"{autopart.price:F2} руб.";
                     yearTb.Text = autopart.year.ToString();
                     descriptionTb.Text = autopart.description;
+                    CategoryCb.SelectedValue = autopart.idCategory;
                     if (!(autopart.image is null))
                         autopartImage.Source = ImageController.ReturnImageFromDataBase(autopart.image);
                 }
@@ -123,7 +124,7 @@ namespace IISAutoParts.pages
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new autopartsPage());
+            FrameController.MainFrame.Navigate(new autopartsPage(0));
         }
 
         //private async void GetAutoParts()

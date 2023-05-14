@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
+            "EntityFramework.ru": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
             "MahApps.Metro": {
               "target": "Package",
               "version": "[2.0.0-alpha0748, )"

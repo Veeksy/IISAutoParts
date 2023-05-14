@@ -5,8 +5,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="manufacturer" Type="varchar" MaxLength="150" />
-    <Property Name="name" Type="varchar" MaxLength="150" />
+    <Property Name="manufacturer" Type="nvarchar" MaxLength="150" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" />
     <Property Name="description" Type="text" />
     <Property Name="price" Type="decimal" Precision="18" Scale="10" />
     <Property Name="year" Type="int" />
@@ -19,20 +19,22 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="title" Type="varchar" MaxLength="150" />
+    <Property Name="title" Type="nvarchar" MaxLength="150" />
   </EntityType>
-  <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.autopartsModel" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="autopartsModel">
-          <Property Name="idAutoparts" Type="int" />
-          <Property Name="idModel" Type="int" />
-        </EntityType>-->
+  <EntityType Name="autopartsModel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idAutoparts" Type="int" />
+    <Property Name="idModel" Type="int" />
+  </EntityType>
   <EntityType Name="carModels">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="model" Type="varchar" MaxLength="250" />
+    <Property Name="model" Type="nvarchar" MaxLength="250" />
     <Property Name="idCar" Type="int" />
     <Property Name="photo" Type="image" />
   </EntityType>
@@ -41,7 +43,9 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="varchar" MaxLength="250" />
+    <Property Name="name" Type="nvarchar" MaxLength="250" />
+    <Property Name="description" Type="nvarchar(max)" />
+    <Property Name="country" Type="nvarchar" MaxLength="150" />
     <Property Name="photo" Type="image" />
   </EntityType>
   <EntityType Name="customers">
@@ -49,8 +53,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="varchar" MaxLength="150" />
-    <Property Name="address" Type="varchar" MaxLength="250" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" />
+    <Property Name="address" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="orderReports">
     <Key>
@@ -58,7 +62,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="doc" Type="varbinary(max)" />
-    <Property Name="orderId" Type="int" />
+    <Property Name="customerId" Type="int" />
     <Property Name="dateBegin" Type="date" />
     <Property Name="dateEnd" Type="date" />
   </EntityType>
@@ -80,6 +84,14 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="doc" Type="varbinary(max)" />
     <Property Name="idOrders" Type="int" />
+  </EntityType>
+  <EntityType Name="permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sectorname" Type="nvarchar" MaxLength="50" />
+    <Property Name="permissions" Type="xml" />
   </EntityType>
   <EntityType Name="provide">
     <Key>
@@ -106,7 +118,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="doc" Type="varbinary(max)" />
-    <Property Name="provideId" Type="int" />
+    <Property Name="providerId" Type="int" />
     <Property Name="dateBegin" Type="date" />
     <Property Name="dateEnd" Type="date" />
   </EntityType>
@@ -115,32 +127,44 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="varchar" MaxLength="250" />
-    <Property Name="address" Type="varchar" MaxLength="350" />
+    <Property Name="name" Type="nvarchar" MaxLength="250" />
+    <Property Name="address" Type="nvarchar" MaxLength="350" />
+  </EntityType>
+  <EntityType Name="userRole">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role" Type="nvarchar" MaxLength="50" />
+    <Property Name="idPermission" Type="int" />
   </EntityType>
   <EntityType Name="users">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="role" Type="varchar" MaxLength="50" />
-    <Property Name="login" Type="varchar" MaxLength="50" />
-    <Property Name="password" Type="varchar" MaxLength="150" />
+    <Property Name="role" Type="int" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="150" />
     <Property Name="dateEnter" Type="datetime" />
+    <Property Name="permission" Type="xml" />
   </EntityType>
   <EntityContainer Name="Хранилище IISAutoPartsModelContainer">
     <EntitySet Name="autoparts" EntityType="Self.autoparts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="autopartsModel" EntityType="Self.autopartsModel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="carModels" EntityType="Self.carModels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cars" EntityType="Self.cars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orderReports" EntityType="Self.orderReports" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="permissions" EntityType="Self.permissions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="provide" EntityType="Self.provide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="provideDoc" EntityType="Self.provideDoc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="provideReports" EntityType="Self.provideReports" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="providers" EntityType="Self.providers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userRole" EntityType="Self.userRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

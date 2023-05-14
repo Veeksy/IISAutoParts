@@ -11,4 +11,7 @@ namespace IISAutoParts.Class
     {
         public static Frame MainFrame { get; set; }
     }
+    public static class UserController { 
+        public static int userId { get; set; }
+    }
 }

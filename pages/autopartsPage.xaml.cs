@@ -43,11 +43,12 @@ namespace IISAutoParts.pages
         List<autoparts> _autoparts = new List<autoparts>();
 
         private List<int> selectedIds = new List<int>();
-        public autopartsPage()
+        public autopartsPage(int id)
         {
             InitializeComponent();
 
             _dbContext = new IISAutoPartsEntities();
+
 
             _autoparts = _dbContext.autoparts.ToList();
 

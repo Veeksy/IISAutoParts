@@ -1,8 +1,10 @@
 ﻿using IISAutoParts.authCodeDecode;
+using IISAutoParts.Class;
 using IISAutoParts.DBcontext;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +40,6 @@ namespace IISAutoParts
                 MainWindow mw = new MainWindow();
                 mw.Show();
                 this.Close();
-
             }
             else
             {
@@ -52,7 +53,12 @@ namespace IISAutoParts
             var user =  _db.users.Where(x=>x.login == username && x.password == password).FirstOrDefault();
             if (user is null)
                 return false;
-            else return true;
+            else {
+                UserController.userId = user.id;
+                user.dateEnter = DateTime.Now;
+                _db.users.AddOrUpdate(user);
+                return true; 
+            }
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
@@ -61,7 +67,6 @@ namespace IISAutoParts
             {
                 login = usernameField.Text,
                 password = AuthController.Encrypt(passwordField.Password),
-                role = "Admin",
             });
             _db.SaveChanges();
         }
