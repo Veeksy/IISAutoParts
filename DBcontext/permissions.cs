@@ -15,7 +15,7 @@ namespace IISAutoParts.DBcontext
     public partial class permissions
     {
         public int id { get; set; }
-        public string permissions1 { get; set; }
         public string sectorname { get; set; }
+        public string permissions1 { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace IISAutoParts.DBcontext
     
         public virtual DbSet<autoparts> autoparts { get; set; }
         public virtual DbSet<autopartsCategory> autopartsCategory { get; set; }
+        public virtual DbSet<autopartsModel> autopartsModel { get; set; }
         public virtual DbSet<carModels> carModels { get; set; }
         public virtual DbSet<cars> cars { get; set; }
         public virtual DbSet<customers> customers { get; set; }
@@ -40,6 +41,5 @@ namespace IISAutoParts.DBcontext
         public virtual DbSet<providers> providers { get; set; }
         public virtual DbSet<userRole> userRole { get; set; }
         public virtual DbSet<users> users { get; set; }
-        public virtual DbSet<autopartsModels> autopartsModel { get; set; }
     }
 }

@@ -142,7 +142,10 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                FrameController.MainFrame.Navigate(new autoModelsPage(selectedPart.id));
+                if (UserController.permissionList.Where(x => x.Sector == "Модель авто").Select(x => x.Read).FirstOrDefault())
+                    FrameController.MainFrame.Navigate(new autoModelsPage(selectedPart.id));
+                else
+                    MessageBox.Show("Недостаточно прав для просмотра моделей автомобилей");
             }
             else
             {

@@ -41,16 +41,22 @@ namespace IISAutoParts.pages
         Paginator paginator;
 
         List<autoparts> _autoparts = new List<autoparts>();
+        List<int?> ids = new List<int?>();
 
         private List<int> selectedIds = new List<int>();
+
+        private int CarModel;
+
         public autopartsPage(int id)
         {
             InitializeComponent();
 
             _dbContext = new IISAutoPartsEntities();
+            this.CarModel = id;
 
+            ids = _dbContext.autopartsModel.AsNoTracking().Where(x=>x.idModel == CarModel).Select(x=>x.idAutoparts).ToList();
 
-            _autoparts = _dbContext.autoparts.ToList();
+            _autoparts = _dbContext.autoparts.Where(x=> ids.Contains(x.id)).ToList();
 
             paginator = new Paginator(_autoparts.ToList<object>(), 1, 10);
 
@@ -58,6 +64,17 @@ namespace IISAutoParts.pages
             countPage.Content = paginator.GetCountpage();
 
             autopartDGV.ItemsSource = paginator.GetTable();
+
+            if(UserController.permissionList.Where(x=>x.Sector == "Каталог автозапчастей").Select(x => x.Add).FirstOrDefault())
+                AddnewAutoParts.IsEnabled = true;
+            else
+                AddnewAutoParts.IsEnabled = false;
+
+            if (UserController.permissionList.Where(x => x.Sector == "Каталог автозапчастей").Select(x => x.Delete).FirstOrDefault())
+                deleteElements.IsEnabled = true;
+            else
+                deleteElements.IsEnabled = false;
+
         }
 
         private void nextBtn_Click(object sender, RoutedEventArgs e)
@@ -97,7 +114,10 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                FrameController.MainFrame.Navigate(new autopartsAddEdit(selectedPart.id));
+                if (UserController.permissionList.Where(x => x.Sector == "Каталог автозапчастей").Select(x => x.Delete).FirstOrDefault())
+                    FrameController.MainFrame.Navigate(new autopartsAddEdit(CarModel, selectedPart.id));
+                else
+                    System.Windows.Forms.MessageBox.Show("Недостаточно прав для редактирования компонента");
             }
             else
             {
@@ -119,7 +139,7 @@ namespace IISAutoParts.pages
 
         private void AddnewAutoParts_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new autopartsAddEdit(0));
+            FrameController.MainFrame.Navigate(new autopartsAddEdit(CarModel, 0));
         }
 
         private void selectAllCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -173,7 +193,8 @@ namespace IISAutoParts.pages
                 _dbContext.autoparts.RemoveRange(deleted);
 
                 _dbContext.SaveChanges();
-                _autoparts = _dbContext.autoparts.ToList();
+                _autoparts = _dbContext.autoparts.Where(x => ids.Contains(x.id)).ToList();
+
 
                 paginator = new Paginator(_autoparts.ToList<object>(), paginator.GetPage(), 10);
                 autopartDGV.ItemsSource = paginator.GetTable();
@@ -185,7 +206,8 @@ namespace IISAutoParts.pages
 
         private void filterBtn_Click(object sender, RoutedEventArgs e)
         {
-            _autoparts = _dbContext.autoparts.ToList();
+            _autoparts = _autoparts = _dbContext.autoparts.Where(x => ids.Contains(x.id)).ToList();
+
 
             _autoparts = _autoparts.Where(x => 
             (string.IsNullOrEmpty(manufacturerTb.Text) || x.manufacturer.ToLower().Contains(manufacturerTb.Text.ToLower())) 

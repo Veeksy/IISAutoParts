@@ -113,15 +113,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AutoPartsModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBcontext\AutoPartsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="DBcontext\autopartsModel.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\AutoPartsModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\AutoPartsModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBcontext\carModels.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
@@ -369,7 +372,7 @@
     <Content Include="DBcontext\AutoPartsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-      <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
+      <LastGenOutput>AutoPartsModel1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

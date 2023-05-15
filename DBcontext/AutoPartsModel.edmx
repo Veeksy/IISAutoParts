@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище IISAutoPartsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище IISAutoPartsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="autoparts">
           <Key>
             <PropertyRef Name="id" />
@@ -172,7 +172,8 @@
           <EntitySet Name="userRole" EntityType="Self.userRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IISAutoPartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -197,6 +198,14 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="autopartsModel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAutoparts" Type="Int32" />
+          <Property Name="idModel" Type="Int32" />
+        </EntityType>
         <EntityType Name="carModels">
           <Key>
             <PropertyRef Name="id" />
@@ -212,9 +221,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -258,8 +267,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="permissions1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="sectorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="permissions1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="provide">
           <Key>
@@ -320,6 +329,7 @@
         <EntityContainer Name="IISAutoPartsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="autoparts" EntityType="Self.autoparts" />
           <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" />
+          <EntitySet Name="autopartsModel" EntityType="Self.autopartsModel" />
           <EntitySet Name="carModels" EntityType="Self.carModels" />
           <EntitySet Name="cars" EntityType="Self.cars" />
           <EntitySet Name="customers" EntityType="Self.customers" />
@@ -333,16 +343,7 @@
           <EntitySet Name="providers" EntityType="Self.providers" />
           <EntitySet Name="userRole" EntityType="Self.userRole" />
           <EntitySet Name="users" EntityType="Self.users" />
-          <EntitySet Name="autopartsModel" EntityType="IISAutoPartsModel.autopartsModel" />
         </EntityContainer>
-        <EntityType Name="autopartsModel">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idAutoparts" Type="Int32" />
-          <Property Name="idModel" Type="Int32" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -372,6 +373,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="autopartsModel">
+            <EntityTypeMapping TypeName="IISAutoPartsModel.autopartsModel">
+              <MappingFragment StoreEntitySet="autopartsModel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
+                <ScalarProperty Name="idModel" ColumnName="idModel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="carModels">
             <EntityTypeMapping TypeName="IISAutoPartsModel.carModels">
               <MappingFragment StoreEntitySet="carModels">
@@ -385,10 +395,10 @@
           <EntitySetMapping Name="cars">
             <EntityTypeMapping TypeName="IISAutoPartsModel.cars">
               <MappingFragment StoreEntitySet="cars">
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -437,8 +447,8 @@
           <EntitySetMapping Name="permissions">
             <EntityTypeMapping TypeName="IISAutoPartsModel.permissions">
               <MappingFragment StoreEntitySet="permissions">
-                <ScalarProperty Name="sectorname" ColumnName="sectorname" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sectorname" ColumnName="sectorname" />
                 <ScalarProperty Name="permissions1" ColumnName="permissions" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -496,21 +506,12 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="IISAutoPartsModel.users">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="permission" ColumnName="permission" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="dateEnter" ColumnName="dateEnter" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="autopartsModel">
-            <EntityTypeMapping TypeName="IISAutoPartsModel.autopartsModel">
-              <MappingFragment StoreEntitySet="autopartsModel">
-                <ScalarProperty Name="idModel" ColumnName="idModel" />
-                <ScalarProperty Name="idAutoparts" ColumnName="idAutoparts" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="permission" ColumnName="permission" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

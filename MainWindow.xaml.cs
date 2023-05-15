@@ -26,6 +26,11 @@ namespace IISAutoParts
         {
             InitializeComponent();
             FrameController.MainFrame = MainFrame;
+
+            if (UserController.isAdmin)
+                adminMenu.Visibility = Visibility.Visible;
+            else
+                adminMenu.Visibility = Visibility.Collapsed;
         }
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -38,19 +43,32 @@ namespace IISAutoParts
         }
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new ordersPage());
+            if (UserController.permissionList.Where(x => x.Sector == "Заказы").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new ordersPage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра списка заказов");
+
         }
         private void Delivery_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new providePage());
+            if (UserController.permissionList.Where(x => x.Sector == "Поставки").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new providePage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра списка поставок");
         }
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new reportsPage());
+            if (UserController.permissionList.Where(x => x.Sector == "Отчеты").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new reportsPage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра списка отчетов");
         }
         private void Catalog_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new autopartsPage(0));
+            if (UserController.permissionList.Where(x => x.Sector == "Бренд").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new autoPage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра каталога");
         }
         private void MainMenu_PaneClosed(object sender, EventArgs e)
         {
@@ -68,12 +86,6 @@ namespace IISAutoParts
         private void usersBtn_Click(object sender, RoutedEventArgs e)
         {
             FrameController.MainFrame.Navigate(new usersListPage());
-        }
-
-        private void Cars_Click(object sender, RoutedEventArgs e)
-        {
-            FrameController.MainFrame.Navigate(new autoPage());
-
         }
     }
 }

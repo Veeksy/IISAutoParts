@@ -21,6 +21,14 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="autopartsModel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="idModel" Type="Int32" />
+  </EntityType>
   <EntityType Name="carModels">
     <Key>
       <PropertyRef Name="id" />
@@ -36,9 +44,9 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="customers">
     <Key>
@@ -82,8 +90,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="permissions1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="sectorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="permissions1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="provide">
     <Key>
@@ -144,6 +152,7 @@
   <EntityContainer Name="IISAutoPartsEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="autoparts" EntityType="Self.autoparts" />
     <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" />
+    <EntitySet Name="autopartsModel" EntityType="Self.autopartsModel" />
     <EntitySet Name="carModels" EntityType="Self.carModels" />
     <EntitySet Name="cars" EntityType="Self.cars" />
     <EntitySet Name="customers" EntityType="Self.customers" />
@@ -157,14 +166,5 @@
     <EntitySet Name="providers" EntityType="Self.providers" />
     <EntitySet Name="userRole" EntityType="Self.userRole" />
     <EntitySet Name="users" EntityType="Self.users" />
-    <EntitySet Name="autopartsModel" EntityType="IISAutoPartsModel.autopartsModel" />
   </EntityContainer>
-  <EntityType Name="autopartsModel">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idAutoparts" Type="Int32" />
-    <Property Name="idModel" Type="Int32" />
-  </EntityType>
 </Schema>

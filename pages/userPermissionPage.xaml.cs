@@ -2,6 +2,7 @@
 using IISAutoParts.DBcontext.MyEntities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,49 @@ namespace IISAutoParts.pages
             this.userId = userId;
             loadPermission();
         }
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<PermissionList> permissionList = permissionDGV.ItemsSource as List<PermissionList>;
+
+                XElement permission = new XElement("permission",
+                    new XElement("admin", IsAdminChb.IsChecked));
+
+                for (int i = 0; i < permissionList.Count; i++)
+                {
+                    XElement section = new XElement("section", new XAttribute("name", permissionList[i].Sector));
+
+                    XElement read = new XElement("read", permissionList[i].Read);
+                    XElement add = new XElement("add", permissionList[i].Add);
+                    XElement edit = new XElement("edit", permissionList[i].Edit);
+                    XElement delete = new XElement("delete", permissionList[i].Delete);
+
+                    section.Add(read);
+                    section.Add(add);
+                    section.Add(edit);
+                    section.Add(delete);
+
+                    permission.Add(section);
+                }
+
+                XDocument xmlDocument = new XDocument(permission);
+
+                var user = _dbContext.users.Where(x => x.id == userId).FirstOrDefault();
+
+                user.permission = xmlDocument.ToString();
+
+                _dbContext.users.AddOrUpdate(user);
+                _dbContext.SaveChanges();
+                MessageBox.Show("Сохранено");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
+        }
 
         private void loadPermission()
         {
@@ -63,6 +107,7 @@ namespace IISAutoParts.pages
                 permissionDGV.ItemsSource = permissionList;
             }
         }
+
 
     }
 }

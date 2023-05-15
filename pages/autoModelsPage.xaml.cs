@@ -135,7 +135,10 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                MessageBox.Show(selectedPart.id.ToString());
+                if (UserController.permissionList.Where(x => x.Sector == "Каталог автозапчастей").Select(x => x.Read).FirstOrDefault())
+                    FrameController.MainFrame.Navigate(new autopartsPage(selectedPart.id));
+                else
+                    MessageBox.Show("Недостаточно прав для просмотра запчастей");
             }
             else
             {

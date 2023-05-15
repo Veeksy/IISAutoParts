@@ -31,13 +31,15 @@ namespace IISAutoParts.pages
 
         autoparts autopart;
 
-        public autopartsAddEdit(int? IdAutoPart = 0)
+        int CarModel;
+
+        public autopartsAddEdit(int CarModel, int? IdAutoPart = 0)
         {
             InitializeComponent();
             try
             {
                 _dbContext = new IISAutoPartsEntities();
-
+                this.CarModel = CarModel;
 
                 autopart = _dbContext.autoparts.Where(x => x.id == IdAutoPart).FirstOrDefault();
 
@@ -67,8 +69,7 @@ namespace IISAutoParts.pages
                 MessageBox.Show("Не удалось подключиться к базе данных. " + ex.Message);
             }
 
-            
-
+            this.CarModel = CarModel;
         }
 
         private void ChangeImageBtn_Click(object sender, RoutedEventArgs e)
@@ -95,10 +96,19 @@ namespace IISAutoParts.pages
                 autopart.name = nameTb.Text;
                 autopart.description = descriptionTb.Text;
                 autopart.idCategory = Convert.ToInt32(CategoryCb.SelectedValue);
-
+                autopart.count = autopart.count ?? 0;
                 _dbContext.autoparts.AddOrUpdate(autopart);
-
                 _dbContext.SaveChanges();
+
+                var _modelAutoPart = new autopartsModel()
+                {
+                    idAutoparts = autopart.id,
+                    idModel = CarModel,
+                };
+
+                _dbContext.autopartsModel.AddOrUpdate(_modelAutoPart);
+                _dbContext.SaveChanges();
+
 
                 MessageBox.Show("Сохранено");
 
@@ -124,7 +134,7 @@ namespace IISAutoParts.pages
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            FrameController.MainFrame.Navigate(new autopartsPage(0));
+            FrameController.MainFrame.Navigate(new autopartsPage(CarModel));
         }
 
         //private async void GetAutoParts()

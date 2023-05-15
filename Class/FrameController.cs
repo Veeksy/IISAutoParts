@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IISAutoParts.DBcontext.MyEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace IISAutoParts.Class
     }
     public static class UserController { 
         public static int userId { get; set; }
+        public static bool isAdmin { get; set; }
+        public static List<PermissionList> permissionList { get; set; }
     }
 }
