@@ -81,7 +81,6 @@ namespace IISAutoParts.pages
             }
             catch (Exception ex) {
                 MessageBox.Show("Формат не поддерживается. " + ex.Message);
-
             }
 
         }

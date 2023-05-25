@@ -52,6 +52,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>pngwing.com.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -81,6 +84,86 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\Captcha.cs" />
+    <Compile Include="DBcontext\autoparts.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\autopartsCategory.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\autopartsModel.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\carModels.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\cars.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\customers.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\ModelDatabase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDatabase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\ModelDatabase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\ModelDatabase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDatabase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\MyEntities\orderReport.cs" />
+    <Compile Include="DBcontext\orderReports.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\Orders.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\OrdersDoc.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\permissions.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\provide.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\provideDoc.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\provideReports.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\providers.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\userRole.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\users.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pages\consumersAddEdit.xaml.cs">
+      <DependentUpon>consumersAddEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\consumersPage.xaml.cs">
+      <DependentUpon>consumersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\providersAddEdit.xaml.cs">
+      <DependentUpon>providersAddEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\providersPage.xaml.cs">
+      <DependentUpon>providersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration.xaml.cs">
+      <DependentUpon>Registration.xaml</DependentUpon>
+    </Compile>
     <Page Include="AuthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,72 +185,9 @@
     <Compile Include="Class\ImageController.cs" />
     <Compile Include="Class\Paginator.cs" />
     <Compile Include="Class\SelectorController.cs" />
-    <Compile Include="DBcontext\autoparts.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\autopartsCategory.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\AutoPartsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AutoPartsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\autopartsModel.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\AutoPartsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\AutoPartsModel1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\carModels.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\cars.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\customers.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBcontext\MyEntities\Orders.cs" />
     <Compile Include="DBcontext\MyEntities\Reports.cs" />
     <Compile Include="DBcontext\MyEntities\UserList.cs" />
-    <Compile Include="DBcontext\orderReports.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\Orders.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\OrdersDoc.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\permissions.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\provide.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\provideDoc.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\provideReports.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\providers.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\userRole.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBcontext\users.cs">
-      <DependentUpon>AutoPartsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -176,11 +196,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\autoModelAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\autoModelsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\autoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\CarAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\consumersAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\consumersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,6 +244,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\providersAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\providersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\reportsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,16 +264,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Registration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\autoModelAddEdit.xaml.cs">
+      <DependentUpon>autoModelAddEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\autoModelsPage.xaml.cs">
       <DependentUpon>autoModelsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\autoPage.xaml.cs">
       <DependentUpon>autoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\CarAddEdit.xaml.cs">
+      <DependentUpon>CarAddEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\ordersAddEdit.xaml.cs">
       <DependentUpon>ordersAddEdit.xaml</DependentUpon>
@@ -275,12 +329,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DBcontext\AutoPartsModel.edmx">
+    <EntityDeploy Include="DBcontext\ModelDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AutoPartsModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DBcontext\AutoPartsModel.edmx.diagram">
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
+    <None Include="DBcontext\ModelDatabase.edmx.diagram">
+      <DependentUpon>ModelDatabase.edmx</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -364,16 +418,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBcontext\AutoPartsModel.Context.tt">
+    <Content Include="DBcontext\ModelDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-      <LastGenOutput>AutoPartsModel.Context.cs</LastGenOutput>
+      <DependentUpon>ModelDatabase.edmx</DependentUpon>
+      <LastGenOutput>ModelDatabase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DBcontext\AutoPartsModel.tt">
+    <Content Include="DBcontext\ModelDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AutoPartsModel.edmx</DependentUpon>
-      <LastGenOutput>AutoPartsModel1.cs</LastGenOutput>
+      <DependentUpon>ModelDatabase.edmx</DependentUpon>
+      <LastGenOutput>ModelDatabase.cs</LastGenOutput>
     </Content>
+    <Resource Include="pngwing.com.ico" />
+    <Resource Include="красный-значок-автомоби-я-дизайн-машины-транспорта-по-мере-того-как-74039876.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

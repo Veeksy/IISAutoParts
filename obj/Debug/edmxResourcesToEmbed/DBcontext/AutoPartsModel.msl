@@ -4,6 +4,7 @@
     <EntitySetMapping Name="autoparts">
       <EntityTypeMapping TypeName="IISAutoPartsModel.autoparts">
         <MappingFragment StoreEntitySet="autoparts">
+          <ScalarProperty Name="article" ColumnName="article" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
           <ScalarProperty Name="name" ColumnName="name" />

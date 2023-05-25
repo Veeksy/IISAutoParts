@@ -32,18 +32,17 @@ namespace IISAutoParts.pages
             InitializeComponent();
 
             _dbContext = new IISAutoPartsEntities();
-            var users = _dbContext.users.Select(x=> new UserList() 
+
+            var users = _dbContext.users.Select(x=> new UserList
             {
                 Id = x.id,
                 Name = x.login,
-                DateEnter = x.dateEnter,
+                DateEnter = x.dateEnter.Value,
             }).ToList();
 
             UsersDGV.ItemsSource = users;
             
         }
-
-        
 
         private void UsersDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

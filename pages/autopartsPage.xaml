@@ -42,6 +42,10 @@
                             </Style>
                         </DataGridCheckBoxColumn.ElementStyle>
                     </DataGridCheckBoxColumn>
+                    <DataGridTextColumn  Header="Артикул"
+                                    Binding="{Binding Path=article}"
+                                    >
+                    </DataGridTextColumn>
                     <DataGridTextColumn  Header="Производитель"
                                     Binding="{Binding Path=manufacturer}"
                                     >
@@ -71,6 +75,11 @@
                         
                     </Label>
                     <TextBox 
+                        x:Name="articleTb"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Артикул"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox 
                         x:Name="manufacturerTb"
                         VerticalAlignment="Center"
                         materialDesign:HintAssist.Hint="Производитель"
@@ -80,6 +89,12 @@
                         VerticalAlignment="Center"
                         materialDesign:HintAssist.Hint="Наименование"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <ComboBox 
+                        x:Name="categoryCb"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Категория"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                     <TextBox 
                         x:Name="maxPrice"
                         VerticalAlignment="Center"
@@ -101,6 +116,9 @@
                             <materialDesign:PackIcon Kind="Delete" />
                         </Button>
                     </DockPanel>
+                    <Button Margin="10" x:Name="backBtn" Click="backBtn_Click">
+                        <materialDesign:PackIcon Kind="ArrowBack" />
+                    </Button>
                 </StackPanel>
 
             </Grid>

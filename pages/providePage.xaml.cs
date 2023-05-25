@@ -56,6 +56,16 @@ namespace IISAutoParts.pages
 
             provideDGV.ItemsSource = paginator.GetTable();
 
+            if (UserController.permissionList.Where(x => x.Sector == "Поставки").Select(x => x.Add).FirstOrDefault())
+                AddnewProvide.IsEnabled = true;
+            else
+                AddnewProvide.IsEnabled = false;
+            if (UserController.permissionList.Where(x => x.Sector == "Поставки").Select(x => x.Delete).FirstOrDefault())
+                DeleteBtn.IsEnabled = true;
+            else
+                DeleteBtn.IsEnabled = false;
+
+
         }
 
         private void provideDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)

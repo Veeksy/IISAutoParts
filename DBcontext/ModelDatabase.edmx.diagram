@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="770658c1c8ec499eaca9342bf60e253b" Name="Diagram1">
+      <Diagram DiagramId="3b421e073d2841e79fbba79dbdae15bb" Name="Diagram1" ShowGrid="false" DisplayType="true">
         <EntityTypeShape EntityType="IISAutoPartsModel.autoparts" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.autopartsCategory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.autopartsModel" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="IISAutoPartsModel.provideReports" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.providers" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IISAutoPartsModel.userRole" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IISAutoPartsModel.users" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IISAutoPartsModel.users" Width="1.5" PointX="3.875" PointY="9.875" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

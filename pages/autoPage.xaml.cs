@@ -10,11 +10,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 namespace IISAutoParts.pages
 {
@@ -48,14 +51,19 @@ namespace IISAutoParts.pages
 
             countryCb.ItemsSource = countries.countries;
 
+            if (UserController.permissionList.Where(x => x.Sector == "Бренд").Select(x => x.Add).FirstOrDefault())
+                AddnewAutoParts.IsEnabled = true;
+            else
+                AddnewAutoParts.IsEnabled = false;
+
         }
 
         private void filterBtn_Click(object sender, RoutedEventArgs e)
         {
-            _cars = _dbContext.cars.Where(x=> (string.IsNullOrEmpty(nameTb.Text) || x.name.ToLower().Contains(nameTb.Text.ToLower())) 
+            _cars = _dbContext.cars.Where(x => (string.IsNullOrEmpty(nameTb.Text) || x.name.ToLower().Contains(nameTb.Text.ToLower()))
             && (string.IsNullOrEmpty(countryCb.Text) || x.country.Contains(countryCb.Text))).ToList();
-            
-            
+
+
             paginator = new Paginator(_cars.ToList<object>(), 1, 10);
             pageNumber.Text = paginator.GetPage().ToString();
             countPage.Content = paginator.GetCountpage();
@@ -84,21 +92,47 @@ namespace IISAutoParts.pages
 
         private void AddnewAutoParts_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameController.MainFrame.Navigate(new CarAddEdit(0));
         }
 
         private void deleteElements_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            string listViewId = button.Tag.ToString();
-
-            if (listViewId != null)
+            
+            if (UserController.permissionList.Where(x => x.Sector == "Бренд").Select(x => x.Delete).FirstOrDefault())
             {
-                MessageBox.Show(listViewId);
+
+                Button button = sender as Button;
+                string listViewId = button.Tag.ToString();
+
+                if (listViewId != null)
+                {
+                    System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox
+                    .Show("Действительно удалить выбранные записи?", "Подтвердите действие",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        var deleted = _cars.Where(x => x.id == int.Parse(listViewId)).FirstOrDefault();
+                        _dbContext.cars.Remove(deleted);
+                        _dbContext.SaveChanges();
+
+                        _cars = _dbContext.cars.ToList();
+
+                        paginator = new Paginator(_cars.ToList<object>(), 1, 10);
+
+                        pageNumber.Text = paginator.GetPage().ToString();
+                        countPage.Content = paginator.GetCountpage();
+
+                        carList.ItemsSource = paginator.GetTable();
+                    }
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Не удалось открыть выбранный объект.");
+                }
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Не удалось открыть выбранный объект.");
+                System.Windows.Forms.MessageBox.Show("Недостаточно прав для совершения действия");
             }
         }
 
@@ -121,7 +155,6 @@ namespace IISAutoParts.pages
             {
                 selectedIds.Add(row.id);
             }
-
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -145,18 +178,35 @@ namespace IISAutoParts.pages
                 if (UserController.permissionList.Where(x => x.Sector == "Модель авто").Select(x => x.Read).FirstOrDefault())
                     FrameController.MainFrame.Navigate(new autoModelsPage(selectedPart.id));
                 else
-                    MessageBox.Show("Недостаточно прав для просмотра моделей автомобилей");
+                    System.Windows.MessageBox.Show("Недостаточно прав для просмотра моделей автомобилей");
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Не удалось открыть выбранный объект.");
             }
-           
+
         }
 
         private void EditElement_Click(object sender, RoutedEventArgs e)
         {
+            if (UserController.permissionList.Where(x => x.Sector == "Бренд").Select(x => x.Edit).FirstOrDefault())
+            {
+                Button button = sender as Button;
+                string listViewId = button.Tag.ToString();
 
+                if (listViewId != null)
+                {
+                    FrameController.MainFrame.Navigate(new CarAddEdit(int.Parse(listViewId)));
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Не удалось открыть выбранный объект.");
+                }
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Недостаточно прав для совершения действия");
+            }
         }
     }
 }

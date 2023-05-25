@@ -65,7 +65,11 @@ namespace IISAutoParts.pages
 
             autopartDGV.ItemsSource = paginator.GetTable();
 
-            if(UserController.permissionList.Where(x=>x.Sector == "Каталог автозапчастей").Select(x => x.Add).FirstOrDefault())
+            categoryCb.ItemsSource = _dbContext.autopartsCategory.ToList();
+            categoryCb.DisplayMemberPath = "title";
+            categoryCb.SelectedValuePath = "id";
+
+            if (UserController.permissionList.Where(x=>x.Sector == "Каталог автозапчастей").Select(x => x.Add).FirstOrDefault())
                 AddnewAutoParts.IsEnabled = true;
             else
                 AddnewAutoParts.IsEnabled = false;
@@ -114,7 +118,7 @@ namespace IISAutoParts.pages
 
             if (selectedPart != null)
             {
-                if (UserController.permissionList.Where(x => x.Sector == "Каталог автозапчастей").Select(x => x.Delete).FirstOrDefault())
+                if (UserController.permissionList.Where(x => x.Sector == "Каталог автозапчастей").Select(x => x.Edit).FirstOrDefault())
                     FrameController.MainFrame.Navigate(new autopartsAddEdit(CarModel, selectedPart.id));
                 else
                     System.Windows.Forms.MessageBox.Show("Недостаточно прав для редактирования компонента");
@@ -207,13 +211,15 @@ namespace IISAutoParts.pages
         private void filterBtn_Click(object sender, RoutedEventArgs e)
         {
             _autoparts = _autoparts = _dbContext.autoparts.Where(x => ids.Contains(x.id)).ToList();
-
+            int category = categoryCb.SelectedValue != null ? ((int)categoryCb.SelectedValue) : (-1); 
 
             _autoparts = _autoparts.Where(x => 
             (string.IsNullOrEmpty(manufacturerTb.Text) || x.manufacturer.ToLower().Contains(manufacturerTb.Text.ToLower())) 
             && (string.IsNullOrEmpty(nameTb.Text) || x.name.ToLower().Contains(nameTb.Text.ToLower()))
             && (string.IsNullOrEmpty(minPrice.Text) || x.price >= Convert.ToInt32(minPrice.Text))
-            && (string.IsNullOrEmpty(maxPrice.Text) || x.price <= Convert.ToInt32(maxPrice.Text))).ToList();
+            && (string.IsNullOrEmpty(maxPrice.Text) || x.price <= Convert.ToInt32(maxPrice.Text)) &&
+            (category == -1 || x.idCategory == category) 
+            && (string.IsNullOrEmpty(articleTb.Text) || x.article.Contains(articleTb.Text))).ToList();
 
 
             paginator = new Paginator(_autoparts.ToList<object>(), 1, 10);
@@ -222,6 +228,12 @@ namespace IISAutoParts.pages
             countPage.Content = paginator.GetCountpage();
 
             autopartDGV.ItemsSource = paginator.GetTable();
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var carId = _dbContext.carModels.Where(x => x.id == CarModel).Select(x=>x.idCar).FirstOrDefault(); 
+            FrameController.MainFrame.Navigate(new autoModelsPage((int)carId));
         }
     }
 }

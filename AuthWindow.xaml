@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:IISAutoParts"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="450" Width="800">
+        Title="Авторизация" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -24,21 +24,20 @@
             <DockPanel>
                 <StackPanel
       Orientation="Horizontal">
-                    
+
                     <TextBlock
         Margin="16,0,0,0"
         VerticalAlignment="Center"
         Text="Информационная система автозапчастей" />
-                   
+
                 </StackPanel>
-                
+
             </DockPanel>
         </materialDesign:ColorZone>
-        <StackPanel Margin="20" Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBox x:Name="usernameField" Margin="10"
                      materialDesign:HintAssist.Hint="Логин"
-                     >
-                
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
             </TextBox>
             <PasswordBox x:Name="passwordField" Margin="10"
                          materialDesign:HintAssist.Hint="Пароль"
@@ -54,8 +53,22 @@
                 </Button>
             </DockPanel>
             <Label x:Name="resultView">
-                
+
             </Label>
+            <Grid x:Name="capchaGrid" Visibility="Collapsed" Height="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="0" x:Name="CapchaCanvas" Grid.RowSpan="3"/>
+                <TextBox x:Name="AnswerTextBox" Text="Введите капчу" HorizontalContentAlignment="Center" FontSize="16" Margin="3,3,3,3" Grid.RowSpan="3"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,29,0,0">
+                    <Button Content="Новая капча" Click="NewCapchButton" Margin="10" />
+                    <Button Content="Отправить" Click="SendButton" Margin="10"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>

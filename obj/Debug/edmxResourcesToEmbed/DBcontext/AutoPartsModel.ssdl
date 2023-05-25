@@ -6,6 +6,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="manufacturer" Type="nvarchar" MaxLength="150" />
+    <Property Name="article" Type="nvarchar" MaxLength="25" />
     <Property Name="name" Type="nvarchar" MaxLength="150" />
     <Property Name="description" Type="text" />
     <Property Name="price" Type="decimal" Precision="18" Scale="10" />

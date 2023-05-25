@@ -99,7 +99,7 @@
                 </DockPanel>
 
                 <DockPanel Margin="10">
-                    <Button HorizontalAlignment="Right">
+                    <Button HorizontalAlignment="Right" x:Name="deleteBtn" Click="deleteBtn_Click">
                         <materialDesign:PackIcon Kind="Delete" />
                     </Button>
                 </DockPanel>

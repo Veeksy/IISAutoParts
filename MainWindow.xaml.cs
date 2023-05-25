@@ -28,9 +28,9 @@ namespace IISAutoParts
             FrameController.MainFrame = MainFrame;
 
             if (UserController.isAdmin)
-                adminMenu.Visibility = Visibility.Visible;
+                usersBtn.Visibility = Visibility.Visible;
             else
-                adminMenu.Visibility = Visibility.Collapsed;
+                usersBtn.Visibility = Visibility.Collapsed;
         }
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -86,6 +86,29 @@ namespace IISAutoParts
         private void usersBtn_Click(object sender, RoutedEventArgs e)
         {
             FrameController.MainFrame.Navigate(new usersListPage());
+        }
+
+        private void changeUser_Click(object sender, RoutedEventArgs e)
+        {
+            AuthWindow authWindow = new AuthWindow();
+            authWindow.Show();
+            this.Close();
+        }
+
+        private void Customers_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserController.permissionList.Where(x => x.Sector == "Заказчики").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new consumersPage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра заказчиков");
+        }
+
+        private void Providers_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserController.permissionList.Where(x => x.Sector == "Поставщики").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new providersPage());
+            else
+                MessageBox.Show("Недостаточно прав для просмотра заказчиков");
         }
     }
 }

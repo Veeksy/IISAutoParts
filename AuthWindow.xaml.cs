@@ -9,6 +9,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Caching;
 using System.Web.Configuration;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,24 +32,49 @@ namespace IISAutoParts
         IISAutoPartsEntities _db;
         users user;
         users new_user;
+
+
+        private int tryEnter = 3;
+
+        public bool IsAccept = true;
+        private Captcha capcha;
+
         public AuthWindow()
         {
             InitializeComponent();
             _db = new IISAutoPartsEntities();
+
+            capcha = new Captcha(5, CapchaCanvas);
         }
 
         private void EnterBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (GetUsersInfo(usernameField.Text, passwordField.Password))
+            if (!IsAccept)
             {
-                MainWindow mw = new MainWindow();
-                mw.Show();
-                this.Close();
+                MessageBox.Show("Символы не совпадают.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                RegenearteCapcha();
             }
             else
             {
-                MessageBox.Show("Ошибка");
+                if (GetUsersInfo(usernameField.Text, passwordField.Password))
+                {
+                    MainWindow mw = new MainWindow();
+                    mw.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Неверный пароль");
+                    tryEnter -= 1;
+                    if (tryEnter <= 0)
+                    {
+                        IsAccept = false;
+                        capchaGrid.Visibility = Visibility.Visible;
+                        RegenearteCapcha();
+                    }
+                }
             }
+            
         }
 
         private bool GetUsersInfo(string username, string password)
@@ -60,7 +86,7 @@ namespace IISAutoParts
             else
             {
                 UserController.userId = user.id;
-                user.dateEnter = DateTime.Now;
+                user.dateEnter = DateTime.UtcNow;
                 _db.users.AddOrUpdate(user);
                 _db.SaveChanges();
 
@@ -72,23 +98,15 @@ namespace IISAutoParts
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                new_user = new users
-                {
-                    login = usernameField.Text,
-                    password = AuthController.Encrypt(passwordField.Password),
-                };
-                _db.users.Add(new_user);
-                _db.SaveChanges();
-                CreatePermission();
-                MessageBox.Show("Пользователь добавлен");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+            Registration registration = new Registration();
+            registration.Show();
+            this.Close();
+        }
+
+        private void RegenearteCapcha()
+        {
+            capcha.GenerateNew();
+            AnswerTextBox.Text = "";
         }
 
         private void loadPermission()
@@ -121,50 +139,23 @@ namespace IISAutoParts
             }
         }
 
-
-        private void CreatePermission()
+        private void NewCapchButton(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                XElement permission = new XElement("permission",
-                    new XElement("admin", false));
-
-
-                var permissions = _db.permissions.ToList();
-                
-                    
-                for (int i = 0; i < permissions.Count; i++)
-                {
-                    XElement section = new XElement("section", new XAttribute("name", permissions[i].sectorname));
-
-                    XElement read = new XElement("read", true);
-                    XElement add = new XElement("add", false);
-                    XElement edit = new XElement("edit", false);
-                    XElement delete = new XElement("delete", false);
-
-                    section.Add(read);
-                    section.Add(add);
-                    section.Add(edit);
-                    section.Add(delete);
-
-                    permission.Add(section);
-                }
-
-                XDocument xmlDocument = new XDocument(permission);
-
-                var user = _db.users.Where(x => x.id == new_user.id).FirstOrDefault();
-
-                user.permission = xmlDocument.ToString();
-
-                _db.users.AddOrUpdate(user);
-                _db.SaveChanges();
-                MessageBox.Show("Сохранено");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            RegenearteCapcha();
         }
 
+        private void SendButton(object sender, RoutedEventArgs e)
+        {
+            if (capcha.CheckCapcha(AnswerTextBox.Text))
+            {
+                IsAccept = true;
+                capchaGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MessageBox.Show("Символы не совпадают.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                RegenearteCapcha();
+            }
+        }
     }
 }

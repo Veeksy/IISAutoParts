@@ -1,4 +1,5 @@
-﻿using IISAutoParts.DBcontext;
+﻿using IISAutoParts.Class;
+using IISAutoParts.DBcontext;
 using IISAutoParts.DBcontext.MyEntities;
 using System;
 using System.Collections.Generic;
@@ -108,6 +109,9 @@ namespace IISAutoParts.pages
             }
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new usersListPage());
+        }
     }
 }

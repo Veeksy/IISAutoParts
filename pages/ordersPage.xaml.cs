@@ -43,7 +43,6 @@ namespace IISAutoParts.pages
 
 
             autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().ToList();
-            autopartCb.DisplayMemberPath = "name";
             autopartCb.SelectedValuePath = "id";
 
             customerCb.ItemsSource = _dbContext.customers.AsNoTracking().ToList();
@@ -56,6 +55,15 @@ namespace IISAutoParts.pages
             countPage.Content = paginator.GetCountpage();
 
             ordersDGV.ItemsSource = paginator.GetTable();
+
+            if (UserController.permissionList.Where(x => x.Sector == "Заказы").Select(x => x.Add).FirstOrDefault())
+                AddnewOrder.IsEnabled = true;
+            else
+                AddnewOrder.IsEnabled = false;
+            if (UserController.permissionList.Where(x => x.Sector == "Заказы").Select(x => x.Delete).FirstOrDefault())
+                deleteBtn.IsEnabled = true;
+            else
+                deleteBtn.IsEnabled = false;
 
         }
 

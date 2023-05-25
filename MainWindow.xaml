@@ -6,7 +6,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		xmlns:local="clr-namespace:IISAutoParts" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 		mc:Ignorable="d"
-		Title="MainWindow" Height="550" Width="900">
+		Title="Главное окно" Height="550" Width="900" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         
     </Window.Resources>
@@ -41,8 +41,9 @@
                     <StackPanel>
                         <Button Content="Пользователи" x:Name="usersBtn" Click="usersBtn_Click">
                         </Button>
-                        <Button Content="Настройки" x:Name="settingsBtn">
+                        <Button Content="Сменить пользователя" x:Name="changeUser" Click="changeUser_Click">
                         </Button>
+
                     </StackPanel>
                     </materialDesign:PopupBox>
 
@@ -59,7 +60,9 @@
                         </ToggleButton>
                         <Button Margin="10" x:Name="Catalog" Click="Catalog_Click">Каталог</Button>
                         <Button Margin="10" x:Name="Orders" Click="Orders_Click">Заказы</Button>
+                        <Button Margin="10" x:Name="Customers" Click="Customers_Click">Заказчики</Button>
                         <Button Margin="10" x:Name="Delivery" Click="Delivery_Click">Поставки</Button>
+                        <Button Margin="10" x:Name="Providers" Click="Providers_Click">Поставщики</Button>
                         <Button Margin="10" x:Name="Reports" Click="Reports_Click">Отчеты</Button>
                     </StackPanel>
                     

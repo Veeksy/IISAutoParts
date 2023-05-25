@@ -32,8 +32,8 @@
                                     SharedSizeGroup="Checkerz" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding Path=photo}" Width="100" Height="100" />
-                            <StackPanel Width="500" 
+                            <Image Source="{Binding Path=photo}" Width="400" Height="200" Stretch="Fill" />
+                            <StackPanel Width="400" 
                                 Grid.Column="1"
                                 Margin="8,0,0,0">
                                 <TextBlock Text="{Binding Path=model}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
@@ -69,7 +69,10 @@
                     <materialDesign:PackIcon Kind="Magnify" />
                 </Button>
                 <DockPanel Margin="10">
-                    <Button HorizontalAlignment="Left" x:Name="AddnewAutoParts" Click="AddnewAutoParts_Click">
+                    <Button HorizontalAlignment="Left" x:Name="backBtn" Click="backBtn_Click">
+                        <materialDesign:PackIcon Kind="ArrowBack" />
+                    </Button>
+                    <Button HorizontalAlignment="Right" x:Name="AddnewAutoParts" Click="AddnewAutoParts_Click">
                         <materialDesign:PackIcon Kind="PlusBox" />
                     </Button>
 

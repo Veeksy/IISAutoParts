@@ -48,10 +48,9 @@ namespace IISAutoParts.pages
                 _autoparts = _dbContext.autoparts.AsNoTracking().ToList();
                 _customers = _dbContext.customers.AsNoTracking().ToList();
 
-                autopartCb.ItemsSource = _autoparts;
-                autopartCb.DisplayMemberPath = "name";
-                autopartCb.SelectedValuePath = "id";
-
+                CarCb.ItemsSource = _dbContext.cars.AsNoTracking().ToList();
+                CarCb.DisplayMemberPath = "name";
+                CarCb.SelectedValuePath = "id";
 
                 CustomerCb.ItemsSource = _customers;
                 CustomerCb.DisplayMemberPath = "name";
@@ -83,7 +82,7 @@ namespace IISAutoParts.pages
                 _order.idAutoparts = (int)autopartCb.SelectedValue;
                 _order.dateOrder = DateOrderTb.SelectedDate;
 
-                _order.orderNumber = Convert.ToInt32(orderNumberTb.Text);
+                _order.orderNumber = string.IsNullOrEmpty(orderNumberTb.Text) ? (0) : (Convert.ToInt32(orderNumberTb.Text));
                 _order.idCustomer = (int)CustomerCb.SelectedValue;
                 _order.countAutoparts = Convert.ToInt32(countTb.Text);
 
@@ -158,10 +157,10 @@ namespace IISAutoParts.pages
                         ReplaceWith: Convert.ToDateTime(_order.dateOrder).ToString("dd.MM.yyyy"), Replace: Word.WdReplace.wdReplaceAll);
 
                     doc.Content.Find.Execute(FindText: "@price",
-                       ReplaceWith: $@"{part.price} руб.", Replace: Word.WdReplace.wdReplaceAll);
+                       ReplaceWith: $@"{part.price.Value.ToString("F2")} руб.", Replace: Word.WdReplace.wdReplaceAll);
 
                     doc.Content.Find.Execute(FindText: "@TotalPrice",
-                       ReplaceWith: $@"{(_order.countAutoparts * part.price).ToString()} руб.", Replace: Word.WdReplace.wdReplaceAll);
+                       ReplaceWith: $@"{(_order.countAutoparts * part.price).Value.ToString("F2")} руб.", Replace: Word.WdReplace.wdReplaceAll);
 
                     doc.SaveAs(SavePath);
 
@@ -185,6 +184,44 @@ namespace IISAutoParts.pages
                     _dbContext.SaveChanges();
                     Thread.Sleep(10);
                     Process.Start(SavePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void CarCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (CarCb.SelectedValue != null)
+                {
+                    modelCarCb.ItemsSource = _dbContext.carModels.AsNoTracking().Where(x => x.idCar == (int)CarCb.SelectedValue).ToList();
+                    modelCarCb.DisplayMemberPath = "model";
+                    modelCarCb.SelectedValuePath = "id";
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void modelCarCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (modelCarCb.SelectedValue != null)
+                {
+                    var autoparts = _dbContext.autopartsModel.Where(x => x.idModel == (int)modelCarCb.SelectedValue).Select(x => x.idAutoparts).ToList();
+                    autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().Where(x => autoparts.Contains(x.id)).ToList();
+                    autopartCb.SelectedValuePath = "id";
+                }
+                    
             }
             catch (Exception ex)
             {

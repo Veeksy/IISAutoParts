@@ -22,7 +22,6 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border
-                        x:Name="Border"
                         Padding="8"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="0,0,0,1">
@@ -39,10 +38,10 @@
                                 <TextBlock Text="{Binding Path=name}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=description}" FontWeight="Bold" Margin="10" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button x:Name="EditElement" Click="EditElement_Click" Margin="2" Tag="{Binding id}">
+                                    <Button x:Name="EditElement" Click="EditElement_Click" Margin="2" Tag="{Binding id}" IsEnabled="True">
                                         <materialDesign:PackIcon Kind="Edit" />
                                     </Button>
-                                    <Button x:Name="deleteElements" Click="deleteElements_Click" Margin="2" Tag="{Binding id}">
+                                    <Button x:Name="deleteElements" Click="deleteElements_Click" Margin="2" Tag="{Binding id}" IsEnabled="True">
                                         <materialDesign:PackIcon Kind="Delete" />
                                     </Button>
                                 </StackPanel>

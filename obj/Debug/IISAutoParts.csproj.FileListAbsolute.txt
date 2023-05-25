@@ -66,3 +66,17 @@ D:\Projects\IISAutoParts\obj\Debug\pages\autoPage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\autoPage.baml
 D:\Projects\IISAutoParts\obj\Debug\pages\autoModelsPage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\autoModelsPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\CarAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\CarAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\autoModelAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\autoModelAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\Registration.g.cs
+D:\Projects\IISAutoParts\obj\Debug\Registration.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\consumersPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\consumersPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\consumersAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\consumersAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\providersPage.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\providersPage.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\providersAddEdit.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\providersAddEdit.baml

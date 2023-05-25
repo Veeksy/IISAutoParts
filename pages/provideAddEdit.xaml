@@ -15,10 +15,30 @@
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="orderNumberTb" 
                      PreviewTextInput="priceTb_PreviewTextInput"/>
             <ComboBox Margin="10"
-                      VerticalAlignment="Center"
-                      materialDesign:HintAssist.Hint="Автозапчасть" materialDesign:TextFieldAssist.HasClearButton="True"
-                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                      x:Name="autopartCb" />
+  VerticalAlignment="Center"
+  materialDesign:HintAssist.Hint="Марка"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+  x:Name="CarCb" SelectionChanged="CarCb_SelectionChanged"/>
+            <ComboBox Margin="10"
+  VerticalAlignment="Center"
+  materialDesign:HintAssist.Hint="Модель"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+  x:Name="modelCarCb" SelectionChanged="modelCarCb_SelectionChanged"/>
+            <ComboBox Margin="10"
+  VerticalAlignment="Center"
+  materialDesign:HintAssist.Hint="Автозапчасть"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+  x:Name="autopartCb">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Text="{Binding article}"/>
+                            <TextBlock Margin="0,0,5,0" Text="{Binding manufacturer}"/>
+                            <TextBlock Margin="0,0,5,0" Text="{Binding name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <DatePicker Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Дата поставки" 
                         x:Name="DateOrderTb" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
             <TextBox Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Количество" 

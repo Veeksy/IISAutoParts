@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Projects\IISAutoParts\App.xaml
-14-1349767119
-21335255693
-461172598858
+21-2143584712
+21743678941
+552030108298
 35384725452
-AuthWindow.xaml;MainWindow.xaml;pages\AdminPage.xaml;pages\autoModelsPage.xaml;pages\autoPage.xaml;pages\ordersAddEdit.xaml;pages\autopartsAddEdit.xaml;pages\autopartsPage.xaml;pages\ordersPage.xaml;pages\provideAddEdit.xaml;pages\providePage.xaml;pages\reportsPage.xaml;pages\userPermissionPage.xaml;pages\usersListPage.xaml;
+AuthWindow.xaml;MainWindow.xaml;pages\AdminPage.xaml;pages\autoModelAddEdit.xaml;pages\autoModelsPage.xaml;pages\autoPage.xaml;pages\CarAddEdit.xaml;pages\consumersAddEdit.xaml;pages\consumersPage.xaml;pages\ordersAddEdit.xaml;pages\autopartsAddEdit.xaml;pages\autopartsPage.xaml;pages\ordersPage.xaml;pages\provideAddEdit.xaml;pages\providePage.xaml;pages\providersAddEdit.xaml;pages\providersPage.xaml;pages\reportsPage.xaml;pages\userPermissionPage.xaml;pages\usersListPage.xaml;Registration.xaml;
 
 False
 

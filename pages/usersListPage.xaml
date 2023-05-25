@@ -18,11 +18,8 @@
                 <DataGridTextColumn Header="Имя пользователя"
                                     Binding="{Binding Path=Name}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Роль"
-                                    Binding="{Binding Path=Role}">
-                </DataGridTextColumn>
                 <DataGridTextColumn Header="Дата последнего входа"
-                                    Binding="{Binding Path=DateEnter, StringFormat='{}{0:dd.MM.yyyy}'}">
+                                    Binding="{Binding Path=DateEnter, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

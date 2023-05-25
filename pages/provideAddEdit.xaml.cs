@@ -44,10 +44,9 @@ namespace IISAutoParts.pages
             _autoparts = _dbContext.autoparts.AsNoTracking().ToList();
             _providers = _dbContext.providers.AsNoTracking().ToList();
 
-            autopartCb.ItemsSource = _autoparts;
-            autopartCb.DisplayMemberPath = "name";
-            autopartCb.SelectedValuePath = "id";
-
+            CarCb.ItemsSource = _dbContext.cars.AsNoTracking().ToList();
+            CarCb.DisplayMemberPath = "name";
+            CarCb.SelectedValuePath = "id";
 
             ProvidersCb.ItemsSource = _providers;
             ProvidersCb.DisplayMemberPath = "name";
@@ -125,9 +124,9 @@ namespace IISAutoParts.pages
                     doc.Content.Find.Execute(FindText: "@dateOrder",
                         ReplaceWith: Convert.ToDateTime(_provide.dateDelivery).ToString("dd.MM.yyyy"), Replace: Word.WdReplace.wdReplaceAll);
                     doc.Content.Find.Execute(FindText: "@price",
-                       ReplaceWith: $@"{part.price} руб.", Replace: Word.WdReplace.wdReplaceAll);
+                       ReplaceWith: $@"{part.price.Value.ToString("F2")} руб.", Replace: Word.WdReplace.wdReplaceAll);
                     doc.Content.Find.Execute(FindText: "@TotalPrice",
-                       ReplaceWith: $@"{(_provide.countAutoparts * part.price).ToString()} руб.", Replace: Word.WdReplace.wdReplaceAll);
+                       ReplaceWith: $@"{(_provide.countAutoparts * part.price).Value.ToString("F2")} руб.", Replace: Word.WdReplace.wdReplaceAll);
 
                     doc.SaveAs(SavePath);
 
@@ -161,7 +160,43 @@ namespace IISAutoParts.pages
 
         }
 
+        private void CarCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (CarCb.SelectedValue != null)
+                {
+                    modelCarCb.ItemsSource = _dbContext.carModels.AsNoTracking().Where(x => x.idCar == (int)CarCb.SelectedValue).ToList();
+                    modelCarCb.DisplayMemberPath = "model";
+                    modelCarCb.SelectedValuePath = "id";
+                }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void modelCarCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (modelCarCb.SelectedValue != null)
+                {
+                    var autoparts = _dbContext.autopartsModel.Where(x => x.idModel == (int)modelCarCb.SelectedValue).Select(x => x.idAutoparts).ToList();
+                    autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().Where(x => autoparts.Contains(x.id)).ToList();
+                    autopartCb.SelectedValuePath = "id";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
 
     }
 }
