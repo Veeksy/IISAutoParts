@@ -42,9 +42,6 @@ namespace IISAutoParts.pages
             orders = fillData();
 
 
-            autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().ToList();
-            autopartCb.SelectedValuePath = "id";
-
             customerCb.ItemsSource = _dbContext.customers.AsNoTracking().ToList();
             customerCb.DisplayMemberPath = "name";
             customerCb.SelectedValuePath = "id";
@@ -171,7 +168,6 @@ namespace IISAutoParts.pages
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
-            int? _autopart = (int?)autopartCb.SelectedValue;
             int? _customer = (int?)customerCb.SelectedValue;
             DateTime? _startDate = startDateDt.SelectedDate;
             DateTime? _endDate = endDateDt.SelectedDate;
@@ -180,7 +176,7 @@ namespace IISAutoParts.pages
 
             orders = orders.Where(x => (string.IsNullOrEmpty(numberOrder.Text)
             || numberOrder.Text.Contains(x.orderNumber.GetValueOrDefault().ToString())) &&
-            (_autopart == null || x.autopartId == _autopart) && (_customer == null || x.customerId == _customer)
+            (_customer == null || x.customerId == _customer)
             && (_startDate == null || x.dateOrder >= _startDate) && (_endDate == null || x.dateOrder <= _endDate)).ToList();
 
 
@@ -196,22 +192,11 @@ namespace IISAutoParts.pages
         private List<OrdersView> fillData()
         {
             var _Orders = _dbContext.Orders.AsNoTracking()
-                .Join(_dbContext.autoparts,
-                x => x.idAutoparts, y => y.id, (x, y) => new {
-                    id = x.id,
-                    number = x.orderNumber,
-                    autopart = y.manufacturer + " " + y.name,
-                    dateOrder = x.dateOrder,
-                    countAutopart = x.countAutoparts,
-                    customer = x.idCustomer,
-                }
-                ).Join(_dbContext.customers, x => x.customer, y => y.id, (x, y) => new OrdersView
+                .Join(_dbContext.customers, x => x.idCustomer, y => y.id, (x, y) => new OrdersView
                 {
                     id = x.id,
-                    orderNumber = x.number,
-                    autopartName = x.autopart,
+                    orderNumber = x.orderNumber,
                     dateOrder = x.dateOrder,
-                    countAutopart = x.countAutopart,
                     customer = y.name,
                     address = y.address,
                 }).ToList();

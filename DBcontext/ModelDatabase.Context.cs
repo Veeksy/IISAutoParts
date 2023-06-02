@@ -31,6 +31,8 @@ namespace IISAutoParts.DBcontext
         public virtual DbSet<carModels> carModels { get; set; }
         public virtual DbSet<cars> cars { get; set; }
         public virtual DbSet<customers> customers { get; set; }
+        public virtual DbSet<ListOrder> ListOrder { get; set; }
+        public virtual DbSet<ListProvide> ListProvide { get; set; }
         public virtual DbSet<orderReports> orderReports { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<OrdersDoc> OrdersDoc { get; set; }

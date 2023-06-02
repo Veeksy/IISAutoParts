@@ -25,7 +25,7 @@
                 <StackPanel
       Orientation="Horizontal">
 
-                    <TextBlock
+                    <TextBlock FontSize="18"
         Margin="16,0,0,0"
         VerticalAlignment="Center"
         Text="Информационная система автозапчастей" />
@@ -35,20 +35,19 @@
             </DockPanel>
         </materialDesign:ColorZone>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBox x:Name="usernameField" Margin="10"
+            <TextBox x:Name="usernameField" Margin="10" FontSize="18"
                      materialDesign:HintAssist.Hint="Логин"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}">
             </TextBox>
-            <PasswordBox x:Name="passwordField" Margin="10"
+            <PasswordBox x:Name="passwordField" Margin="10" FontSize="18"
                          materialDesign:HintAssist.Hint="Пароль"
                          materialDesign:HintAssist.HelperText=""
-    IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
-    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-            <DockPanel Margin="10">
-                <Button x:Name="EnterBtn" HorizontalAlignment="Left" Click="EnterBtn_Click">
+                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+            <DockPanel Margin="10" Height="40">
+                <Button x:Name="EnterBtn" HorizontalAlignment="Left" Click="EnterBtn_Click" FontSize="18">
                     Войти
                 </Button>
-                <Button x:Name="registerBtn" HorizontalAlignment="Right" Click="registerBtn_Click">
+                <Button FontSize="18" x:Name="registerBtn" HorizontalAlignment="Right" Click="registerBtn_Click">
                     Зарегистрироваться
                 </Button>
             </DockPanel>

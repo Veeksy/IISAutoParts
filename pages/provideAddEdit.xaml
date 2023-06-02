@@ -10,50 +10,80 @@
       Title="provideAddEdit">
 
     <Grid Background="White">
-        <StackPanel Margin="10">
-            <TextBox Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Номер поставки" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListView FontSize="18" Style="{StaticResource MaterialDesignListView}" Grid.Column="1" Name="ListAutoparts" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Width="auto" Header="Наименование" DisplayMemberBinding="{Binding Path=name}"></GridViewColumn>
+                        <GridViewColumn Width="auto" Header="Количество" DisplayMemberBinding="{Binding Path=count}"></GridViewColumn>
+                        <GridViewColumn Header="Удалить">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button FontSize="18" Height="50" Width="70" Click="DeleteButton_Click" >
+                                            <materialDesign:PackIcon Kind="Delete"  Width="40" Height="40"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Column="0">
+
+            <StackPanel Margin="10">
+                <TextBox FontSize="18" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Номер поставки" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="orderNumberTb" 
                      PreviewTextInput="priceTb_PreviewTextInput"/>
-            <ComboBox Margin="10"
+                <ComboBox Margin="10" FontSize="18"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Марка"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
   x:Name="CarCb" SelectionChanged="CarCb_SelectionChanged"/>
-            <ComboBox Margin="10"
+                <ComboBox Margin="10" FontSize="18"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Модель"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
   x:Name="modelCarCb" SelectionChanged="modelCarCb_SelectionChanged"/>
-            <ComboBox Margin="10"
+                <ComboBox Margin="10" FontSize="18"
   VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Автозапчасть"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
   x:Name="autopartCb">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0,0,5,0" Text="{Binding article}"/>
-                            <TextBlock Margin="0,0,5,0" Text="{Binding manufacturer}"/>
-                            <TextBlock Margin="0,0,5,0" Text="{Binding name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <DatePicker Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Дата поставки" 
-                        x:Name="DateOrderTb" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
-            <TextBox Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Количество" 
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="18" Margin="0,0,5,0" Text="{Binding article}"/>
+                                <TextBlock FontSize="18" Margin="0,0,5,0" Text="{Binding manufacturer}"/>
+                                <TextBlock FontSize="18" Margin="0,0,5,0" Text="{Binding name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox FontSize="18" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Количество" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="countTb" PreviewTextInput="priceTb_PreviewTextInput"/>
-            <ComboBox Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поставщик" 
+                <Button FontSize="18" Height="50" x:Name="AddAutopart" Click="AddAutopart_Click" Margin="10" HorizontalAlignment="Right" Content="Добавить в список">
+                </Button>
+                <DatePicker FontSize="18" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Дата поставки" 
+                        x:Name="DateOrderTb" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                <ComboBox FontSize="18" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поставщик" 
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="ProvidersCb"/>
-            <DockPanel>
-                <Button HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
-                    <materialDesign:PackIcon Kind="ArrowBack"/>
-                </Button>
-                <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
-                    <materialDesign:PackIcon Kind="ContentSave"/>
-                </Button>
-            </DockPanel>
-            <ProgressBar IsIndeterminate="True" x:Name="loadingDoc" Visibility="Collapsed" Margin="10"/>
-        </StackPanel>
+                <DockPanel>
+                    <Button FontSize="18" Height="50" Width="70" HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
+                        <materialDesign:PackIcon Kind="ArrowBack"  Width="40" Height="40"/>
+                    </Button>
+                    <Button FontSize="18" Height="50" Width="70" HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
+                        <materialDesign:PackIcon Kind="ContentSave"  Width="40" Height="40"/>
+                    </Button>
+                </DockPanel>
+                <ProgressBar IsIndeterminate="True" x:Name="loadingDoc" Visibility="Collapsed" Margin="10"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

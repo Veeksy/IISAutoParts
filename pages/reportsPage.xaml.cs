@@ -164,85 +164,96 @@ namespace IISAutoParts.pages
 
         private async void createReportBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+            var dateBegin = startDateDt.SelectedDate.ToString();
+            var dateEnd = endDateDt.SelectedDate.ToString();
+
+            if (string.IsNullOrEmpty(dateBegin) || string.IsNullOrEmpty(dateEnd))
+                MessageBox.Show("Необходимо указать период.");
+            else
             {
-                if (reportsTypeCb.SelectedIndex == 0)
+                try
                 {
-                    string client = clientCb.Text;
-                    var _report = new orderReports()
+                    if (reportsTypeCb.SelectedIndex == 0)
                     {
-                        customerId = clientCb.SelectedValue != null ? ((int)clientCb.SelectedValue) : (0),
-                        dateBegin = startDateDt.SelectedDate,
-                        dateEnd = endDateDt.SelectedDate,
-                    };
+                        string client = clientCb.Text;
+                        var _report = new orderReports()
+                        {
+                            customerId = clientCb.SelectedValue != null ? ((int)clientCb.SelectedValue) : (0),
+                            dateBegin = startDateDt.SelectedDate,
+                            dateEnd = endDateDt.SelectedDate,
+                        };
 
-                    _dbContext.orderReports.AddOrUpdate(_report);
+                        _dbContext.orderReports.AddOrUpdate(_report);
 
-                    _dbContext.SaveChanges();
-                    loadingDoc.Visibility = Visibility.Visible;
+                        _dbContext.SaveChanges();
+                        loadingDoc.Visibility = Visibility.Visible;
 
-                    await System.Threading.Tasks.Task.Run(() => CreateOrderDoc(_report, client));
+                        await System.Threading.Tasks.Task.Run(() => CreateOrderDoc(_report, client));
 
-                    loadingDoc.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("Сохранено");
+                        loadingDoc.Visibility = Visibility.Collapsed;
+                        MessageBox.Show("Сохранено");
+                    }
+                    else
+                    {
+                        string client = clientCb.Text;
+                        var _report = new provideReports()
+                        {
+                            providerId = clientCb.SelectedValue != null ? ((int)clientCb.SelectedValue) : (0),
+                            dateBegin = startDateDt.SelectedDate,
+                            dateEnd = endDateDt.SelectedDate,
+                        };
+
+                        _dbContext.provideReports.AddOrUpdate(_report);
+
+                        _dbContext.SaveChanges();
+                        loadingDoc.Visibility = Visibility.Visible;
+
+                        await System.Threading.Tasks.Task.Run(() => CreateProvideDoc(_report, client));
+
+                        loadingDoc.Visibility = Visibility.Collapsed;
+                        MessageBox.Show("Сохранено");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    string client = clientCb.Text;
-                    var _report = new provideReports()
-                    {
-                        providerId = clientCb.SelectedValue != null ? ((int)clientCb.SelectedValue) : (0),
-                        dateBegin = startDateDt.SelectedDate,
-                        dateEnd = endDateDt.SelectedDate,
-                    };
-
-                    _dbContext.provideReports.AddOrUpdate(_report);
-
-                    _dbContext.SaveChanges();
-                    loadingDoc.Visibility = Visibility.Visible;
-
-                    await System.Threading.Tasks.Task.Run(() => CreateProvideDoc(_report, client));
-
-                    loadingDoc.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("Сохранено");
+                    MessageBox.Show("Произошла ошибка сохранения. " + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Произошла ошибка сохранения. " + ex.Message);
-            }
         }
-
-        private void filterBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
 
         private List<ReportsView> FillDataOrderReports()
         {
-            var datet = DateTime.Now;
-            var _reports = _dbContext.orderReports.Join(_dbContext.customers, x => x.customerId, y => y.id, (x, y) => new ReportsView
-            {
-                id = x.id,
-                customerId = x.customerId,
-                customerName = y.name,
-                dateBegin = x.dateBegin,
-                dateEnd = x.dateEnd,
-            }).ToList();
+            var _reports = (from or in _dbContext.orderReports
+                            join c in _dbContext.customers on or.customerId equals c.id into jC
+                            from c in jC.DefaultIfEmpty()
+                            select new ReportsView
+                            {
+                                id = or.id,
+                                customerId = or.customerId,
+                                customerName = c != null ? c.name : null,
+                                dateBegin = or.dateBegin,
+                                dateEnd = or.dateEnd,
+                            }).ToList();
+
+
             return _reports;
         }
 
         private List<ReportsView> FillDataProvideReports()
         {
-            var _reports = _dbContext.provideReports.Join(_dbContext.providers, x => x.providerId, y => y.id, (x, y) => new ReportsView
-            {
-                id = x.id,
-                customerId = x.providerId,
-                customerName = y.name,
-                dateBegin = x.dateBegin,
-                dateEnd = x.dateEnd,
-            }).ToList();
+            var _reports = (from or in _dbContext.provideReports
+                            join c in _dbContext.providers on or.providerId equals c.id into jC
+                            from c in jC.DefaultIfEmpty()
+                            select new ReportsView
+                            {
+                                id = or.id,
+                                customerId = or.providerId,
+                                customerName = c != null ? c.name : null,
+                                dateBegin = or.dateBegin,
+                                dateEnd = or.dateEnd,
+                            }).ToList();
+          
             return _reports;
         }
 
@@ -261,32 +272,76 @@ namespace IISAutoParts.pages
                 string dateEnd = _report.dateEnd.Value.ToString("dd.MM.yyyy");
 
 
-                List<orderReport> query = (from order in _dbContext.Orders
-                            join customer in _dbContext.customers on order.idCustomer equals customer.id into ocJoin
-                            from oc in ocJoin.DefaultIfEmpty()
-                            join apModel in _dbContext.autopartsModel on order.idAutoparts equals apModel.idAutoparts into oamJoin
-                            from oam in oamJoin.DefaultIfEmpty()
-                            join carModel in _dbContext.carModels on oam.idModel equals carModel.id into ocmJoin
-                            from ocm in ocmJoin.DefaultIfEmpty()
-                            join autopart in _dbContext.autoparts on order.idAutoparts equals autopart.id into oaJoin
-                            from oa in oaJoin.DefaultIfEmpty()
-                            join car in _dbContext.cars on ocm.idCar equals car.id into ocarsJoin
-                            from ocars in ocarsJoin.DefaultIfEmpty()
-                            where (_report.dateBegin == null || order.dateOrder >= _report.dateBegin) && (_report.dateEnd == null || order.dateOrder <= _report.dateEnd) &&
-                            (report.customerId == 0 || order.idCustomer == report.customerId)
-                            select new orderReport
-                            {
-                                car = ocars.name,
-                                model = ocm.model,
-                                manufacturer = oa.manufacturer,
-                                article = oa.article,
-                                name = oa.name,
-                                price = oa.price,
-                                customer = oc.name,
-                                countAutoparts = order.countAutoparts,
-                                dateOrder = order.dateOrder,
-                                totalSum = oa.price * order.countAutoparts
-                            }).ToList();
+                var _orders = _dbContext.Orders.Join(_dbContext.customers, x=>x.idCustomer, y=>y.id, (x, y) => new
+                {
+                    id = x.id,
+                    dateOrder = x.dateOrder,
+                    idCustomer = x.idCustomer,
+                    customerName = y.name,
+                }).Where(x=> (_report.dateBegin == null || x.dateOrder >= _report.dateBegin) 
+                    && (_report.dateEnd == null
+                    || x.dateOrder <= _report.dateEnd) &&
+                (_report.customerId == 0 || x.idCustomer == _report.customerId)).ToList();
+
+                var parts = _orders.Join(_dbContext.ListOrder, x=>x.id, y=>y.idOrder, (x, y) => new
+                {
+                    id = y.idAutopart,
+                    count = y.countAutoparts,
+                    customerId = x.idCustomer,
+                    dateOrder = x.dateOrder,
+                    customerName = x.customerName,
+                }).Join(_dbContext.autoparts, x => x.id, y => y.id, (x, y) => new
+                {
+                    id = x.id,
+                    article = y.article,
+                    name = y.name,
+                    manufacturer = y.manufacturer,
+                    count = x.count,
+                    price = y.price,
+                    dateOrder = x.dateOrder,
+                    customerName = x.customerName,
+                }).ToList();
+
+                var query = parts.Join(_dbContext.autopartsModel, x => x.id, y => y.idAutoparts, (x, y) => new
+                {
+                    modelId = y.idModel,
+                    id = x.id,
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    dateOrder = x.dateOrder,
+                    customerName = x.customerName,
+                }).Distinct().ToList();
+
+                var query1 = query.Join(_dbContext.carModels, x => x.modelId, y => y.id, (x, y) => new
+                {
+                    id = x.id,
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    model = y.model,
+                    carId = y.idCar,
+                    dateOrder = x.dateOrder,
+                    customerName = x.customerName,
+                }).ToList();
+
+                var query2 = query1.Join(_dbContext.cars, x => x.carId, y => y.id, (x, y) => new
+                {
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    model = x.model,
+                    car = y.name,
+                    dateOrder = x.dateOrder,
+                    customerName = x.customerName,
+                }).ToList();
+
 
 
 
@@ -303,15 +358,15 @@ namespace IISAutoParts.pages
                 for (int i = 0; i < query.Count(); i++)
                 {
                     var row = table.Rows.Add();
-                    row.Cells[1].Range.Text = query[i].car;
-                    row.Cells[2].Range.Text = query[i].model;
-                    row.Cells[3].Range.Text = query[i].manufacturer + " " + query[i].name;
-                    row.Cells[4].Range.Text = query[i].customer;
-                    row.Cells[5].Range.Text = query[i].dateOrder.Value.ToString("dd.MM.yyyy");
-                    row.Cells[6].Range.Text = query[i].countAutoparts.ToString();
-                    row.Cells[7].Range.Text = query[i].price.Value.ToString("F2");
-                    row.Cells[8].Range.Text = query[i].totalSum.Value.ToString("F2");
-                    totalSum += query[i].totalSum.Value;
+                    row.Cells[1].Range.Text = query2[i].car;
+                    row.Cells[2].Range.Text = query2[i].model;
+                    row.Cells[3].Range.Text = query2[i].manufacturer + " " + query[i].name;
+                    row.Cells[4].Range.Text = query2[i].customerName;
+                    row.Cells[5].Range.Text = query2[i].dateOrder.Value.ToString("dd.MM.yyyy");
+                    row.Cells[6].Range.Text = query2[i].count.ToString();
+                    row.Cells[7].Range.Text = query2[i].price.Value.ToString("F2");
+                    row.Cells[8].Range.Text = (query2[i].price * query2[i].count).Value.ToString("F2");
+                    totalSum += (query2[i].price * query2[i].count).Value;
                 }
 
                 doc.Content.Find.Execute(FindText: "@numberDoc",
@@ -371,32 +426,76 @@ namespace IISAutoParts.pages
                 string dateEnd = _report.dateEnd.Value.ToString("dd.MM.yyyy");
 
 
-                List<orderReport> query = (from provide in _dbContext.provide
-                                           join customer in _dbContext.providers on provide.idProvider equals customer.id into ocJoin
-                                           from oc in ocJoin.DefaultIfEmpty()
-                                           join apModel in _dbContext.autopartsModel on provide.idAutoparts equals apModel.idAutoparts into oamJoin
-                                           from oam in oamJoin.DefaultIfEmpty()
-                                           join carModel in _dbContext.carModels on oam.idModel equals carModel.id into ocmJoin
-                                           from ocm in ocmJoin.DefaultIfEmpty()
-                                           join autopart in _dbContext.autoparts on provide.idAutoparts equals autopart.id into oaJoin
-                                           from oa in oaJoin.DefaultIfEmpty()
-                                           join car in _dbContext.cars on ocm.idCar equals car.id into ocarsJoin
-                                           from ocars in ocarsJoin.DefaultIfEmpty()
-                                           where (_report.dateBegin == null || provide.dateDelivery >= _report.dateBegin) && (_report.dateEnd == null || provide.dateDelivery <= _report.dateEnd) &&
-                                            (report.providerId == 0 || provide.idProvider == report.providerId)
-                                           select new orderReport
-                                           {
-                                               car = ocars.name,
-                                               model = ocm.model,
-                                               manufacturer = oa.manufacturer,
-                                               article = oa.article,
-                                               name = oa.name,
-                                               price = oa.price,
-                                               customer = oc.name,
-                                               countAutoparts = provide.countAutoparts,
-                                               dateOrder = provide.dateDelivery,
-                                               totalSum = oa.price * provide.countAutoparts
-                                           }).ToList();
+                var _provide = _dbContext.provide.Join(_dbContext.providers, x => x.idProvider, y => y.id, (x, y) => new
+                {
+                    id = x.id,
+                    dateDelivery = x.dateDelivery,
+                    idProvider = x.idProvider,
+                    customerName = y.name,
+                }).Where(x => (_report.dateBegin == null || x.dateDelivery >= _report.dateBegin)
+                    && (_report.dateEnd == null
+                    || x.dateDelivery <= _report.dateEnd) &&
+                (_report.providerId == 0 || x.idProvider == _report.providerId)).ToList();
+
+                var parts = _provide.Join(_dbContext.ListProvide, x => x.id, y => y.idProvide, (x, y) => new
+                {
+                    id = y.idAutoparts,
+                    count = y.countAutoparts,
+                    idProvider = x.idProvider,
+                    dateDelivery = x.dateDelivery,
+                    customerName = x.customerName,
+                }).Join(_dbContext.autoparts, x => x.id, y => y.id, (x, y) => new
+                {
+                    id = x.id,
+                    article = y.article,
+                    name = y.name,
+                    manufacturer = y.manufacturer,
+                    count = x.count,
+                    price = y.price,
+                    dateDelivery = x.dateDelivery,
+                    customerName = x.customerName,
+                }).ToList();
+
+                var query = parts.Join(_dbContext.autopartsModel, x => x.id, y => y.idAutoparts, (x, y) => new
+                {
+                    modelId = y.idModel,
+                    id = x.id,
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    dateDelivery = x.dateDelivery,
+                    customerName = x.customerName,
+                }).Distinct().ToList();
+
+                var query1 = query.Join(_dbContext.carModels, x => x.modelId, y => y.id, (x, y) => new
+                {
+                    id = x.id,
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    model = y.model,
+                    carId = y.idCar,
+                    dateDelivery = x.dateDelivery,
+                    customerName = x.customerName,
+                }).ToList();
+
+                var query2 = query1.Join(_dbContext.cars, x => x.carId, y => y.id, (x, y) => new
+                {
+                    article = x.article,
+                    name = x.name,
+                    manufacturer = x.manufacturer,
+                    count = x.count,
+                    price = x.price,
+                    model = x.model,
+                    car = y.name,
+                    dateDelivery = x.dateDelivery,
+                    customerName = x.customerName,
+                }).ToList();
+
 
 
 
@@ -413,15 +512,15 @@ namespace IISAutoParts.pages
                 for (int i = 0; i < query.Count(); i++)
                 {
                     var row = table.Rows.Add();
-                    row.Cells[1].Range.Text = query[i].car;
-                    row.Cells[2].Range.Text = query[i].model;
-                    row.Cells[3].Range.Text = query[i].manufacturer + " " + query[i].name;
-                    row.Cells[4].Range.Text = query[i].customer;
-                    row.Cells[5].Range.Text = query[i].dateOrder.Value.ToString("dd.MM.yyyy");
-                    row.Cells[6].Range.Text = query[i].countAutoparts.ToString();
-                    row.Cells[7].Range.Text = query[i].price.Value.ToString("F2");
-                    row.Cells[8].Range.Text = query[i].totalSum.Value.ToString("F2");
-                    totalSum += query[i].totalSum.Value;
+                    row.Cells[1].Range.Text = query2[i].car;
+                    row.Cells[2].Range.Text = query2[i].model;
+                    row.Cells[3].Range.Text = query2[i].manufacturer + " " + query[i].name;
+                    row.Cells[4].Range.Text = query2[i].customerName;
+                    row.Cells[5].Range.Text = query2[i].dateDelivery.Value.ToString("dd.MM.yyyy");
+                    row.Cells[6].Range.Text = query2[i].count.ToString();
+                    row.Cells[7].Range.Text = query2[i].price.Value.ToString("F2");
+                    row.Cells[8].Range.Text = (query2[i].price * query2[i].count).Value.ToString("F2");
+                    totalSum += (query2[i].price * query2[i].count).Value;
                 }
 
                 doc.Content.Find.Execute(FindText: "@numberDoc",
@@ -497,6 +596,59 @@ namespace IISAutoParts.pages
 
                     paginator = new Paginator(_provideReports.ToList<object>(), paginator.GetPage(), 10);
                     reportDGV.ItemsSource = paginator.GetTable();
+                }
+            }
+        }
+
+        private void reportDGV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ReportsView selectedPart = reportDGV.SelectedItem as ReportsView;
+
+
+            if (reportsTypeCb.SelectedIndex == 0)
+            {
+                if (selectedPart != null)
+                {
+                    byte[] file = _dbContext.orderReports.AsNoTracking()
+                        .Where(x => x.id == selectedPart.id).Select(x => x.doc).FirstOrDefault();
+                    if (file is null)
+                    {
+                        MessageBox.Show("Файлы отсутствуют");
+                    }
+                    else
+                    {
+                        string SavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Templates/Отчет №{selectedPart.id} по автозапчастям для информационной системы.docx");
+
+                        File.WriteAllBytes(SavePath, file);
+                        Process.Start(SavePath);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось открыть выбранный объект.");
+                }
+            }
+            else
+            {
+                if (selectedPart != null)
+                {
+                    byte[] file = _dbContext.provideReports.AsNoTracking()
+                        .Where(x => x.id == selectedPart.id).Select(x => x.doc).FirstOrDefault();
+                    if (file is null)
+                    {
+                        MessageBox.Show("Файлы отсутствуют");
+                    }
+                    else
+                    {
+                        string SavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Templates/Отчет №{selectedPart.id} по автозапчастям для информационной системы.docx");
+
+                        File.WriteAllBytes(SavePath, file);
+                        Process.Start(SavePath);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось открыть выбранный объект.");
                 }
             }
         }

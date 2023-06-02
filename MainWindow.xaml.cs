@@ -27,6 +27,10 @@ namespace IISAutoParts
             InitializeComponent();
             FrameController.MainFrame = MainFrame;
 
+            if (UserController.permissionList.Where(x => x.Sector == "Бренд").Select(x => x.Read).FirstOrDefault())
+                FrameController.MainFrame.Navigate(new autoPage());
+            
+
             if (UserController.isAdmin)
                 usersBtn.Visibility = Visibility.Visible;
             else

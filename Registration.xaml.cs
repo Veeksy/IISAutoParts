@@ -41,6 +41,7 @@ namespace IISAutoParts
                     new_user = new users
                     {
                         login = usernameField.Text,
+                        name = nameField.Text,
                         password = AuthController.Encrypt(passwordField1.Password),
                     };
                     _db.users.Add(new_user);
@@ -90,7 +91,7 @@ namespace IISAutoParts
                     XElement section = new XElement("section", new XAttribute("name", permissions[i].sectorname));
 
                     XElement read = new XElement("read", true);
-                    XElement add = new XElement("add", false);
+                    XElement add = new XElement("add", true);
                     XElement edit = new XElement("edit", false);
                     XElement delete = new XElement("delete", false);
 

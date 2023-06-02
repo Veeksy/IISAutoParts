@@ -8,6 +8,7 @@ using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,6 +51,7 @@ namespace IISAutoParts.pages
 
                 if (autopart != null)
                 {
+                    ArticleTb.Text = autopart.article;
                     manufacturerTb.Text = autopart.manufacturer;
                     nameTb.Text = autopart.name;
                     priceTb.Text = $"{autopart.price:F2} руб.";
@@ -89,28 +91,33 @@ namespace IISAutoParts.pages
         {
             try
             {
-                autopart.manufacturer = manufacturerTb.Text;
-                autopart.price = Convert.ToDecimal(priceTb.Text.Split(' ')[0]);
-                 autopart.year = Convert.ToInt32(yearTb.Text);
-                autopart.name = nameTb.Text;
-                autopart.description = descriptionTb.Text;
-                autopart.idCategory = Convert.ToInt32(CategoryCb.SelectedValue);
-                autopart.count = autopart.count ?? 0;
-                _dbContext.autoparts.AddOrUpdate(autopart);
-                _dbContext.SaveChanges();
+                var at = _dbContext.autoparts.Where(x=>x.article == ArticleTb.Text).FirstOrDefault();
+                if (at != null)
+                    MessageBox.Show("Товар с таким артикулом уже существует");
+                else {
+                    autopart.article = ArticleTb.Text;
+                    autopart.manufacturer = manufacturerTb.Text;
+                    autopart.price = Convert.ToDecimal(priceTb.Text.Split(' ')[0]);
+                    autopart.year = Convert.ToInt32(yearTb.Text);
+                    autopart.name = nameTb.Text;
+                    autopart.description = descriptionTb.Text;
+                    autopart.idCategory = Convert.ToInt32(CategoryCb.SelectedValue);
+                    autopart.count = autopart.count ?? 0;
+                    _dbContext.autoparts.AddOrUpdate(autopart);
+                    _dbContext.SaveChanges();
 
-                var _modelAutoPart = new autopartsModel()
-                {
-                    idAutoparts = autopart.id,
-                    idModel = CarModel,
-                };
+                    var _modelAutoPart = new autopartsModel()
+                    {
+                        idAutoparts = autopart.id,
+                        idModel = CarModel,
+                    };
 
-                _dbContext.autopartsModel.AddOrUpdate(_modelAutoPart);
-                _dbContext.SaveChanges();
+                    _dbContext.autopartsModel.AddOrUpdate(_modelAutoPart);
+                    _dbContext.SaveChanges();
 
 
-                MessageBox.Show("Сохранено");
-
+                    MessageBox.Show("Сохранено");
+                }
             }
             catch (Exception ex)
             {

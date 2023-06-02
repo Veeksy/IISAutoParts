@@ -20,5 +20,6 @@ namespace IISAutoParts.DBcontext
         public string password { get; set; }
         public Nullable<System.DateTime> dateEnter { get; set; }
         public string permission { get; set; }
+        public string name { get; set; }
     }
 }

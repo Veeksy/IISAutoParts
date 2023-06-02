@@ -15,7 +15,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="permissionDGV" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" >
+        <DataGrid FontSize="18" x:Name="permissionDGV" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Сектор"
                                     Binding="{Binding Path=Sector}" IsReadOnly="True">
@@ -36,16 +36,16 @@
         </DataGrid>
 
         <DockPanel Grid.Row="1">
-            <CheckBox x:Name="IsAdminChb"
+            <CheckBox FontSize="18" x:Name="IsAdminChb"
   Content="Админ"
   Style="{StaticResource MaterialDesignFilterChipOutlineCheckBox}" />
         </DockPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Margin="10" Click="Button_Click">
-                <materialDesign:PackIcon Kind="ArrowLeft" />
+            <Button Height="50" Width="70" Margin="10" Click="Button_Click">
+                <materialDesign:PackIcon Kind="ArrowLeft"  Width="40" Height="40"/>
             </Button>
-            <Button Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
-                <materialDesign:PackIcon Kind="ContentSave" />
+            <Button Height="50" Width="70" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
+                <materialDesign:PackIcon Kind="ContentSave"  Width="40" Height="40"/>
             </Button>
         </StackPanel>
     </Grid>

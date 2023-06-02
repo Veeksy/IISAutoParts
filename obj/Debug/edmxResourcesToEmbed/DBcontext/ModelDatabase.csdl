@@ -8,7 +8,7 @@
     <Property Name="manufacturer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="article" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
     <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="price" Type="Decimal" Precision="18" Scale="10" />
     <Property Name="year" Type="Int32" />
     <Property Name="count" Type="Int32" />
@@ -57,6 +57,24 @@
     <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="ListOrder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAutopart" Type="Int32" />
+    <Property Name="idOrder" Type="Int32" />
+    <Property Name="countAutoparts" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ListProvide">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idProvide" Type="Int32" />
+    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="countAutoparts" Type="Int32" />
+  </EntityType>
   <EntityType Name="orderReports">
     <Key>
       <PropertyRef Name="id" />
@@ -73,9 +91,8 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="orderNumber" Type="Int32" />
-    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="idList" Type="Int32" />
     <Property Name="dateOrder" Type="DateTime" Precision="0" />
-    <Property Name="countAutoparts" Type="Int32" />
     <Property Name="idCustomer" Type="Int32" />
   </EntityType>
   <EntityType Name="OrdersDoc">
@@ -100,9 +117,8 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="provideNumber" Type="Int32" />
-    <Property Name="idAutoparts" Type="Int32" />
+    <Property Name="idList" Type="Int32" />
     <Property Name="dateDelivery" Type="DateTime" Precision="0" />
-    <Property Name="countAutoparts" Type="Int32" />
     <Property Name="idProvider" Type="Int32" />
   </EntityType>
   <EntityType Name="provideDoc">
@@ -149,6 +165,7 @@
     <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="dateEnter" Type="DateTime" Precision="3" />
     <Property Name="permission" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="IISAutoPartsEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="autoparts" EntityType="Self.autoparts" />
@@ -157,6 +174,8 @@
     <EntitySet Name="carModels" EntityType="Self.carModels" />
     <EntitySet Name="cars" EntityType="Self.cars" />
     <EntitySet Name="customers" EntityType="Self.customers" />
+    <EntitySet Name="ListOrder" EntityType="Self.ListOrder" />
+    <EntitySet Name="ListProvide" EntityType="Self.ListProvide" />
     <EntitySet Name="orderReports" EntityType="Self.orderReports" />
     <EntitySet Name="Orders" EntityType="Self.Orders" />
     <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" />

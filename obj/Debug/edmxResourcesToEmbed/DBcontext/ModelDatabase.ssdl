@@ -8,7 +8,7 @@
     <Property Name="manufacturer" Type="nvarchar" MaxLength="150" />
     <Property Name="article" Type="nvarchar" MaxLength="25" />
     <Property Name="name" Type="nvarchar" MaxLength="150" />
-    <Property Name="description" Type="text" />
+    <Property Name="description" Type="nvarchar(max)" />
     <Property Name="price" Type="decimal" Precision="18" Scale="10" />
     <Property Name="year" Type="int" />
     <Property Name="count" Type="int" />
@@ -57,6 +57,24 @@
     <Property Name="name" Type="nvarchar" MaxLength="150" />
     <Property Name="address" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="ListOrder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idAutopart" Type="int" />
+    <Property Name="idOrder" Type="int" />
+    <Property Name="countAutoparts" Type="int" />
+  </EntityType>
+  <EntityType Name="ListProvide">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProvide" Type="int" />
+    <Property Name="idAutoparts" Type="int" />
+    <Property Name="countAutoparts" Type="int" />
+  </EntityType>
   <EntityType Name="orderReports">
     <Key>
       <PropertyRef Name="id" />
@@ -73,9 +91,8 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="orderNumber" Type="int" />
-    <Property Name="idAutoparts" Type="int" />
+    <Property Name="idList" Type="int" />
     <Property Name="dateOrder" Type="date" />
-    <Property Name="countAutoparts" Type="int" />
     <Property Name="idCustomer" Type="int" />
   </EntityType>
   <EntityType Name="OrdersDoc">
@@ -100,9 +117,8 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="provideNumber" Type="int" />
-    <Property Name="idAutoparts" Type="int" />
+    <Property Name="idList" Type="int" />
     <Property Name="dateDelivery" Type="date" />
-    <Property Name="countAutoparts" Type="int" />
     <Property Name="idProvider" Type="int" />
   </EntityType>
   <EntityType Name="provideDoc">
@@ -145,44 +161,12 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="role" Type="int" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" />
     <Property Name="login" Type="nvarchar" MaxLength="50" />
     <Property Name="password" Type="nvarchar" MaxLength="150" />
     <Property Name="dateEnter" Type="datetime" />
     <Property Name="permission" Type="xml" />
   </EntityType>
-  <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.vOrderReport" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="vOrderReport">
-          <Property Name="id" Type="bigint" />
-          <Property Name="car" Type="nvarchar" MaxLength="250" />
-          <Property Name="model" Type="nvarchar" MaxLength="250" />
-          <Property Name="manufacturer" Type="nvarchar" MaxLength="150" />
-          <Property Name="article" Type="nvarchar" MaxLength="25" />
-          <Property Name="name" Type="nvarchar" MaxLength="150" />
-          <Property Name="price" Type="decimal" Precision="18" Scale="10" />
-          <Property Name="customer" Type="nvarchar" MaxLength="150" />
-          <Property Name="countAutoparts" Type="int" />
-          <Property Name="dateOrder" Type="date" />
-          <Property Name="totalSum" Type="decimal" Precision="29" Scale="10" />
-        </EntityType>-->
-  <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "IISAutoParts.dbo.vProvideReport" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="vProvideReport">
-          <Property Name="id" Type="bigint" />
-          <Property Name="car" Type="nvarchar" MaxLength="250" />
-          <Property Name="model" Type="nvarchar" MaxLength="250" />
-          <Property Name="manufacturer" Type="nvarchar" MaxLength="150" />
-          <Property Name="article" Type="nvarchar" MaxLength="25" />
-          <Property Name="name" Type="nvarchar" MaxLength="150" />
-          <Property Name="countAutoparts" Type="int" />
-          <Property Name="price" Type="decimal" Precision="18" Scale="10" />
-          <Property Name="customer" Type="nvarchar" MaxLength="250" />
-          <Property Name="totalSum" Type="decimal" Precision="29" Scale="10" />
-          <Property Name="dateDelivery" Type="date" />
-        </EntityType>-->
-  <Function Name="count_vowels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
-    <Parameter Name="word" Type="varchar" Mode="In" />
-  </Function>
   <EntityContainer Name="Хранилище IISAutoPartsModelContainer">
     <EntitySet Name="autoparts" EntityType="Self.autoparts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="autopartsCategory" EntityType="Self.autopartsCategory" Schema="dbo" store:Type="Tables" />
@@ -190,6 +174,8 @@
     <EntitySet Name="carModels" EntityType="Self.carModels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cars" EntityType="Self.cars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListOrder" EntityType="Self.ListOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListProvide" EntityType="Self.ListProvide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orderReports" EntityType="Self.orderReports" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrdersDoc" EntityType="Self.OrdersDoc" Schema="dbo" store:Type="Tables" />

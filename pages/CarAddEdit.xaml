@@ -19,15 +19,15 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Image x:Name="CarImage" Grid.Column="0" Margin="50">
+            <Image x:Name="CarImage" Grid.Column="0" Margin="30">
 
             </Image>
             <DockPanel Grid.Row="1" Margin="10">
-                <Button HorizontalAlignment="Left" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click">
-                    <materialDesign:PackIcon Kind="ImagePlus" />
+                <Button Height="50" Width="70" HorizontalAlignment="Left" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click">
+                    <materialDesign:PackIcon Kind="ImagePlus"  Width="40" Height="40"/>
                 </Button>
-                <Button HorizontalAlignment="Right" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click">
-                    <materialDesign:PackIcon Kind="ImageMinus" />
+                <Button Height="50" Width="70" HorizontalAlignment="Right" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click">
+                    <materialDesign:PackIcon Kind="ImageMinus"  Width="40" Height="40"/>
 
                 </Button>
             </DockPanel>
@@ -40,15 +40,15 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBox Margin="5"
+                <TextBox Margin="5" FontSize="18"
                           VerticalAlignment="Center"
                           materialDesign:HintAssist.Hint="Наименование"
                           Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="nameTb"/>
-                <ComboBox Margin="5"
-                          VerticalAlignment="Center" Height="40"
+                <ComboBox Margin="5" FontSize="18"
+                          VerticalAlignment="Center" 
                           materialDesign:HintAssist.Hint="Страна" x:Name="countryCb"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <TextBox Margin="5"
+                <TextBox Margin="5" FontSize="18"
                          Height="100"
                          VerticalAlignment="Top"
                          materialDesign:HintAssist.Hint="Описание"
@@ -57,11 +57,11 @@
                          TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto" x:Name="descriptionTb" />
                 <DockPanel>
-                    <Button HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
-                        <materialDesign:PackIcon Kind="ArrowBack" />
+                    <Button HorizontalAlignment="Right" Margin="10" Height="50" Width="70" x:Name="BackBtn" Click="BackBtn_Click">
+                        <materialDesign:PackIcon Kind="ArrowBack"  Width="40" Height="40"/>
                     </Button>
-                    <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
-                        <materialDesign:PackIcon Kind="ContentSave"/>
+                    <Button HorizontalAlignment="Left" Margin="10" Height="50" Width="70" x:Name="SaveBtn" Click="SaveBtn_Click">
+                        <materialDesign:PackIcon Kind="ContentSave"  Width="40" Height="40"/>
                     </Button>
 
                 </DockPanel>

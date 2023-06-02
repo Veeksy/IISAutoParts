@@ -22,12 +22,12 @@
             <Image x:Name="CarImage" Grid.Column="0" Margin="50">
 
             </Image>
-            <DockPanel Grid.Row="1" Margin="10">
-                <Button HorizontalAlignment="Left" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click">
-                    <materialDesign:PackIcon Kind="ImagePlus" />
+            <DockPanel Grid.Row="1" Margin="5">
+                <Button HorizontalAlignment="Left" x:Name="ChangeImageBtn" Click="ChangeImageBtn_Click" Height="50" Width="70">
+                    <materialDesign:PackIcon Kind="ImagePlus" Width="40" Height="40"/>
                 </Button>
-                <Button HorizontalAlignment="Right" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click">
-                    <materialDesign:PackIcon Kind="ImageMinus" />
+                <Button HorizontalAlignment="Right" x:Name="DeleteImageBtn" Click="DeleteImageBtn_Click" Height="50" Width="70">
+                    <materialDesign:PackIcon Kind="ImageMinus" Width="40" Height="40"/>
 
                 </Button>
             </DockPanel>
@@ -40,16 +40,16 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBox Margin="5"
+                <TextBox FontSize="18" Margin="5"
                           VerticalAlignment="Center"
                           materialDesign:HintAssist.Hint="Наименование"
                           Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="nameTb"/>
                 <DockPanel>
-                    <Button HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
-                        <materialDesign:PackIcon Kind="ArrowBack" />
+                    <Button Margin="10" x:Name="BackBtn" Click="BackBtn_Click" Height="50" Width="70">
+                        <materialDesign:PackIcon Kind="ArrowBack" Width="40" Height="40"/>
                     </Button>
-                    <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
-                        <materialDesign:PackIcon Kind="ContentSave"/>
+                    <Button HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Height="50" Width="70" Click="SaveBtn_Click">
+                        <materialDesign:PackIcon Kind="ContentSave" Width="40" Height="40"/>
                     </Button>
 
                 </DockPanel>

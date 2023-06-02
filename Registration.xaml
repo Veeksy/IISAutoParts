@@ -25,7 +25,7 @@
                 <StackPanel
       Orientation="Horizontal">
 
-                    <TextBlock
+                    <TextBlock FontSize="18"
         Margin="16,0,0,0"
         VerticalAlignment="Center"
         Text="Информационная система автозапчастей" />
@@ -35,25 +35,29 @@
             </DockPanel>
         </materialDesign:ColorZone>
         <StackPanel Margin="20" Grid.Row="1" Grid.Column="1">
-            <TextBox x:Name="usernameField" Margin="10"
-                     materialDesign:HintAssist.Hint="Логин">
+            <TextBox FontSize="18" x:Name="usernameField" Margin="10"
+                     materialDesign:HintAssist.Hint="Логин"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
             </TextBox>
-            <PasswordBox x:Name="passwordField1" Margin="10"
+            <TextBox FontSize="18" x:Name="nameField" Margin="10"
+                     materialDesign:HintAssist.Hint="ФИО"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <PasswordBox FontSize="18" x:Name="passwordField1" Margin="10"
                          materialDesign:HintAssist.Hint="Пароль"
                          materialDesign:HintAssist.HelperText=""
     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-            <PasswordBox x:Name="passwordField2" Margin="10"
+            <PasswordBox FontSize="18" x:Name="passwordField2" Margin="10"
                          materialDesign:HintAssist.Hint="Повторите пароль"
                          materialDesign:HintAssist.HelperText=""
     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" PasswordChanged="passwordField2_PasswordChanged" />
-            <Label x:Name="resultView" Foreground="Red">
+            <Label x:Name="resultView" FontSize="14" Foreground="Red">
             </Label>
-            <DockPanel Margin="10">
-                <Button x:Name="registerBtn" HorizontalAlignment="Left" Click="registerBtn_Click">
-                    Зарегистрироваться
+            <DockPanel Margin="10" Height="40">
+                <Button FontSize="18" x:Name="registerBtn" Content="Зарегистрироваться" HorizontalAlignment="Left" Click="registerBtn_Click">
+                    
                 </Button>
-                <Button x:Name="BackBtn" HorizontalAlignment="Right" Click="BackBtn_Click">
-                    Назад
+                <Button FontSize="18" Content="Назад" x:Name="BackBtn" HorizontalAlignment="Right" Click="BackBtn_Click">
+                    
                 </Button>
             </DockPanel>
             

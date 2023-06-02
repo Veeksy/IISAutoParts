@@ -103,6 +103,12 @@
     <Compile Include="DBcontext\customers.cs">
       <DependentUpon>ModelDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBcontext\ListOrder.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBcontext\ListProvide.cs">
+      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBcontext\ModelDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,6 +124,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDatabase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBcontext\MyEntities\listAutopartOrder.cs" />
     <Compile Include="DBcontext\MyEntities\orderReport.cs" />
     <Compile Include="DBcontext\orderReports.cs">
       <DependentUpon>ModelDatabase.tt</DependentUpon>
@@ -418,6 +425,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="pngwing.com.ico" />
+    <Resource Include="красный-значок-автомоби-я-дизайн-машины-транспорта-по-мере-того-как-74039876.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DBcontext\ModelDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelDatabase.edmx</DependentUpon>
@@ -428,8 +439,6 @@
       <DependentUpon>ModelDatabase.edmx</DependentUpon>
       <LastGenOutput>ModelDatabase.cs</LastGenOutput>
     </Content>
-    <Resource Include="pngwing.com.ico" />
-    <Resource Include="красный-значок-автомоби-я-дизайн-машины-транспорта-по-мере-того-как-74039876.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

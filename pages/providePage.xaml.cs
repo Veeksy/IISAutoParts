@@ -41,10 +41,6 @@ namespace IISAutoParts.pages
 
             provide = fillData();
 
-            autopartCb.ItemsSource = _dbContext.autoparts.AsNoTracking().ToList();
-            autopartCb.DisplayMemberPath = "name";
-            autopartCb.SelectedValuePath = "id";
-
             providerCb.ItemsSource = _dbContext.providers.AsNoTracking().ToList();
             providerCb.DisplayMemberPath = "name";
             providerCb.SelectedValuePath = "id";
@@ -158,7 +154,6 @@ namespace IISAutoParts.pages
 
         private void filterBtn_Click(object sender, RoutedEventArgs e)
         {
-            int? _autopart = (int?)autopartCb.SelectedValue;
             int? _provider = (int?)providerCb.SelectedValue;
             DateTime? _startDate = startDateDt.SelectedDate;
             DateTime? _endDate = endDateDt.SelectedDate;
@@ -168,7 +163,7 @@ namespace IISAutoParts.pages
 
             provide = provide.Where(x => (string.IsNullOrEmpty(provideNumTb.Text) 
             || provideNumTb.Text.Contains(x.orderNumber.GetValueOrDefault().ToString())) &&
-            (_autopart == null || x.autopartId == _autopart) && (_provider == null || x.customerId == _provider) 
+            (_provider == null || x.customerId == _provider) 
             && (_startDate == null || x.dateOrder >= _startDate) && (_endDate == null || x.dateOrder <= _endDate)).ToList();
 
 
@@ -203,25 +198,11 @@ namespace IISAutoParts.pages
 
         private List<OrdersView> fillData()
         {
-            var _provide = _dbContext.provide
-                .Join(_dbContext.autoparts,
-                x => x.idAutoparts, y => y.id, (x, y) => new {
-                    id = x.id,
-                    number = x.provideNumber,
-                    autopart = y.manufacturer + " " + y.name,
-                    autopartId = y.id,
-                    dateOrder = x.dateDelivery,
-                    countAutopart = x.countAutoparts,
-                    customer = x.idProvider,
-                }
-                ).Join(_dbContext.providers, x => x.customer, y => y.id, (x, y) => new OrdersView
+            var _provide = _dbContext.provide.Join(_dbContext.providers, x => x.idProvider, y => y.id, (x, y) => new OrdersView
                 {
                     id = x.id,
-                    orderNumber = x.number,
-                    autopartName = x.autopart,
-                    autopartId = x.id,
-                    dateOrder = x.dateOrder,
-                    countAutopart = x.countAutopart,
+                    orderNumber = x.provideNumber,
+                    dateOrder = x.dateDelivery,
                     customerId = y.id,
                     customer = y.name,
                     address = y.address,

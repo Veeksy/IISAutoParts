@@ -206,5 +206,11 @@ namespace IISAutoParts.pages
         {
             FrameController.MainFrame.Navigate(new autoPage());
         }
+
+        private void Image_Loaded(object sender, RoutedEventArgs e)
+        {
+            Image img = sender as Image;
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+        }
     }
 }

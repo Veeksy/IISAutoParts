@@ -10,7 +10,7 @@
       Title="usersListPage">
 
     <Grid Background="White">
-        <DataGrid x:Name="UsersDGV" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="UsersDGV_MouseDoubleClick">
+        <DataGrid FontSize="18" x:Name="UsersDGV" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="UsersDGV_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ид"
                                     Binding="{Binding Path=Id}">
