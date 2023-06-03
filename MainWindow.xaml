@@ -8,7 +8,7 @@
 		mc:Ignorable="d"
 		Title="Главное окно" Height="650" Width="1100" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
-        
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -32,12 +32,20 @@
         Margin="16,0,0,0"
         VerticalAlignment="Center"
         Text="Информационная система автозапчастей" FontSize="28" />
-                    
+
                 </StackPanel>
 
                 <materialDesign:PopupBox x:Name="adminMenu" HorizontalAlignment="Right"
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-    StaysOpen="True">
+    StaysOpen="True" FontSize="18" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign:PopupBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </materialDesign:PopupBox.RenderTransform>
                     <StackPanel>
                         <Button Content="Пользователи" FontSize="18" x:Name="usersBtn" Click="usersBtn_Click">
                         </Button>
@@ -45,15 +53,15 @@
                         </Button>
 
                     </StackPanel>
-                    </materialDesign:PopupBox>
+                </materialDesign:PopupBox>
 
             </DockPanel>
         </materialDesign:ColorZone>
         <mah:SplitView Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MainMenu" Panel.ZIndex="1" OpenPaneLength="200"
-                       PaneClosing="MainMenu_PaneClosing"> 
+                       PaneClosing="MainMenu_PaneClosing">
             <mah:SplitView.Pane>
                 <Grid>
-                    
+
                     <StackPanel Grid.Row="1" >
                         <ToggleButton x:Name="menuCloseBtn" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                       Click="menuCloseBtn_Click" HorizontalAlignment="Left" IsChecked="True">
@@ -65,7 +73,7 @@
                         <Button Margin="10" Height="50" x:Name="Providers" FontSize="18" Click="Providers_Click">Поставщики</Button>
                         <Button Margin="10" Height="50" x:Name="Reports" FontSize="18" Click="Reports_Click">Отчеты</Button>
                     </StackPanel>
-                    
+
                 </Grid>
             </mah:SplitView.Pane>
         </mah:SplitView>

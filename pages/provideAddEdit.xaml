@@ -75,10 +75,10 @@
                 <ComboBox FontSize="18" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поставщик" 
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="ProvidersCb"/>
                 <DockPanel>
-                    <Button FontSize="18" Height="50" Width="70" HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
+                    <Button ToolTip="Вернуться" FontSize="18" Height="50" Width="70" HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
                         <materialDesign:PackIcon Kind="ArrowBack"  Width="40" Height="40"/>
                     </Button>
-                    <Button FontSize="18" Height="50" Width="70" HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
+                    <Button ToolTip="Сохранить" FontSize="18" Height="50" Width="70" HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
                         <materialDesign:PackIcon Kind="ContentSave"  Width="40" Height="40"/>
                     </Button>
                 </DockPanel>

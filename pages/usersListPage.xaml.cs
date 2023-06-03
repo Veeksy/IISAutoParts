@@ -36,7 +36,7 @@ namespace IISAutoParts.pages
             var users = _dbContext.users.Select(x=> new UserList
             {
                 Id = x.id,
-                Name = x.login,
+                Name = x.name,
                 DateEnter = x.dateEnter.Value,
             }).ToList();
 

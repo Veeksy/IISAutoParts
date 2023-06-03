@@ -235,5 +235,10 @@ namespace IISAutoParts.pages
             var carId = _dbContext.carModels.Where(x => x.id == CarModel).Select(x=>x.idCar).FirstOrDefault(); 
             FrameController.MainFrame.Navigate(new autoModelsPage((int)carId));
         }
+
+        private void OpenImportPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FrameController.MainFrame.Navigate(new ImportAutopartsPage1(CarModel));
+        }
     }
 }

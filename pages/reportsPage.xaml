@@ -90,10 +90,10 @@
 
                 </ComboBox>
                 <DockPanel  Margin="10">
-                    <Button  Height="50" Width="70" materialDesign:ButtonAssist.CornerRadius="10" x:Name="createReportBtn" Click="createReportBtn_Click" HorizontalAlignment="Right">
+                    <Button ToolTip="Сформировать отчет" Height="50" Width="70" materialDesign:ButtonAssist.CornerRadius="10" x:Name="createReportBtn" Click="createReportBtn_Click" HorizontalAlignment="Right">
                         <materialDesign:PackIcon  Width="40" Height="40" Kind="FileDocumentMultipleOutline"/>
                     </Button>
-                    <Button Height="50" Width="70" HorizontalAlignment="Right" x:Name="deleteBtn" Click="deleteBtn_Click">
+                    <Button ToolTip="Удалить выбранное" Height="50" Width="70" HorizontalAlignment="Right" x:Name="deleteBtn" Click="deleteBtn_Click">
                         <materialDesign:PackIcon  Width="40" Height="40" Kind="Delete" />
                     </Button>
                 </DockPanel>

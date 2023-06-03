@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace IISAutoParts
 {
@@ -86,6 +87,7 @@ namespace IISAutoParts
             else
             {
                 UserController.userId = user.id;
+                UserController.userName = user.name;
                 user.dateEnter = DateTime.UtcNow;
                 _db.users.AddOrUpdate(user);
                 _db.SaveChanges();

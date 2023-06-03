@@ -8,6 +8,7 @@ using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,6 @@ namespace IISAutoParts.pages
         IISAutoPartsEntities _dbContext;
 
         provide _provide = new provide();
-        List<autoparts> _autoparts;
         List<providers> _providers;
 
         List<ListProvide> _listProvide = new List<ListProvide>();
@@ -43,12 +43,12 @@ namespace IISAutoParts.pages
             InitializeComponent();
             _dbContext = new IISAutoPartsEntities();
 
-            _provide = _dbContext.provide.OrderByDescending(x => x.id).FirstOrDefault();
+            var s = _dbContext.provide.OrderByDescending(x => x.id).FirstOrDefault();
 
-            orderNumberTb.Text = (Convert.ToInt32(_provide.provideNumber) + 1).ToString();
+            orderNumberTb.Text = (Convert.ToInt32(s.provideNumber) + 1).ToString();
 
 
-            _autoparts = _dbContext.autoparts.AsNoTracking().ToList();
+            
             _providers = _dbContext.providers.AsNoTracking().ToList();
 
             CarCb.ItemsSource = _dbContext.cars.AsNoTracking().ToList();
@@ -76,13 +76,17 @@ namespace IISAutoParts.pages
                 _provide.provideNumber = Convert.ToInt32(orderNumberTb.Text);
                 _provide.idProvider = (int)ProvidersCb.SelectedValue;
 
-                var autopart = _dbContext.autoparts.AsNoTracking().Where(x => x.id == (int)autopartCb.SelectedValue).FirstOrDefault();
-
-                autopart.count += Convert.ToInt32(countTb.Text);
-                _dbContext.autoparts.AddOrUpdate(autopart);
-
-
                 _dbContext.provide.AddOrUpdate(_provide);
+
+                
+
+
+                foreach (var item in _listProvide)
+                {
+                    var at = _dbContext.autoparts.AsNoTracking().Where(x=>x.id == item.idAutoparts).FirstOrDefault();
+                    at.count += item.countAutoparts;
+                    _dbContext.autoparts.AddOrUpdate(at);
+                }
 
                 _dbContext.SaveChanges();
 
@@ -92,16 +96,7 @@ namespace IISAutoParts.pages
                 }
 
                 _dbContext.ListProvide.AddRange(_listProvide);
-
-                foreach (var item in _autoparts)
-                {
-                    item.count += _listProvide.Where(x => x.idAutoparts == item.id).Select(x => x.countAutoparts).FirstOrDefault();
-                    _dbContext.autoparts.AddOrUpdate(item);
-                }
-
-
                 _dbContext.SaveChanges();
-
 
 
                 loadingDoc.Visibility = Visibility.Visible;
@@ -141,6 +136,8 @@ namespace IISAutoParts.pages
                     ReplaceWith: _providers.Where(x => x.id == _provide.idProvider).Select(x => x.address).FirstOrDefault(), Replace: Word.WdReplace.wdReplaceAll);
                 doc.Content.Find.Execute(FindText: "@dateOrder",
                     ReplaceWith: Convert.ToDateTime(_provide.dateDelivery).ToString("dd.MM.yyyy"), Replace: Word.WdReplace.wdReplaceAll);
+                doc.Content.Find.Execute(FindText: "@user",
+                    ReplaceWith: UserController.userName, Replace: Word.WdReplace.wdReplaceAll);
 
                 var parts = _dbContext.autoparts.Join(_dbContext.ListProvide, x => x.id, y => y.idAutoparts, (x, y) => new
                 {
@@ -293,7 +290,7 @@ namespace IISAutoParts.pages
         {
             try
             {
-                var at = _autoparts.Where(x => x.id == (int)autopartCb.SelectedValue).FirstOrDefault();
+                var at = _dbContext.autoparts.Where(x => x.id == (int)autopartCb.SelectedValue).FirstOrDefault();
 
                 if (_listProvide.Select(x => x.idAutoparts).Contains(at.id))
                 {

@@ -68,16 +68,16 @@
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
                     </TextBox>
-                    <Button Height="50" Margin="10" materialDesign:ButtonAssist.CornerRadius="10" 
+                    <Button ToolTip="Поиск" Height="50" Margin="10" materialDesign:ButtonAssist.CornerRadius="10" 
                             x:Name="searchBtn" Click="searchBtn_Click">
                         <materialDesign:PackIcon Kind="Magnify"  Width="40" Height="40"/>
                     </Button>
                     <DockPanel Margin="10">
-                        <Button Height="50" Width="70" HorizontalAlignment="Left" x:Name="AddnewOrder" 
+                        <Button ToolTip="Добавить" Height="50" Width="70" HorizontalAlignment="Left" x:Name="AddnewOrder" 
                                 Click="AddnewOrder_Click">
                             <materialDesign:PackIcon Kind="PlusBox"  Width="40" Height="40"/>
                         </Button>
-                        <Button Height="50" Width="70" HorizontalAlignment="Right" x:Name="deleteBtn" 
+                        <Button ToolTip="Удалить выбранное" Height="50" Width="70" HorizontalAlignment="Right" x:Name="deleteBtn" 
                                 Click="deleteBtn_Click">
                             <materialDesign:PackIcon Kind="Delete"  Width="40" Height="40"/>
                         </Button>

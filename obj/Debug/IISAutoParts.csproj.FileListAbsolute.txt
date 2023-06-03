@@ -80,3 +80,5 @@ D:\Projects\IISAutoParts\obj\Debug\pages\providersPage.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\providersPage.baml
 D:\Projects\IISAutoParts\obj\Debug\pages\providersAddEdit.g.cs
 D:\Projects\IISAutoParts\obj\Debug\pages\providersAddEdit.baml
+D:\Projects\IISAutoParts\obj\Debug\pages\ImportAutopartsPage1.g.cs
+D:\Projects\IISAutoParts\obj\Debug\pages\ImportAutopartsPage1.baml

@@ -20,10 +20,10 @@
   materialDesign:HintAssist.Hint="Адрес заказчика"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="addressTb"/>
         <DockPanel>
-                <Button Height="50" Width="70" HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
+                <Button ToolTip="Вернуться" Height="50" Width="70" HorizontalAlignment="Right" Margin="10" x:Name="BackBtn" Click="BackBtn_Click">
                     <materialDesign:PackIcon Kind="ArrowBack"  Width="40" Height="40"/>
             </Button>
-                <Button Height="50" Width="70" HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
+                <Button ToolTip="Сохранить" Height="50" Width="70" HorizontalAlignment="Left" Margin="10" x:Name="SaveBtn" Click="SaveBtn_Click">
                     <materialDesign:PackIcon Kind="ContentSave"  Width="40" Height="40"/>
             </Button>
         </DockPanel>

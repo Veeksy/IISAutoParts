@@ -47,9 +47,9 @@ namespace IISAutoParts.pages
             {
                 _dbContext = new IISAutoPartsEntities();
                 
-                _order = _dbContext.Orders.OrderByDescending(x=>x.id).FirstOrDefault();
+                var s = _dbContext.Orders.OrderByDescending(x=>x.id).FirstOrDefault();
 
-                orderNumberTb.Text = (Convert.ToInt32(_order.orderNumber) + 1).ToString();
+                orderNumberTb.Text = (Convert.ToInt32(s.orderNumber) + 1).ToString();
 
                 _autoparts = _dbContext.autoparts.AsNoTracking().ToList();
                 _customers = _dbContext.customers.AsNoTracking().ToList();
@@ -146,7 +146,9 @@ namespace IISAutoParts.pages
 
                 doc.Content.Find.Execute(FindText: "@dateOrder",
                     ReplaceWith: Convert.ToDateTime(_order.dateOrder).ToString("dd.MM.yyyy"), Replace: Word.WdReplace.wdReplaceAll);
-
+                
+                doc.Content.Find.Execute(FindText: "@user",
+                    ReplaceWith: UserController.userName, Replace: Word.WdReplace.wdReplaceAll);
 
                 var parts = _dbContext.autoparts.Join(_dbContext.ListOrder, x => x.id, y => y.idAutopart, (x, y) => new
                 {

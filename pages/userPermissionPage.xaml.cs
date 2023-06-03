@@ -33,6 +33,7 @@ namespace IISAutoParts.pages
         {
             InitializeComponent();
             this.userId = userId;
+            
             loadPermission();
         }
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -66,7 +67,7 @@ namespace IISAutoParts.pages
                 var user = _dbContext.users.Where(x => x.id == userId).FirstOrDefault();
 
                 user.permission = xmlDocument.ToString();
-
+                user.name = nameUserTb.Text;
                 _dbContext.users.AddOrUpdate(user);
                 _dbContext.SaveChanges();
                 MessageBox.Show("Сохранено");
@@ -81,7 +82,9 @@ namespace IISAutoParts.pages
 
         private void loadPermission()
         {
-            var _permissions = _dbContext.users.Where(x => x.id == userId).Select(x => x.permission).FirstOrDefault();
+            var user = _dbContext.users.Where(x => x.id == userId).FirstOrDefault();
+            nameUserTb.Text = user.name;
+            var _permissions = user.permission;
 
             List<PermissionList> permissionList = new List<PermissionList>();
 
