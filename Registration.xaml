@@ -45,7 +45,7 @@
             <PasswordBox FontSize="18" x:Name="passwordField1" Margin="10"
                          materialDesign:HintAssist.Hint="Пароль"
                          materialDesign:HintAssist.HelperText=""
-    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" PasswordChanged="passwordField1_PasswordChanged" />
             <PasswordBox FontSize="18" x:Name="passwordField2" Margin="10"
                          materialDesign:HintAssist.Hint="Повторите пароль"
                          materialDesign:HintAssist.HelperText=""

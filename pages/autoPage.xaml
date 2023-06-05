@@ -77,9 +77,6 @@
                     <Button ToolTip="Добавить" HorizontalAlignment="Left" Height="50" Width="70" x:Name="AddnewAutoParts" Click="AddnewAutoParts_Click">
                         <materialDesign:PackIcon Kind="PlusBox" Width="40" Height="40" />
                     </Button>
-                    <Button HorizontalAlignment="Right" x:Name="CreateReport" Height="50" Width="70" Click="CreateReport_Click">
-                        <materialDesign:PackIcon Kind="FileDocumentMultipleOutline" Width="40" Height="40" />
-                    </Button>
                 </DockPanel>
                 <ProgressBar IsIndeterminate="True" x:Name="loadingDoc" Visibility="Collapsed" Margin="10"/>
 

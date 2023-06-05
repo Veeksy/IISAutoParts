@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Data.Entity;
 using IISAutoParts.DBcontext;
 using IISAutoParts.Class;
+using System.Data.Entity.Migrations;
 
 namespace IISAutoParts.pages
 {
@@ -28,6 +29,7 @@ namespace IISAutoParts.pages
         IISAutoPartsEntities _dbContext;
 
         List<autoparts> _autoparts = new List<autoparts>();
+        List<string> ids = new List<string>();
         int idModel;
         public ImportAutopartsPage1(int idModel)
         {
@@ -46,6 +48,21 @@ namespace IISAutoParts.pages
         {
             try
             {
+                foreach (var item in _autoparts)
+                {
+                    var _at = _dbContext.autoparts.Where(x=>x.article == item.article).FirstOrDefault();
+                    if (_at != null)
+                    {
+                        _at.count += item.count;
+                        _dbContext.autoparts.AddOrUpdate(_at);
+                        ids.Add(_at.article);
+                    }
+                }
+                
+
+
+                _autoparts.RemoveAll(x => ids.Contains(x.article));
+
                 _dbContext.autoparts.AddRange(_autoparts);
                 _dbContext.SaveChanges();
 
@@ -93,14 +110,18 @@ namespace IISAutoParts.pages
                 var rows = Enumerable.Range(2, worksheet.UsedRange.Rows.Count - 1)
                     .Select(row => new autoparts()
                     {
-                        article = data[row, Array.IndexOf(headers, "Артикул") + 1].ToString(),
-                        manufacturer = data[row, Array.IndexOf(headers, "Производитель") + 1].ToString(),
-                        name = data[row, Array.IndexOf(headers, "Наименование") + 1].ToString(),
-                        description = data[row, Array.IndexOf(headers, "Описание") + 1].ToString(),
-                        price = decimal.Parse(data[row, Array.IndexOf(headers, "Цена") + 1].ToString() ?? "0"),
-                        year = int.Parse(data[row, Array.IndexOf(headers, "Год выпуска") + 1].ToString() ?? "2020"),
-                        count = int.Parse(data[row, Array.IndexOf(headers, "Количество на склад") + 1].ToString() ?? "0"),
-                        idCategory = int.Parse(data[row, Array.IndexOf(headers, "Код категории") + 1].ToString() ?? "0"),
+                        article = string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Артикул") + 1]?.ToString()) ? ("") : (data[row, Array.IndexOf(headers, "Артикул") + 1].ToString()),
+                        manufacturer = string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Производитель") + 1]?.ToString()) ? ("") : (data[row, Array.IndexOf(headers, "Производитель") + 1].ToString()),
+                        name = string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Наименование") + 1]?.ToString()) ? ("") : (data[row, Array.IndexOf(headers, "Наименование") + 1].ToString()),
+                        description = string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Описание") + 1]?.ToString()) ? ("") : (data[row, Array.IndexOf(headers, "Описание") + 1].ToString()),
+                        
+                        price = decimal.Parse(string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Цена") + 1]?.ToString()) ? ("0") : (data[row, Array.IndexOf(headers, "Цена") + 1].ToString())),
+                        
+                        year = int.Parse(string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Год выпуска") + 1]?.ToString()) ? ("0") : (data[row, Array.IndexOf(headers, "Год выпуска") + 1].ToString())),
+                        
+                        count = int.Parse(string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Количество на склад") + 1]?.ToString()) ? ("0") : (data[row, Array.IndexOf(headers, "Количество на склад") + 1].ToString())),
+                        
+                        idCategory = int.Parse(string.IsNullOrEmpty(data[row, Array.IndexOf(headers, "Код категории") + 1]?.ToString()) ? ("0") : (data[row, Array.IndexOf(headers, "Код категории") + 1].ToString())),
                     }).ToList();
 
                 foreach (var item in rows)
@@ -118,8 +139,6 @@ namespace IISAutoParts.pages
                 excelApp.Quit();
                 System.Windows.MessageBox.Show(ex.Message);
             }
-
-
         }
     }
 }

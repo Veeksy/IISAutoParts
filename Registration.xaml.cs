@@ -25,7 +25,7 @@ namespace IISAutoParts
     {
         IISAutoPartsEntities _db;
         users new_user;
-
+        bool trust = false;
         public Registration()
         {
             InitializeComponent();
@@ -36,18 +36,30 @@ namespace IISAutoParts
         {
             try
             {
-                if (passwordField2.Password == passwordField1.Password)
+                var user = _db.users.Where(x=>x.login == usernameField.Text).FirstOrDefault();
+                if (user != null)
                 {
-                    new_user = new users
+                    MessageBox.Show("Логин занят");
+                }
+                else
+                {
+                    if (passwordField2.Password == passwordField1.Password && trust)
                     {
-                        login = usernameField.Text,
-                        name = nameField.Text,
-                        password = AuthController.Encrypt(passwordField1.Password),
-                    };
-                    _db.users.Add(new_user);
-                    _db.SaveChanges();
-                    CreatePermission();
-                    MessageBox.Show("Пользователь добавлен");
+                        new_user = new users
+                        {
+                            login = usernameField.Text,
+                            name = nameField.Text,
+                            password = AuthController.Encrypt(passwordField1.Password),
+                        };
+                        _db.users.Add(new_user);
+                        _db.SaveChanges();
+                        CreatePermission();
+                        MessageBox.Show("Пользователь добавлен");
+                    }
+                    else
+                    {
+                        resultView.Content = "Пароль должен иметь одну заглавную букву и состоять из 8 символов!";
+                    }
                 }
             }
             catch (Exception ex)
@@ -68,11 +80,19 @@ namespace IISAutoParts
             if (passwordField2.Password == passwordField1.Password)
             {
                 resultView.Content = "";
+                if (!trust)
+                {
+                    resultView.Content = "Пароль должен иметь одну заглавную букву и состоять из 8 символов!";
+                }
             }
             else
             {
                 resultView.Content = "Пароли не совпадают";
             }
+
+            
+
+
         }
 
         private void CreatePermission()
@@ -119,5 +139,36 @@ namespace IISAutoParts
             }
         }
 
+        private void passwordField1_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (passwordField2.Password == passwordField1.Password)
+            {
+                resultView.Content = "";
+                if (!trust)
+                {
+                    resultView.Content = "Пароль должен иметь одну заглавную букву и состоять из 8 символов!";
+                }
+            }
+            else
+            {
+                resultView.Content = "Пароли не совпадают";
+            }
+            if (passwordField1.Password.Length < 8)
+            {
+                resultView.Content = "Пароль должен иметь одну заглавную букву и состоять из 8 символов!";
+                trust = false;
+            }
+            else
+            {
+                
+                for (int i = 0; i < passwordField1.Password.Length; i++)
+                {
+                    if (!Char.IsDigit(passwordField1.Password[i]) && Char.IsUpper(passwordField1.Password, i))
+                    {
+                        trust = true;
+                    }
+                }
+            }
+        }
     }
 }

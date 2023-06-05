@@ -97,7 +97,8 @@
                         <materialDesign:PackIcon  Width="40" Height="40" Kind="Delete" />
                     </Button>
                 </DockPanel>
-
+                <Button Content="Отчет по остаткам автозапчастей" x:Name="CreateReport" Height="50" Click="CreateReport_Click">
+                </Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2">

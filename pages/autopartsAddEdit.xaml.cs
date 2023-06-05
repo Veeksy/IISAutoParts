@@ -91,7 +91,7 @@ namespace IISAutoParts.pages
         {
             try
             {
-                var at = _dbContext.autoparts.Where(x=>x.article == ArticleTb.Text).FirstOrDefault();
+                var at = _dbContext.autoparts.Where(x => x.article == ArticleTb.Text && x.id != autopart.id && !string.IsNullOrEmpty(x.article)).FirstOrDefault();
                 if (at != null)
                     MessageBox.Show("Товар с таким артикулом уже существует");
                 else {
